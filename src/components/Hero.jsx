@@ -9,44 +9,15 @@ const statIcons = [Calendar, Boxes, Users, IndianRupee];
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.15 } } };
 const item = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
 
-function CraneArt() {
-  return (
-    <svg viewBox="0 0 520 440" className="h-full w-full drop-shadow-2xl">
-      <defs>
-        <linearGradient id="sun" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0" stopColor="#F6B21B" stopOpacity=".9" /><stop offset="1" stopColor="#F6B21B" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <circle cx="400" cy="330" r="130" fill="url(#sun)" />
-      {/* bridge */}
-      <rect x="0" y="300" width="520" height="22" fill="#1f3350" />
-      {[60, 220, 380].map((x) => <rect key={x} x={x} y="322" width="26" height="118" fill="#16293F" />)}
-      {/* crane body */}
-      <rect x="70" y="372" width="240" height="38" rx="19" fill="#222" />
-      <rect x="80" y="352" width="220" height="28" rx="6" fill="#F6B21B" />
-      <rect x="120" y="300" width="80" height="56" rx="6" fill="#F6B21B" />
-      <rect x="170" y="312" width="24" height="22" fill="#9CC8E8" />
-      <rect x="210" y="318" width="60" height="38" fill="#D99A0B" />
-      {/* boom */}
-      <motion.g style={{ transformBox: "fill-box", transformOrigin: "0% 100%" }} animate={{ rotate: [0, -2.5, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
-        <path d="M150 310 L400 60 L412 72 L170 322 Z" fill="#F6B21B" />
-        {[0.2, 0.4, 0.6, 0.8].map((t) => <line key={t} x1={150 + 250 * t} y1={310 - 250 * t} x2={162 + 250 * t} y2={322 - 250 * t} stroke="#16293F" strokeWidth="2" />)}
-        {/* cable + hook */}
-        <motion.g style={{ transformBox: "fill-box", transformOrigin: "50% 0%" }} animate={{ rotate: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-          <line x1="406" y1="66" x2="406" y2="210" stroke="#ddd" strokeWidth="3" />
-          <rect x="392" y="210" width="28" height="18" rx="3" fill="#E53935" />
-          <path d="M406 228 v14 a10 10 0 1 1 -10 10" stroke="#ddd" strokeWidth="4" fill="none" />
-        </motion.g>
-      </motion.g>
-      <text x="170" y="400" fontSize="22" fontWeight="800" fontStyle="italic" fill="#16293F">RV</text>
-    </svg>
-  );
-}
-
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-navy via-navy-800 to-[#3a2a0c] pt-28">
-      <div className="absolute right-0 top-0 h-full w-full bg-[radial-gradient(circle_at_80%_40%,rgba(246,178,27,.25),transparent_55%)]" />
+      <motion.div initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.4, ease: "easeOut" }} className="absolute inset-y-0 right-0 w-full lg:w-[62%]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/hero.jpg" alt="RV crane lifting a bridge girder at sunset" className="h-full w-full animate-kenburns object-cover object-right" />
+        <div className="absolute inset-0 bg-navy/60 lg:bg-gradient-to-r lg:from-navy lg:via-navy/30 lg:to-transparent" />
+      </motion.div>
+      
       <div className="container-x relative grid items-center gap-8 pb-16 lg:grid-cols-2">
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.p variants={item} className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Lifting solutions for a stronger tomorrow</motion.p>
@@ -67,9 +38,7 @@ export default function Hero() {
             </Link>
           </motion.div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, x: 60 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9, delay: 0.3 }} className="mx-auto h-[300px] w-full max-w-xl sm:h-[420px]">
-          <div className="h-full animate-float"><CraneArt /></div>
-        </motion.div>
+        <div className="hidden h-[420px] lg:block" />
       </div>
       <div className="relative border-t border-white/10 bg-navy/60 backdrop-blur">
         <div className="container-x grid grid-cols-2 gap-6 py-7 lg:grid-cols-4">

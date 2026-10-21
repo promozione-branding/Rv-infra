@@ -10,4 +10,4 @@ export default function SectionHeading({ eyebrow, title, text, dark = false, chi
       {children}
     </Reveal>
   );
-}  
+}

@@ -55,7 +55,7 @@ export function Services() {
             </Reveal>
           ))}
         </div>
-        <Reveal x={40} className="hidden lg:block"><div className="group"><ImageSlot icon="Anchor" className="h-80 rounded-xl" /></div></Reveal>
+        <Reveal x={40} className="hidden lg:block"><div className="group"><ImageSlot src="/images/services.jpg" alt="Crane lifting a container" icon="Anchor" className="h-80 rounded-xl" /></div></Reveal>
       </div>
     </section>
   );
@@ -70,7 +70,7 @@ export function Industries() {
           {industries.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.07}>
               <div className="group relative h-40 cursor-pointer overflow-hidden rounded-lg">
-                <ImageSlot icon={s.icon} className="h-full" />
+                <ImageSlot src={s.image} alt={s.title} icon={s.icon} className="h-full" />
                 <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/80 to-transparent p-3 text-xs font-semibold text-white">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-navy"><Icon name={s.icon} size={13} /></span>{s.title}
                 </div>
@@ -86,7 +86,7 @@ export function Industries() {
 export function WhyChoose() {
   return (
     <section className="grid bg-brand-light/60 lg:grid-cols-[0.8fr_1.2fr]">
-      <div className="group hidden lg:block"><ImageSlot icon="Construction" className="h-full min-h-[380px]" /></div>
+      <div className="group hidden lg:block"><ImageSlot src="/images/why.jpg" alt="RV crane at sunset" icon="Construction" className="h-full min-h-[380px]" /></div>
       <div className="container-x grid gap-8 py-16 lg:grid-cols-2 lg:px-12">
         <Reveal>
           <div className="eyebrow">Why Choose</div>
@@ -115,7 +115,7 @@ export function ProjectCards({ list = projects, limit }) {
       {list.slice(0, limit).map((p, i) => (
         <Reveal key={p.title} delay={i * 0.1}>
           <motion.div whileHover={{ y: -8 }} className="group h-full overflow-hidden rounded-xl bg-white shadow-md hover:shadow-2xl">
-            <ImageSlot icon={p.icon} className="h-40" />
+            <ImageSlot src={p.image} alt={p.title} icon={p.icon} className="h-40" />
             <div className="p-4">
               <h3 className="text-sm font-semibold text-navy">{p.title}</h3>
               <p className="mt-1 flex items-center gap-1 text-xs text-brand-dark"><Icon name="MapPin" size={12} />{p.place}</p>
@@ -150,7 +150,7 @@ export function Safety() {
           <h2 className="text-3xl font-bold text-white sm:text-4xl">Our Commitment to a Safer Tomorrow</h2>
           <p className="mt-4 text-sm leading-relaxed text-slate-300">We follow stringent safety protocols, regular equipment inspections and skilled operations to ensure a safe working environment on every project.</p>
         </Reveal>
-        <Reveal><div className="group"><ImageSlot icon="HardHat" className="h-64 rounded-xl" /></div></Reveal>
+        <Reveal><div className="group"><ImageSlot src="/images/safety.jpg" alt="RV site safety officer" icon="HardHat" className="h-72 rounded-xl" /></div></Reveal>
         <div className="grid grid-cols-2 gap-4">
           {safety.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.1}>
@@ -185,7 +185,7 @@ export function Clients() {
 export function QuoteSection() {
   return (
     <section className="bg-navy py-20">
-      <div className="container-x grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <div className="container-x grid items-center gap-10 lg:grid-cols-[0.7fr_1.2fr_0.6fr]">
         <Reveal>
           <div className="eyebrow">Request a Quote</div>
           <h2 className="text-3xl font-bold text-white sm:text-4xl">Let&apos;s Lift Your Next Project</h2>
@@ -197,6 +197,7 @@ export function QuoteSection() {
           </ul>
         </Reveal>
         <Reveal x={40} y={0}><div className="rounded-xl bg-white p-6 shadow-2xl"><QuoteForm /></div></Reveal>
+        <Reveal x={40} y={0} className="hidden lg:block"><div className="group"><ImageSlot src="/images/quote.jpg" alt="Crane lifting a load" icon="Construction" className="h-[420px] rounded-xl" /></div></Reveal>
       </div>
     </section>
   );

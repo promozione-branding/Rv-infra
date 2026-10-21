@@ -38,10 +38,10 @@ export const stats = [
 ];
 
 export const fleetGroups = [
-  { title: "Crawler Cranes", desc: "45 to 150 Ton SANY / XCMG cranes for maximum lifting capacity on heavy projects.", count: "44 units", image: null },
-  { title: "Hydraulic Tyre Mounted Cranes", desc: "TIL 40 Ton, ACE 23 Ton and ACE NX-360 20 Ton. Mobile and ideal for on-road projects.", count: "3 units", image: null },
-  { title: "Boom & Scissor Lifts", desc: "Articulated booms up to 43 m, truck mounted lifts and scissor lifts for working at height.", count: "12 units", image: null },
-  { title: "Concrete & Road Equipment", desc: "Transit mixers, pumps, batching plant, graders, rollers and compactors.", count: "70+ units", image: null },
+  { title: "Crawler Cranes", desc: "45 to 150 Ton SANY / XCMG cranes for maximum lifting capacity on heavy projects.", count: "44 units", image: "/images/fleet-1.jpg" },
+  { title: "Hydraulic Tyre Mounted Cranes", desc: "TIL 40 Ton, ACE 23 Ton and ACE NX-360 20 Ton. Mobile and ideal for on-road projects.", count: "3 units", image: "/images/fleet-2.jpg" },
+  { title: "Boom & Scissor Lifts", desc: "Articulated booms up to 43 m, truck mounted lifts and scissor lifts for working at height.", count: "12 units", image: "/images/fleet-3.jpg" },
+  { title: "Concrete & Road Equipment", desc: "Transit mixers, pumps, batching plant, graders, rollers and compactors.", count: "70+ units", image: "/images/fleet-4.jpg" },
 ];
 
 export const services = [
@@ -54,12 +54,12 @@ export const services = [
 ];
 
 export const industries = [
-  { icon: "Building2", title: "Construction" },
-  { icon: "Route", title: "Infrastructure" },
-  { icon: "Fuel", title: "Oil & Gas" },
-  { icon: "Zap", title: "Power & Energy" },
-  { icon: "Factory", title: "Heavy Engineering" },
-  { icon: "Layers", title: "Piling & Foundation" },
+  { icon: "Building2", title: "Construction", image: "/images/ind-1.jpg" },
+  { icon: "Route", title: "Infrastructure", image: "/images/ind-2.jpg" },
+  { icon: "Fuel", title: "Oil & Gas", image: "/images/ind-3.jpg" },
+  { icon: "Zap", title: "Power & Energy", image: "/images/ind-4.jpg" },
+  { icon: "Factory", title: "Heavy Engineering", image: "/images/ind-5.jpg" },
+  { icon: "Layers", title: "Piling & Foundation", image: "/images/ind-6.jpg" },
 ];
 
 export const whyChoose = [
@@ -72,12 +72,12 @@ export const whyChoose = [
 ];
 
 export const projects = [
-  { title: "Highway & Road Works", place: "Pan India", icon: "Route", text: "Motor graders, soil compactors and tandem rollers supplied for road and earthwork packages." },
-  { title: "Bridge & Metro Construction", place: "Pan India", icon: "Construction", text: "Crawler cranes and boom lifts supporting heavy girder and structural erection." },
-  { title: "Industrial Plant Erection", place: "Pan India", icon: "Factory", text: "Plant erection with experienced staff and 20 to 150 Ton cranes for refineries and plants." },
-  { title: "Piling & Ground Engineering", place: "Pan India", icon: "Layers", text: "SANY rigs and hydraulic grabs working on foundation and diaphragm wall projects." },
-  { title: "Readymix Concrete Supply", place: "Delhi NCR", icon: "Truck", text: "Transit mixers, concrete pumps and a 45 cum batching plant for continuous pours." },
-  { title: "Building & Real Estate", place: "Pan India", icon: "Building2", text: "Self loading mixers, lifts and cranes for residential and commercial construction." },
+  { title: "Highway & Road Works", image: "/images/proj-1.jpg", place: "Pan India", icon: "Route", text: "Motor graders, soil compactors and tandem rollers supplied for road and earthwork packages." },
+  { title: "Bridge & Metro Construction", image: "/images/proj-2.jpg", place: "Pan India", icon: "Construction", text: "Crawler cranes and boom lifts supporting heavy girder and structural erection." },
+  { title: "Industrial Plant Erection", image: "/images/proj-3.jpg", place: "Pan India", icon: "Factory", text: "Plant erection with experienced staff and 20 to 150 Ton cranes for refineries and plants." },
+  { title: "Piling & Ground Engineering", image: "/images/proj-4.jpg", place: "Pan India", icon: "Layers", text: "SANY rigs and hydraulic grabs working on foundation and diaphragm wall projects." },
+  { title: "Readymix Concrete Supply", image: "/images/fleet-2.jpg", place: "Delhi NCR", icon: "Truck", text: "Transit mixers, concrete pumps and a 45 cum batching plant for continuous pours." },
+  { title: "Building & Real Estate", image: "/images/why.jpg", place: "Pan India", icon: "Building2", text: "Self loading mixers, lifts and cranes for residential and commercial construction." },
 ];
 
 export const safety = [

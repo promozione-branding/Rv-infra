@@ -15,19 +15,3 @@ body { @apply bg-white text-slate-700 antialiased; }
   .eyebrow::before { content: ""; @apply h-8 w-1 rounded bg-brand; }
   .input { @apply w-full rounded-md border border-slate-200 bg-white px-3 py-2.5 text-sm text-navy outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30; }
 }
-
-html,
-body {
-  max-width: 100%;
-}
-
-html {
-  overflow-x: hidden; /* fallback for old browsers */
-}
-
-@supports (overflow: clip) {
-  html,
-  body {
-    overflow-x: clip; /* hides sideways overflow without creating a scroll container */
-  }
-}
