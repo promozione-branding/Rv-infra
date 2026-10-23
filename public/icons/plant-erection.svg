@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Plant Erection"><defs>
+ <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#FFF6BE"/><stop offset=".24" stop-color="#FFD45A"/>
+  <stop offset=".58" stop-color="#FFB20C"/><stop offset=".82" stop-color="#E98900"/>
+  <stop offset="1" stop-color="#FFE98D"/>
+ </linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#FFD85A" stop-opacity=".28"/><stop offset="1" stop-color="#F99C00" stop-opacity=".03"/>
+ </linearGradient>
+ <radialGradient id="aura"><stop offset="0" stop-color="#F9A900" stop-opacity=".2"/><stop offset="1" stop-color="#F9A900" stop-opacity="0"/></radialGradient>
+ <filter id="glow" x="-70%" y="-70%" width="240%" height="240%">
+  <feGaussianBlur stdDeviation="1.7" result="b"/><feFlood flood-color="#FFB51B" flood-opacity=".85"/>
+  <feComposite in2="b" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+ </filter>
+ <filter id="auraBlur"><feGaussianBlur stdDeviation="5"/></filter>
+ <style>
+  .s{fill:none;stroke:url(#g);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .f{fill:url(#metal);stroke:url(#g);stroke-width:1.7;stroke-linejoin:round}
+  .thin{fill:none;stroke:#D88712;stroke-width:.65;opacity:.48}
+  .glow{filter:url(#glow)}
+  .hi{fill:none;stroke:#FFF5C8;stroke-width:.85;stroke-linecap:round;opacity:.9}
+ </style>
+</defs><g>
+<ellipse cx="60" cy="80" rx="52" ry="24" fill="url(#aura)"/>
+<g class="thin"><ellipse cx="60" cy="80" rx="48" ry="19"/><path d="M8 100h104"/></g>
+<g class="s glow">
+ <path d="M11 94V61h17v33M28 94V43h15v51M43 94V30h16v64M59 94V52h16v42M75 94V39h16v55M91 94V50h17v44"/>
+ <path d="M47 30h8M50 24h3M51 18h2M79 39h8M82 33h3M83 27h2"/>
+ <path d="M15 69h9M15 78h9M15 87h9M32 52h7M32 62h7M32 72h7M32 82h7M47 39h8M47 49h8M47 59h8M47 69h8M47 79h8M63 61h8M63 71h8M63 81h8M79 47h8M79 57h8M79 67h8M79 77h8M95 59h9M95 69h9M95 79h9"/>
+ <path d="M7 96h106"/>
+</g>
+<path class="hi" d="M49 32v18M81 41v15M14 64h10"/>
+</g></svg>

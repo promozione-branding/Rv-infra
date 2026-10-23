@@ -13,9 +13,7 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-navy via-navy-800 to-[#3a2a0c] pt-28">
       <motion.div initial={{ opacity: 0, scale: 1.08 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.4, ease: "easeOut" }} className="absolute inset-y-0 right-0 w-full lg:w-[62%]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/hero.jpg" alt="RV crane lifting a bridge girder at sunset" className="h-full w-full animate-kenburns object-cover object-right" />
-        <div className="absolute inset-0 bg-navy/60 lg:bg-gradient-to-r lg:from-navy lg:via-navy/30 lg:to-transparent" />
+        <img src="/images/rv_hero.png" alt="RV crane lifting a bridge girder at sunset" className="h-full w-full animate-kenburns object-cover object-right" />
       </motion.div>
       
       <div className="container-x relative grid items-center gap-8 pb-16 lg:grid-cols-2">

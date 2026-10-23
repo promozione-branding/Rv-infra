@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Construction Equipment"><defs>
+ <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#FFF6BE"/><stop offset=".24" stop-color="#FFD45A"/>
+  <stop offset=".58" stop-color="#FFB20C"/><stop offset=".82" stop-color="#E98900"/>
+  <stop offset="1" stop-color="#FFE98D"/>
+ </linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#FFD85A" stop-opacity=".28"/><stop offset="1" stop-color="#F99C00" stop-opacity=".03"/>
+ </linearGradient>
+ <radialGradient id="aura"><stop offset="0" stop-color="#F9A900" stop-opacity=".2"/><stop offset="1" stop-color="#F9A900" stop-opacity="0"/></radialGradient>
+ <filter id="glow" x="-70%" y="-70%" width="240%" height="240%">
+  <feGaussianBlur stdDeviation="1.7" result="b"/><feFlood flood-color="#FFB51B" flood-opacity=".85"/>
+  <feComposite in2="b" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+ </filter>
+ <filter id="auraBlur"><feGaussianBlur stdDeviation="5"/></filter>
+ <style>
+  .s{fill:none;stroke:url(#g);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .f{fill:url(#metal);stroke:url(#g);stroke-width:1.7;stroke-linejoin:round}
+  .thin{fill:none;stroke:#D88712;stroke-width:.65;opacity:.48}
+  .glow{filter:url(#glow)}
+  .hi{fill:none;stroke:#FFF5C8;stroke-width:.85;stroke-linecap:round;opacity:.9}
+ </style>
+</defs><g>
+<ellipse cx="60" cy="82" rx="53" ry="24" fill="url(#aura)"/>
+<g class="thin"><ellipse cx="60" cy="82" rx="48" ry="19"/><path d="M8 101h104"/></g>
+<g class="s glow">
+ <path d="M18 94V29M14 94h9M16 36h5"/>
+ <path d="M8 28h68l-8 6H10z" class="f"/>
+ <path d="M19 29l10 5M33 29l10 5M47 29l10 5M61 29l10 5"/>
+ <path d="M70 32v14M67 46h6"/>
+ <path d="M47 92V49h58v43z" class="f"/>
+ <path d="M47 60h58M47 72h58M47 84h58"/>
+ <path d="M54 53h7v6h-7zM69 53h7v6h-7zM84 53h7v6h-7zM54 65h7v6h-7zM69 65h7v6h-7zM84 65h7v6h-7zM54 77h7v6h-7zM69 77h7v6h-7zM84 77h7v6h-7z"/>
+</g>
+<path class="hi" d="M17 40v38M50 52h17"/>
+</g></svg>

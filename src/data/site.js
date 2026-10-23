@@ -23,10 +23,8 @@ export const company = {
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Our Fleet", href: "/#fleet" },
   { label: "Services", href: "/#services" },
   { label: "Projects", href: "/projects" },
-  { label: "Safety", href: "/#safety" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -37,12 +35,6 @@ export const stats = [
   { value: 27.21, decimals: 2, prefix: "₹", suffix: " Cr", label: "FY 2025-26 Turnover", note: "Year ended Mar 2026" },
 ];
 
-export const fleetGroups = [
-  { title: "Crawler Cranes", desc: "45 to 150 Ton SANY / XCMG cranes for maximum lifting capacity on heavy projects.", count: "44 units", image: "/images/fleet-1.jpg" },
-  { title: "Hydraulic Tyre Mounted Cranes", desc: "TIL 40 Ton, ACE 23 Ton and ACE NX-360 20 Ton. Mobile and ideal for on-road projects.", count: "3 units", image: "/images/fleet-2.jpg" },
-  { title: "Boom & Scissor Lifts", desc: "Articulated booms up to 43 m, truck mounted lifts and scissor lifts for working at height.", count: "12 units", image: "/images/fleet-3.jpg" },
-  { title: "Concrete & Road Equipment", desc: "Transit mixers, pumps, batching plant, graders, rollers and compactors.", count: "70+ units", image: "/images/fleet-4.jpg" },
-];
 
 export const services = [
   { icon: "Construction", title: "Crane Rental Services" },
@@ -54,12 +46,11 @@ export const services = [
 ];
 
 export const industries = [
-  { icon: "Building2", title: "Construction", image: "/images/ind-1.jpg" },
-  { icon: "Route", title: "Infrastructure", image: "/images/ind-2.jpg" },
-  { icon: "Fuel", title: "Oil & Gas", image: "/images/ind-3.jpg" },
-  { icon: "Zap", title: "Power & Energy", image: "/images/ind-4.jpg" },
-  { icon: "Factory", title: "Heavy Engineering", image: "/images/ind-5.jpg" },
-  { icon: "Layers", title: "Piling & Foundation", image: "/images/ind-6.jpg" },
+  { icon: "Building2", title: "Construction", image: "/images/construction_card.png" },
+  { icon: "Route", title: "Infrastructure", image: "/images/infra_card.png" },
+  { icon: "Fuel", title: "Oil & Gas", image: "/images/oil_gas.png" },
+  { icon: "Zap", title: "Power & Energy", image: "/images/power_card.png" },
+  { icon: "Factory", title: "Heavy Engineering", image: "/images/heavy_eng.png" },
 ];
 
 export const whyChoose = [
@@ -127,4 +118,18 @@ export const clients = [
   "Arvind Technocrats & Engineers LLP", "Holistics Construction Company Limited", "PNC-TRG JV", "L&T Hydrocarbon",
   "Bharat Constructions", "Elsamex Group", "Path India Limited", "Adit Buildwell Pvt Ltd", "Subhash Infraengineers Pvt. Ltd.",
   "Modways Buildcon Pvt Ltd.", "Shree Shankar Infratech Pvt Ltd.", "Jaipur Borewell & Construction Company",
+];
+
+
+export const fleetGroups = [
+  { name: "Boom Lifts", make: "XCMG", capacity: "131–141 feet", image_file: "boom_lifts.png" },
+  { name: "Truck Mount Cranes", make: "XCMG / TIL / ACE", capacity: "20–75 tons", image_file: "truck_mounted.png" },
+  { name: "Crawler Crane", make: "XCMG / SANY", capacity: "45–150 ton", image_file: "crawler_crane.png" },
+  { name: "Hydraulic Grabs", make: "SANY", capacity: "600–1500 mm", image_file: "hydraulic-grabs.png" },
+  { name: "Piling Rigs", make: "SANY", capacity: "550–1200 mm", image_file: "pilling_rigs.png" },
+  { name: "Concrete Pumps", make: "PUTZMEISTER / SCHWING", capacity: "80 cum", image_file: "concrete_pumps.png" },
+  { name: "Transit Mixers", make: "TATA / ASHOK LEYLAND", capacity: "6–7 cum", image_file: "transit_mixers.png" },
+  { name: "Soil Compactors", make: "ACE / ESCORTS / DYNAPACT", capacity: "10–12 ton", image_file: "soil_compactors.png" },
+  { name: "Motor Graders", make: "CASE / SEM", capacity: "12 feet", image_file: "motor-graders.png" },
+  { name: "Self Loading Mixtures", make: "AJAX / SCHWING", capacity: "2–4 cum", image_file: "self-loading-mixtures.png" },
 ];
