@@ -1,81 +1,446 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Phone, Mail, Globe2, Factory, Gauge  } from "lucide-react";
+import { ArrowRight, Phone, Mail, Globe2, Factory, Gauge, Users, ShieldCheck , Settings , Star ,HardHat  , ArrowLeft , Construction, ClipboardCheck, ShieldCheckIcon, BadgeCheck, MapPin, MailCheck, MailIcon, User, Building2, Anchor, ChevronDown, FileText} from "lucide-react";
 import Reveal from "./Reveal";
 import Icon from "./Icon";
 import ImageSlot from "./ImageSlot";
 import SectionHeading from "./SectionHeading";
 import QuoteForm from "./QuoteForm";
-import { fleetGroups, services, industries, whyChoose, projects, safety, clients, company } from "@/data/site";
+import { fleetGroups, services, industries, whyChoose, projects, safety, clients, company, eqsupplier } from "@/data/site";
+import { useEffect, useRef, useState } from "react";
 const IMAGE_BASE = "/fleets";
+const GOLD = "#E8A317";
+const NOTCH = "polygon(0 0, 93% 0, 75% 43%, 100% 100%, 0 100%)";
 
+const badges = [
+  { icon: Settings, label: "Latest\nMachinery" },
+  { icon: Users, label: "Skilled\nOperators" },
+  { icon: ShieldCheck, label: "Safety\nFirst" },
+];
+const whyStats = [
+  { icon: Construction, value: "25+", label: "Years of\nExperience" },
+  { icon: HardHat, value: "500+", label: "Projects\nCompleted" },
+  { icon: Users, value: "100+", label: "Skilled\nProfessionals" },
+]; 
+const fallbackDescription = (name = "") => {
+  const n = name.toLowerCase();
+  if (n.includes("boom")) return "Ideal for elevated work at construction, maintenance and industrial sites.";
+  if (n.includes("truck")) return "High mobility and quick deployment for diverse lifting requirements.";
+  if (n.includes("crawler")) return "Powerful and stable lifting solution for heavy and large-scale projects.";
+  return "";
+};
+ 
+const SKEW = "-6deg";
+const ROT = "-2deg";
+const UNTILT = "rotate(2deg) skewX(6deg)"; // inverse of the card tilt, keeps text upright
+const PER_PAGE = 3;
+ 
 export function Fleet() {
+  const [page, setPage] = useState(0);
+
+  const pages = Math.max(1, Math.ceil(fleetGroups.length / PER_PAGE));
+
+  const goTo = (p) => setPage(Math.min(Math.max(p, 0), pages - 1));
+
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    if (paused || pages < 2) return;
+    const id = setInterval(() => setPage((p) => (p + 1) % pages), 10000);
+    return () => clearInterval(id);
+  }, [paused, pages, page]);
+
   return (
-    <section id="fleet" className="scroll-mt-20 bg-slate-50 py-20">
-      <div className="container-x">
-        <SectionHeading
-          eyebrow="Our Equipment Fleet"
-          title="Modern Equipment for Every Project"
-          text="A well-maintained fleet of cranes, lifts and concrete equipment, operated by skilled and dedicated technicians."
+    <section id="fleet" className="relative scroll-mt-20 overflow-hidden bg-white">
+      <div className="relative">
+        <div
+          className="absolute inset-y-0 right-0 hidden w-[52%] lg:block"
+          style={{ clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0 100%)" }}
         >
-          <Link href="/projects#fleet-table" className="btn-outline w-48">
-            View Full Fleet <ArrowRight size={14} />
-          </Link>
-        </SectionHeading>
- 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-          {fleetGroups.map((f, i) => (
-            <Reveal key={f.name} delay={(i % 5) * 0.08}>
-              <motion.article
-                whileHover={{ y: -8 }}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-sm transition-shadow duration-300 hover:shadow-2xl"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <ImageSlot
-                    src={`${IMAGE_BASE}/${f.image_file}`}
-                    alt={f.name}
-                    icon="Construction"
-                    className="h-full w-full transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
-                  <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold tabular-nums text-navy backdrop-blur">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="absolute bottom-3 left-4 right-4 text-lg font-semibold leading-tight text-white drop-shadow">
-                    {f.name}
-                  </h3>
-                </div>
- 
-                {/* Details */}
-                <div className="flex flex-1 flex-col gap-3 p-4">
-                  <div className="flex items-start gap-2 text-sm text-slate-600">
-                    <Factory size={15} className="mt-0.5 shrink-0 text-brand" />
-                    <div>
-                      <p className="text-[11px] font-medium uppercase tracking-wide text-slate-400">Make</p>
-                      <p className="font-medium text-slate-700">{f.make}</p>
-                    </div>
-                  </div>
- 
-                  <div className="mt-auto flex items-center justify-between rounded-lg bg-brand-light px-3 py-2">
-                    <span className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-brand-dark/70">
-                      <Gauge size={14} /> Capacity
+          <ImageSlot
+            src="/images/oil_gas.png"
+            alt="Crane lifting at a construction site"
+            icon="Construction"
+            className="h-full w-full object-cover"
+          />
+        </div>
+
+        <div className="absolute right-0 top-[30%] z-10 hidden items-center gap-3 rounded-l-3xl bg-white/95 py-3 pl-6 pr-10 shadow-xl backdrop-blur lg:flex">
+          <HardHat size={32} strokeWidth={1.5} className="text-navy" />
+          <div>
+            <p className="text-2xl font-extrabold leading-none text-navy">100+</p>
+            <p className="mt-1 text-sm text-slate-600">Projects Supported</p>
+          </div>
+        </div>
+
+        {/* ~80% width, centered */}
+        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-28 pt-8 lg:w-[80%] lg:pb-32 lg:pt-8">
+          <Reveal>
+            <div className="max-w-xl">
+              <div className="flex items-center gap-3">
+                <span className="h-[2px] w-10" style={{ background: GOLD }} />
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-600">
+                  Our Fleet
+                </span>
+              </div>
+
+              <h2 className="mt-3 text-3xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl">
+                Project Ready
+                <br />
+                <span style={{ color: GOLD }}>Equipment</span>
+              </h2>
+
+              <p className="mt-3 max-w-md text-base leading-relaxed text-slate-500">
+                A modern and well-maintained fleet of cranes, lifts and concrete
+                equipment, operated by skilled and dedicated technicians.
+              </p>
+
+              <div className="mt-5 flex flex-wrap items-center gap-y-3">
+                {badges.map((b, i) => (
+                  <div
+                    key={b.label}
+                    className={`flex items-center gap-3 pr-5 ${
+                      i !== 0 ? "border-l border-slate-200 pl-5" : ""
+                    }`}
+                  >
+                    <span
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+                      style={{ background: "#FDF3DC", color: GOLD }}
+                    >
+                      <b.icon size={18} />
                     </span>
-                    <span className="text-sm font-bold text-brand-dark">{f.capacity}</span>
+                    <span className="whitespace-pre-line text-sm font-medium leading-tight text-slate-700">
+                      {b.label}
+                    </span>
                   </div>
+                ))}
+              </div>
+
+              <Link
+                href="/projects#fleet-table"
+                className="mt-6 inline-flex items-center gap-3 rounded-full border-2 bg-navy px-7 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5"
+                style={{ borderColor: GOLD }}
+              >
+                View Full Fleet <ArrowRight size={16} style={{ color: GOLD }} />
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+
+      <div className="relative flow-root pb-10">
+        <div className="absolute inset-0 bg-navy" />
+
+        <div
+          className="relative z-20 mx-auto -mt-24 w-[90%] max-w-[1800px] lg:-mt-28 lg:w-[90%]"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onTouchStart={() => setPaused(true)}
+          onTouchEnd={() => setPaused(false)}
+        >
+          {/* Prev button – outlined, transparent */}
+          <button
+            aria-label="Previous"
+            onClick={() => goTo(page - 1)}
+            disabled={page === 0}
+            className="absolute -left-14 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-transparent text-white transition hover:bg-white/10 disabled:opacity-40 xl:flex"
+          >
+            <ArrowLeft size={18} />
+          </button>
+
+          {/* Next button – gold */}
+          <button
+            aria-label="Next"
+            onClick={() => goTo(page + 1)}
+            disabled={page === pages - 1}
+            className="absolute -right-14 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-navy shadow-lg transition hover:scale-105 disabled:opacity-40 xl:flex"
+            style={{ background: GOLD }}
+          >
+            <ArrowRight size={18} />
+          </button>
+
+          {/* Cards – exactly one page (3 cards) at a time */}
+          <div className="overflow-hidden pb-10 pt-8">
+            <motion.div
+              animate={{ x: `-${page * 100}%` }}
+              transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
+              className="flex"
+            >
+{Array.from({ length: pages }).map((_, p) => (
+  <div
+    key={p}
+    aria-hidden={p !== page}
+    className={`grid w-full shrink-0 gap-12 px-12 transition-opacity duration-500 sm:grid-cols-2 lg:grid-cols-3 ${
+      p === page ? "opacity-100" : "pointer-events-none opacity-0"
+    }`}
+  >
+                  {fleetGroups.slice(p * PER_PAGE, p * PER_PAGE + PER_PAGE).map((f) => (
+                    <div key={f.name} className="group relative h-[340px]">
+                      {/* gold backing shape */}
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 rounded-[28px]"
+                        style={{
+                          background: GOLD,
+                          transform: `translate(-14px, 12px) skewX(${SKEW}) rotate(${ROT})`,
+                        }}
+                      />
+
+                      {/* main tilted card */}
+                      <article
+                        className="absolute inset-0 overflow-hidden rounded-[28px] bg-navy shadow-2xl transition-transform duration-300 group-hover:-translate-y-2"
+                        style={{ transform: `skewX(${SKEW}) rotate(${ROT})` }}
+                      >
+                        {/* image */}
+                        <div className="absolute inset-x-0 top-0 h-[74%] overflow-hidden">
+                          <ImageSlot
+                            src={`${IMAGE_BASE}/${f.image_file}`}
+                            alt={f.name}
+                            icon="Construction"
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
+                        </div>
+
+                        {/* arrow badge */}
+                        <span
+                          className="absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-full bg-navy/90 text-white"
+                          style={{ transform: UNTILT }}
+                        >
+                          <ArrowRight size={18} />
+                        </span>
+
+                        {/* title + gold accent line */}
+                        <div
+                          className="absolute bottom-[31%] left-6 right-6 text-white"
+                          style={{ transform: UNTILT }}
+                        >
+                          <span className="mb-1.5 block h-[3px] w-9" style={{ background: GOLD }} />
+                          <h3 className="text-[22px] font-extrabold leading-tight tracking-tight drop-shadow-sm">
+                            {f.name}
+                          </h3>
+                        </div>
+
+<div className="absolute inset-x-5 bottom-3 grid h-[15%] grid-cols-2 divide-x divide-slate-200 rounded-[20px] bg-white">
+  <div
+    className="flex min-w-0 items-center gap-2.5 pl-3.5 pr-2"
+    style={{ transform: UNTILT }}
+  >
+    <Factory
+      size={18}
+      strokeWidth={1.6}
+      style={{ color: GOLD }}
+      className="shrink-0"
+    />
+        <div className="min-w-0">
+      <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+        Make
+      </p>
+      <p className="truncate whitespace-nowrap text-[13px] font-bold leading-tight tracking-tight text-navy">
+        {f.make}
+      </p>
+    </div>
+  </div>
+
+  <div
+    className="flex min-w-0 items-center gap-2.5 pl-3.5 pr-2"
+    style={{ transform: UNTILT }}
+  >
+    <Gauge
+      size={18}
+      strokeWidth={1.6}
+      style={{ color: GOLD }}
+      className="shrink-0"
+    />
+    <div className="min-w-0">
+      <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+        Capacity
+      </p>
+      <p className="truncate whitespace-nowrap text-[13px] font-bold leading-tight tracking-tight text-navy">
+        {f.capacity}
+      </p>
+    </div>
+  </div>
+</div>
+                      </article>
+                    </div>
+                  ))}
                 </div>
- 
-                {/* Accent bar */}
-                <span className="absolute bottom-0 left-0 h-1 w-0 bg-brand transition-all duration-300 group-hover:w-full" />
-              </motion.article>
-            </Reveal>
-          ))}
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Dots */}
+          <div className="mt-4 flex items-center justify-center gap-3">
+            {Array.from({ length: pages }).map((_, p) => (
+              <button
+                key={p}
+                aria-label={`Go to page ${p + 1}`}
+                onClick={() => goTo(p)}
+                className="h-1 w-16 rounded-full transition-colors"
+                style={{ background: p === page ? GOLD : "rgba(255,255,255,0.3)" }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
+
+const initials = (name) =>
+  name.replace(/[^A-Za-z\s]/g, " ").split(/\s+/).filter(Boolean)
+    .slice(0, 2).map((w) => w[0].toUpperCase()).join("");
+
+// split into 3 rows, keeping the original index for the number badge
+const rows = [0, 1, 2].map((r) =>
+  eqsupplier.map((name, i) => ({ name, i })).filter((x) => x.i % 3 === r)
+);
+
+function useInView() {
+  const ref = useRef(null);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setSeen(true); io.disconnect(); }
+    }, { threshold: 0.2 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, seen];
+}
+
+function CountUp({ to }) {
+  const [ref, seen] = useInView();
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    if (!seen) return;
+    const start = performance.now(), dur = 1400;
+    let raf;
+    const tick = (t) => {
+      const p = Math.min((t - start) / dur, 1);
+      setN(Math.round(to * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [seen, to]);
+  return <span ref={ref}>{n}</span>;
+}
+
+function SupplierCard({ name, index }) {
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+  return (
+    <div
+      onMouseMove={onMove}
+      className="eq-card relative mr-3 flex h-16 w-60 shrink-0 items-center gap-3 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-4 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-brand/60"
+    >
+      <span className="eq-spot absolute inset-0" />
+      <span className="eq-line absolute bottom-0 left-0 h-0.5 w-full bg-brand" />
+
+      <div className="relative grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand to-brand/50 text-xs font-bold text-white shadow-lg shadow-brand/20">
+        {initials(name)}
+      </div>
+      <div className="relative min-w-0">
+        <p className="text-[9px] font-semibold tracking-[0.2em] text-white/40">
+          {String(index + 1).padStart(2, "0")}
+        </p>
+        <p className="line-clamp-1 text-[13px] font-semibold leading-snug text-white">{name}</p>
+      </div>
+    </div>
+  );
+}
+
+function MarqueeRow({ items, reverse = false, duration = 60 }) {
+  const doubled = [...items, ...items];
+  return (
+    <div
+      className="eq-row overflow-hidden py-1"
+      style={{
+        maskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
+      }}
+    >
+      <div
+        className={`eq-track flex w-max ${reverse ? "rev" : ""}`}
+        style={{ "--d": `${duration}s` }}
+      >
+        {doubled.map((it, k) => (
+          <SupplierCard key={k} name={it.name} index={it.i} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function EquipmentSuppliers() {
+  const [ref, seen] = useInView();
+
+  return (
+    <section className="relative overflow-hidden bg-[#acb1b7] py-12 md:py-14">
+      {/* blueprint grid */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          maskImage: "radial-gradient(ellipse at center, #000 30%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, #000 30%, transparent 75%)",
+        }}
+      />
+      {/* glowing orbs */}
+      <div className="pointer-events-none absolute -left-24 top-0 h-56 w-56 animate-pulse rounded-full" />
+
+      <div className="relative">
+        <div
+          ref={ref}
+          className={`flex flex-col items-start justify-between gap-4 transition-all duration-700 md:flex-row md:items-center ${
+            seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          }`}
+        >
+          <div className="max-w-xl ml-8">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-white/70">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+              </span>
+              Our Equipment Partners
+            </span>
+            <h2 className="mt-3 text-2xl font-bold leading-tight text-white md:text-4xl">
+              Equipment sourced from{" "}
+              <span className="bg-gradient-to-r from-brand to-white bg-clip-text text-transparent">
+                trusted suppliers
+              </span>
+            </h2>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/5 px-6 py-3 backdrop-blur mr-8">
+            <p className="text-3xl font-extrabold text-white md:text-4xl">
+              <CountUp to={eqsupplier.length} />
+              <span className="text-brand">+</span>
+            </p>
+            <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-white/50">
+              Supplier partners
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 -mx-4 space-y-1 md:-mx-0">
+          <MarqueeRow items={rows[0]} duration={70} />
+          <MarqueeRow items={rows[1]} duration={85} reverse />
+        </div>
+      </div>
+    </section>
+  );
+}
 
 const serviceIconIds = [
   "crane-rental",
@@ -251,21 +616,87 @@ export function Industries() {
 
 export function WhyChoose() {
   return (
-    <section className="grid bg-brand-light/60 lg:grid-cols-[0.8fr_1.2fr]">
-      <div className="group hidden lg:block"><ImageSlot src="/images/why.jpg" alt="RV crane at sunset" icon="Construction" className="h-full min-h-[380px]" /></div>
-      <div className="container-x grid gap-8 py-16 lg:grid-cols-2 lg:px-12">
+    <section className="relative overflow-hidden bg-[#fdfaf3]">
+      <div
+        aria-hidden
+        className="absolute inset-y-0 left-0 hidden w-[51.5%] bg-[#fdf0c8] lg:block"
+        style={{ clipPath: NOTCH }}
+      />
+ 
+      <div className="absolute inset-y-0 left-0 hidden w-[50.8%] lg:block" style={{ clipPath: NOTCH }}>
+        <ImageSlot src="/why_choose.png" alt="RV crane at sunset" icon="Construction" className="h-full w-full object-cover" />
+        <div className="absolute left-0 top-0 h-[16%] w-[10%] bg-brand" style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }} />
+        <div className="absolute left-0 top-0 h-[16%] w-[6%] bg-brand/60" style={{ clipPath: "polygon(60% 0, 100% 0, 40% 100%, 0 100%)" }} />
+      </div>
+ 
+      <div className="h-44 lg:hidden">
+        <ImageSlot src="/why_choose.png" alt="RV crane at sunset" icon="Construction" className="h-full w-full object-cover" />
+      </div>
+ 
+      <div className="relative grid gap-8 px-5 py-10 lg:min-h-[510px] lg:grid-cols-[47%_29%_24%] lg:gap-0 lg:px-0 lg:py-0">
+        <div className="hidden lg:block" />
+ 
+        {/* centre column */}
         <Reveal>
-          <div className="eyebrow">Why Choose</div>
-          <h2 className="text-3xl font-bold text-navy">RV INFRASTRUCTURAL PRIVATE LIMITED</h2>
-          <p className="mt-4 text-sm text-slate-600">Your trusted partner for equipment hire across India since 1999. Safe lifting. Stronger projects. A better tomorrow.</p>
-          <Link href="/about" className="btn-primary mt-6 w-fit">Learn More <ArrowRight size={14} /></Link>
+          <div className="flex h-full flex-col justify-center lg:py-10 lg:pr-6">
+            <div className="flex items-center gap-3">
+              <span className="h-[2px] w-9 bg-brand" />
+              <span className="text-xs font-medium uppercase tracking-[0.3em] text-slate-600">Why Choose</span>
+            </div>
+ 
+            <h2 className="mt-4 text-3xl font-extrabold leading-[1.1] tracking-tight text-navy xl:text-[2.5rem]">
+              RV INFRASTRUCTURAL
+              <br />
+              <span className="text-brand">PRIVATE LIMITED</span>
+            </h2>
+ 
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
+              Your trusted partner for equipment hire across India since 1999.
+              <br className="hidden sm:block" /> Safe lifting. Stronger projects. A better tomorrow.
+            </p>
+ 
+            {/* stats */}
+            <div className="mt-6 grid grid-cols-3 gap-3">
+              {whyStats.map((s) => (
+                <div key={s.value} className="rounded-xl bg-brand/10 px-3.5 py-3.5">
+                  <s.icon size={24} className="text-brand" strokeWidth={1.8} />
+                  <div className="mt-0.5 text-xl font-extrabold leading-tight text-navy">{s.value}</div>
+                  <div className="whitespace-pre-line text-xs leading-tight text-slate-500">{s.label}</div>
+                </div>
+              ))}
+            </div>
+ 
+            {/* buttons */}
+            <div className="mt-7 flex flex-wrap items-center gap-5">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2.5 rounded-lg bg-gradient-to-b from-[#f9b934] to-[#f0a50e] px-7 py-3 text-sm font-semibold text-navy shadow-[0_8px_18px_-8px_rgba(240,165,14,0.8)] transition hover:brightness-105"
+              >
+                Learn More <ArrowRight size={15} />
+              </Link>
+              <span className="hidden h-8 w-px bg-slate-300 sm:block" />
+              <Link href="/fleet" className="inline-flex items-center gap-2 text-sm font-medium text-navy transition hover:text-brand">
+                Explore Our Fleet <ArrowRight size={15} className="text-brand" />
+              </Link>
+            </div>
+          </div>
         </Reveal>
-        <div className="space-y-4">
+ 
+        {/* right column: feature list */}
+        <div className="flex flex-col justify-center lg:py-6 lg:pl-2 lg:pr-8">
           {whyChoose.map((w, i) => (
-            <Reveal key={w.title} delay={i * 0.08} x={30} y={0}>
-              <motion.div whileHover={{ x: 6 }} className="flex items-center gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-navy"><Icon name={w.icon} size={20} /></span>
-                <div><div className="text-sm font-semibold text-navy">{w.title}</div><div className="text-xs text-slate-500">{w.text}</div></div>
+            <Reveal key={w.title} delay={i * 0.06} x={30} y={0}>
+              <motion.div
+                whileHover={{ x: 6 }}
+                className={`flex items-center gap-3.5 py-3.5 ${i !== whyChoose.length - 1 ? "border-b border-slate-200/70" : ""}`}
+              >
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#fdeeb9] text-navy">
+                  <Icon name={w.icon} size={21} strokeWidth={1.8} />
+                </span>
+                <div className="min-w-0">
+                  <div className="text-sm font-bold leading-tight text-navy">{w.title}</div>
+                  <div className="mt-0.5 text-xs leading-snug text-slate-500">{w.text}</div>
+                </div>
               </motion.div>
             </Reveal>
           ))}
@@ -275,13 +706,15 @@ export function WhyChoose() {
   );
 }
 
+
+
 export function ProjectCards({ list = projects, limit }) {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {list.slice(0, limit).map((p, i) => (
         <Reveal key={p.title} delay={i * 0.1}>
           <motion.div whileHover={{ y: -8 }} className="group h-full overflow-hidden rounded-xl bg-white shadow-md hover:shadow-2xl">
-            <ImageSlot src={p.image} alt={p.title} icon={p.icon} className="h-40" />
+            <ImageSlot src={p.image} alt={p.title} icon={p.icon} className="h-60" />
             <div className="p-4">
               <h3 className="text-sm font-semibold text-navy">{p.title}</h3>
               <p className="mt-1 flex items-center gap-1 text-xs text-brand-dark"><Icon name="MapPin" size={12} />{p.place}</p>
@@ -307,23 +740,175 @@ export function ProjectsPreview() {
   );
 }
 
+const SAFETY_GOLD = "#F5A524";
+ 
+const SAFETY_CARDS = [
+  {
+    title: "Regular\nEquipment Inspection",
+    text: "Routine inspection and maintenance to ensure maximum safety and reliability.",
+    icon: ClipboardCheck,
+    image: "/images/safety/inspection.jpg",
+    href: "/safety#inspection",
+  },
+  {
+    title: "Skilled Operators",
+    text: "Certified and experienced operators for efficient and safe operations.",
+    icon: HardHat,
+    image: "/images/safety/operators.jpg",
+    href: "/safety#operators",
+  },
+  {
+    title: "Site Risk Assessment",
+    text: "Detailed site evaluation to identify and minimize potential risks.",
+    icon: ShieldCheck,
+    image: "/images/safety/risk.jpg",
+    href: "/safety#risk",
+  },
+  {
+    title: "Compliance with\nIndustry Standards",
+    text: "We adhere to all safety regulations and industry best practices.",
+    icon: BadgeCheck,
+    image: "/images/safety/compliance.jpg",
+    href: "/safety#compliance",
+  },
+];
+ 
 export function Safety() {
   return (
-    <section id="safety" className="scroll-mt-20 bg-navy py-20">
-      <div className="container-x grid items-center gap-10 lg:grid-cols-[1fr_0.8fr_1fr]">
+    <section
+      id="safety"
+      className="relative isolate scroll-mt-20 overflow-hidden bg-[#e5e7eb]"
+    >
+      <img
+        src="/images/construction_card.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover object-left opacity-40"
+      />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#06101C] via-[#06101C]/90 to-[#06101C]/30" />
+ 
+      <div
+        aria-hidden="true"
+        className="absolute inset-y-0 right-0 -z-10 hidden w-[66%] lg:block"
+        style={{
+          background: `linear-gradient(135deg, ${SAFETY_GOLD}, #7a5410)`,
+          clipPath: "polygon(24% 0, 100% 0, 100% 100%, 0 100%, 0 78%, 8% 62%)",
+        }}
+      />
+      <div
+        className="absolute inset-y-0 right-0 -z-10 hidden w-[65.5%] lg:block"
+        style={{
+          clipPath: "polygon(25% 0, 100% 0, 100% 100%, 1.5% 100%, 1.5% 77%, 9% 61%)",
+        }}
+      >
+        <img
+          src="/safety_.png"
+          alt="RV safety officer supervising a crane lift"
+          className="h-full w-full object-cover object-top"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#06101C] to-transparent" />
+      </div>
+ 
+      <div className="relative h-56 lg:hidden">
+        <img
+          src="/images/safety/hero.jpg"
+          alt="RV safety officer supervising a crane lift"
+          className="h-full w-full object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#06101C] to-transparent" />
+      </div>
+ 
+      <div className="relative z-10 mx-auto w-[92%] max-w-[1500px] pb-6 pt-6 lg:pb-6 lg:pt-8">
         <Reveal>
-          <div className="eyebrow">Safety First</div>
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">Our Commitment to a Safer Tomorrow</h2>
-          <p className="mt-4 text-sm leading-relaxed text-slate-300">We follow stringent safety protocols, regular equipment inspections and skilled operations to ensure a safe working environment on every project.</p>
+          <div className="max-w-[640px]">
+            <div className="flex items-center gap-3 border-l-[3px] pl-4" style={{ borderColor: SAFETY_GOLD }}>
+              <span
+                className="text-sm font-medium uppercase tracking-[0.25em]"
+                style={{ color: SAFETY_GOLD }}
+              >
+                Safety First
+              </span>
+            </div>
+ 
+            <h2 className="mt-3 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[2.5rem]">
+              Our Commitment
+              <br />
+              to a Safer <span style={{ color: SAFETY_GOLD }}>Tomorrow</span>
+            </h2>
+ 
+            <p className="mt-3 max-w-[440px] text-sm leading-relaxed text-slate-300">
+              We follow stringent safety protocols, regular equipment
+              inspections and skilled operations to ensure a safe working
+              environment on every project.
+            </p>
+ 
+            <Link
+              href="/safety"
+              className="group/btn mt-4 inline-flex items-center gap-3 rounded-full border-2 bg-transparent px-5 py-2 text-sm font-semibold transition hover:bg-white/5"
+              style={{ borderColor: SAFETY_GOLD, color: SAFETY_GOLD }}
+            >
+              Our Safety Practices
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 group-hover/btn:translate-x-1"
+              />
+            </Link>
+          </div>
         </Reveal>
-        <Reveal><div className="group"><ImageSlot src="/images/safety.jpg" alt="RV site safety officer" icon="HardHat" className="h-72 rounded-xl" /></div></Reveal>
-        <div className="grid grid-cols-2 gap-4">
-          {safety.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.1}>
-              <motion.div whileHover={{ scale: 1.05 }} className="flex h-full flex-col gap-3 rounded-lg border border-white/10 bg-navy-800 p-5">
-                <Icon name={s.icon} className="text-brand" size={28} strokeWidth={1.5} />
-                <span className="text-xs font-medium text-white">{s.title}</span>
-              </motion.div>
+ 
+        <div className="h-4 lg:h-10" />
+ 
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SAFETY_CARDS.map((c, i) => (
+            <Reveal key={c.title} delay={i * 0.08}>
+              <motion.article
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="group relative h-[215px] overflow-hidden rounded-2xl border border-white/10 bg-[#0A1624] shadow-[0_18px_40px_rgba(0,0,0,0.45)]"
+              >
+                <img
+                  src={c.image}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover object-right transition-transform duration-700 group-hover:scale-105"
+                />
+                {/* navy fade from left + bottom so text stays readable */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#08121F] via-[#08121F]/85 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08121F]/90 via-transparent to-[#08121F]/30" />
+ 
+                {/* gold left accent */}
+                <span
+                  aria-hidden="true"
+                  className="absolute left-0 top-4 h-[38%] w-[4px] rounded-r"
+                  style={{ background: SAFETY_GOLD }}
+                />
+ 
+                <div className="relative flex h-full flex-col p-4">
+                  <span
+                    className="flex h-11 w-11 items-center justify-center rounded-full text-[#101D2A] shadow-lg"
+                    style={{ background: SAFETY_GOLD }}
+                  >
+                    <c.icon size={22} strokeWidth={1.7} />
+                  </span>
+ 
+                  <h3 className="mt-3 whitespace-pre-line text-[15px] font-bold leading-tight text-white">
+                    {c.title}
+                  </h3>
+                  <p className="mt-1 max-w-[210px] text-xs leading-snug text-slate-300">
+                    {c.text}
+                  </p>
+ 
+                  <Link
+                    href={c.href}
+                    aria-label={`Learn more: ${c.title.replace("\n", " ")}`}
+                    className="mt-auto flex h-8 w-8 items-center justify-center rounded-full border transition hover:bg-[#F5A524] hover:text-[#101D2A]"
+                    style={{ borderColor: SAFETY_GOLD, color: SAFETY_GOLD }}
+                  >
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </motion.article>
             </Reveal>
           ))}
         </div>
@@ -332,39 +917,244 @@ export function Safety() {
   );
 }
 
+
+
+
+
+function ClientLogo({ name, logo }) {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <div className="flex h-32 w-48 shrink-0 items-center justify-center rounded-xl border border-slate-100 bg-white p-4 shadow-sm transition hover:border-brand hover:shadow-md">
+      {failed ? (
+        <span className="text-center text-xs font-semibold text-navy">{name}</span>
+      ) : (
+        <img
+          src={logo}
+          alt={name}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="max-h-full max-w-full object-contain transition duration-300 hover:grayscale-0"
+        />
+      )}
+    </div>
+  );
+}
+
 export function Clients() {
   const row = [...clients, ...clients];
   return (
     <section className="overflow-hidden py-20">
-      <div className="container-x"><SectionHeading eyebrow="Our Clients" title="Trusted by India's Leading Companies" /></div>
+      <div className="container-x">
+        <SectionHeading eyebrow="Our Clients" title="Trusted by India's Leading Companies" />
+      </div>
       <div className="group relative">
         <div className="flex w-max animate-marquee gap-4 group-hover:[animation-play-state:paused]">
-          {row.map((c, i) => (
-            <div key={i} className="whitespace-nowrap rounded-xl border border-slate-100 bg-white px-6 py-4 text-sm font-semibold text-navy shadow-sm transition hover:border-brand hover:shadow-md">{c}</div>
-          ))}
+        {row.map((c, i) => (
+  <ClientLogo key={i} {...c} />
+))}
         </div>
       </div>
     </section>
   );
 }
 
-export function QuoteSection() {
+const Q_GOLD = "#F5A524";
+ 
+function QField({ label, icon: IconCmp, children }) {
   return (
-    <section className="bg-navy py-20">
-      <div className="container-x grid items-center gap-10 lg:grid-cols-[0.7fr_1.2fr_0.6fr]">
+    <label className="block">
+      <span className="mb-1.5 block text-[13px] font-semibold text-[#0F1B2B]">{label}</span>
+      <span className="flex h-11 items-center gap-3 rounded-lg border border-slate-200 bg-white px-3.5 transition focus-within:border-[#F5A524] focus-within:ring-2 focus-within:ring-[#F5A524]/20">
+        <IconCmp size={18} strokeWidth={1.6} className="shrink-0 text-slate-500" />
+        {children}
+      </span>
+    </label>
+  );
+}
+ 
+const qInput =
+  "w-full min-w-0 bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400";
+ 
+export function QuoteSection() {
+  const [sent, setSent] = useState(false);
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget));
+    setSent(true);
+  };
+ 
+  const contacts = [
+    {
+      icon: Phone,
+      title: "Call Us",
+      lines: [`${company.mobile}  |  ${company.phones[0]}`],
+    },
+    { icon: MailIcon, title: "Email Us", lines: [company.email] },
+    {
+      icon: MapPin,
+      title: "Serving Across India",
+      lines: ["Reliable Lifting Solutions Nationwide"],
+      small: true,
+    },
+  ];
+ 
+  return (
+    <section id="quote" className="relative isolate overflow-hidden bg-[#0F1B2B] py-12 lg:py-14">
+      {/* ---------- right: crane photo with angled gold backing ---------- */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-y-0 right-0 -z-10 hidden w-[36%] lg:block"
+        style={{
+          background: "linear-gradient(160deg, #D9A93A, #B8862A)",
+          clipPath: "polygon(30% 0, 88% 0, 62% 100%, 0 56%, 8% 40%)",
+          opacity: 0.95,
+        }}
+      />
+      <div
+        className="absolute inset-y-0 right-0 -z-10 hidden w-[30%] lg:block"
+        style={{ clipPath: "polygon(14% 4%, 100% 4%, 100% 100%, 0 90%, 0 20%)" }}
+      >
+        <img
+          src="/images/quote.jpg"
+          alt="Crane lifting a concrete block"
+          className="h-full w-full object-cover object-center"
+        />
+      </div>
+      {/* gold corner, bottom right */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 right-0 -z-10 hidden h-24 w-20 lg:block"
+        style={{ background: Q_GOLD, clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
+      />
+ 
+      <div className="mx-auto grid w-[92%] max-w-[1500px] items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.9fr)_minmax(0,0.6fr)] lg:gap-12">
+        {/* ---------- left: form card ---------- */}
         <Reveal>
-          <div className="eyebrow">Request a Quote</div>
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">Let&apos;s Lift Your Next Project</h2>
-          <p className="mt-4 text-sm text-slate-300">Share your requirements and our team will get back to you with the best solution.</p>
-          <ul className="mt-6 space-y-4 text-sm text-white">
-            <li className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-navy"><Phone size={16} /></span>{company.mobile}<br />{company.phones[0]}</li>
-            <li className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-navy"><Mail size={16} /></span>{company.email}</li>
-            <li className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-navy"><Globe2 size={16} /></span>Serving clients across India</li>
-          </ul>
+          <div className="rounded-2xl bg-[#FBFBFC] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.4)] sm:p-8">
+            <span className="block h-[4px] w-14 rounded-full" style={{ background: Q_GOLD }} />
+            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-[#0F1B2B]">
+              Request a <span style={{ color: Q_GOLD }}>Quote</span>
+            </h2>
+            <p className="mt-1 text-sm text-slate-500">
+              Fill in your details and our team will get back to you shortly.
+            </p>
+ 
+            <form onSubmit={handleSubmit} className="mt-6 grid gap-x-5 gap-y-4 sm:grid-cols-2">
+              <QField label="Full Name *" icon={User}>
+                <input name="name" required placeholder="Enter your full name" className={qInput} />
+              </QField>
+              <QField label="Company Name" icon={Building2}>
+                <input name="company" placeholder="Enter company name" className={qInput} />
+              </QField>
+              <QField label="Email Address *" icon={Mail}>
+                <input name="email" type="email" required placeholder="Enter your email address" className={qInput} />
+              </QField>
+              <QField label="Phone Number *" icon={Phone}>
+                <input name="phone" type="tel" required placeholder="Enter your phone number" className={qInput} />
+              </QField>
+              <QField label="Project Location" icon={MapPin}>
+                <input name="location" placeholder="Enter project location" className={qInput} />
+              </QField>
+              <QField label="Equipment Required" icon={Anchor}>
+                <select name="equipment" defaultValue="" className={`${qInput} cursor-pointer appearance-none`}>
+                  <option value="" disabled>Select equipment</option>
+                  {fleetGroups.map((f) => (
+                    <option key={f.name} value={f.name}>{f.name}</option>
+                  ))}
+                </select>
+                <ChevronDown size={16} className="shrink-0 text-slate-700" />
+              </QField>
+ 
+              <label className="block sm:col-span-2">
+                <span className="mb-1.5 block text-[13px] font-semibold text-[#0F1B2B]">Project Details</span>
+                <span className="flex gap-3 rounded-lg border border-slate-200 bg-white px-3.5 py-3 transition focus-within:border-[#F5A524] focus-within:ring-2 focus-within:ring-[#F5A524]/20">
+                  <FileText size={18} strokeWidth={1.6} className="mt-0.5 shrink-0 text-slate-500" />
+                  <textarea
+                    name="details"
+                    rows={2}
+                    placeholder="Tell us about your project..."
+                    className={`${qInput} resize-y`}
+                  />
+                </span>
+              </label>
+ 
+              <div className="sm:col-span-2">
+                <button
+                  type="submit"
+                  className="group/btn inline-flex items-center gap-3 rounded-lg px-8 py-3.5 text-[15px] font-bold text-[#0F1B2B] shadow-[0_10px_24px_-10px_rgba(245,165,36,0.9)] transition hover:-translate-y-0.5 hover:brightness-105"
+                  style={{ background: Q_GOLD }}
+                >
+                  Submit Request
+                  <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
+                </button>
+                {sent && (
+                  <p className="mt-3 text-sm font-medium text-emerald-600">
+                    Thanks! Our team will contact you shortly.
+                  </p>
+                )}
+              </div>
+            </form>
+          </div>
         </Reveal>
-        <Reveal x={40} y={0}><div className="rounded-xl bg-white p-6 shadow-2xl"><QuoteForm /></div></Reveal>
-        <Reveal x={40} y={0} className="hidden lg:block"><div className="group"><ImageSlot src="/images/quote.jpg" alt="Crane lifting a load" icon="Construction" className="h-[420px] rounded-xl" /></div></Reveal>
+ 
+        {/* ---------- middle: copy + contacts ---------- */}
+        <Reveal x={30} y={0}>
+          <div>
+            <div className="flex items-center gap-3 border-l-[3px] pl-4" style={{ borderColor: Q_GOLD }}>
+              <span className="text-xs font-semibold uppercase tracking-[0.25em]" style={{ color: Q_GOLD }}>
+                Get in Touch
+              </span>
+            </div>
+ 
+            <h2 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl">
+              Let&apos;s Lift Your
+              <br />
+              Next <span style={{ color: Q_GOLD }}>Project</span>
+            </h2>
+ 
+            <p className="mt-5 max-w-md text-base leading-relaxed text-slate-300">
+              Share your requirements and our team will get back to you with the best solution.
+            </p>
+ 
+            <ul className="mt-7 space-y-4">
+              {contacts.map((c) => (
+                <li key={c.title} className="flex items-center gap-4">
+                  <span
+                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/[0.06]"
+                    style={{ color: Q_GOLD }}
+                  >
+                    <c.icon size={24} strokeWidth={1.6} />
+                  </span>
+                  <span className="h-10 w-px" style={{ background: Q_GOLD, opacity: 0.7 }} />
+                  <div>
+                    <p className="text-[15px] font-semibold text-white">{c.title}</p>
+                    {c.lines.map((l) => (
+                      <p key={l} className={`${c.small ? "text-[13px]" : "text-base"} text-slate-300`}>
+                        {l}
+                      </p>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+ 
+        {/* spacer column: the photo is positioned absolutely on lg+ */}
+        <div className="hidden lg:block" />
+      </div>
+ 
+      {/* mobile photo */}
+      <div className="mx-auto mt-10 w-[92%] overflow-hidden rounded-2xl lg:hidden">
+        <img
+          src="/images/quote.jpg"
+          alt="Crane lifting a concrete block"
+          className="h-56 w-full object-cover"
+        />
       </div>
     </section>
   );
 }
+

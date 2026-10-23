@@ -1,5 +1,3 @@
-// All content below comes from Updated_Company_Profile.docx.
-// To use real photos: put files in /public/images and set the `image` field, e.g. "/images/crawler.jpg".
 
 export const company = {
   name: "R.V. Infrastructural Pvt. Ltd.",
@@ -63,12 +61,10 @@ export const whyChoose = [
 ];
 
 export const projects = [
-  { title: "Highway & Road Works", image: "/images/proj-1.jpg", place: "Pan India", icon: "Route", text: "Motor graders, soil compactors and tandem rollers supplied for road and earthwork packages." },
-  { title: "Bridge & Metro Construction", image: "/images/proj-2.jpg", place: "Pan India", icon: "Construction", text: "Crawler cranes and boom lifts supporting heavy girder and structural erection." },
-  { title: "Industrial Plant Erection", image: "/images/proj-3.jpg", place: "Pan India", icon: "Factory", text: "Plant erection with experienced staff and 20 to 150 Ton cranes for refineries and plants." },
-  { title: "Piling & Ground Engineering", image: "/images/proj-4.jpg", place: "Pan India", icon: "Layers", text: "SANY rigs and hydraulic grabs working on foundation and diaphragm wall projects." },
-  { title: "Readymix Concrete Supply", image: "/images/fleet-2.jpg", place: "Delhi NCR", icon: "Truck", text: "Transit mixers, concrete pumps and a 45 cum batching plant for continuous pours." },
-  { title: "Building & Real Estate", image: "/images/why.jpg", place: "Pan India", icon: "Building2", text: "Self loading mixers, lifts and cranes for residential and commercial construction." },
+  { title: "Highway & Road Works", image: "/industries/ind_1.png", place: "Pan India", icon: "Route", text: "Motor graders, soil compactors and tandem rollers supplied for road and earthwork packages." },
+  { title: "Bridge & Metro Construction", image: "/industries/ind_2.png", place: "Pan India", icon: "Construction", text: "Crawler cranes and boom lifts supporting heavy girder and structural erection." },
+  { title: "Industrial Plant Erection", image: "/industries/ind_3.png", place: "Pan India", icon: "Factory", text: "Plant erection with experienced staff and 20 to 150 Ton cranes for refineries and plants." },
+  { title: "Piling & Ground Engineering", image: "/industries/ind_4.png", place: "Pan India", icon: "Layers", text: "SANY rigs and hydraulic grabs working on foundation and diaphragm wall projects." },
 ];
 
 export const safety = [
@@ -105,7 +101,8 @@ export const fleetTable = [
   ["Batching Plant", "CONMAT", "45 Cum", 1],
 ];
 
-export const clients = [
+
+export const eqsupplier = [
   "Larsen & Toubro Limited", "Tata Projects Ltd.", "Reliance Industries Ltd.", "Afcons Infrastructure Limited",
   "Ahluwalia Contracts (India) Limited", "Kalpataru Projects International Ltd.", "NCC Limited", "Gammon India Limited",
   "Nagarjuna Construction Co. Limited", "PNC Infratech Pvt Ltd", "KEC International Ltd", "Megha Engineering & Infrastructure Limited",
@@ -120,6 +117,18 @@ export const clients = [
   "Modways Buildcon Pvt Ltd.", "Shree Shankar Infratech Pvt Ltd.", "Jaipur Borewell & Construction Company",
 ];
 
+export const clients = [
+  { name: "Reliance", logo: "/clients/reliance.png" },
+  { name: "Tata", logo: "/clients/tata.png" },
+  { name: "Keller", logo: "/clients/keller.png" },
+  { name: "LT", logo: "/clients/lt.png" },
+  { name: "Afcons", logo: "/clients/afcons.png" },
+  { name: "DMRC", logo: "/clients/dmc.png" },
+  { name: "Adani", logo: "/clients/adani.png" },
+  { name: "DMRC", logo: "/clients/dmc.png" },
+  { name: "JSW", logo: "/clients/jsw.png" },
+];
+
 
 export const fleetGroups = [
   { name: "Boom Lifts", make: "XCMG", capacity: "131–141 feet", image_file: "boom_lifts.png" },
@@ -130,6 +139,7 @@ export const fleetGroups = [
   { name: "Concrete Pumps", make: "PUTZMEISTER / SCHWING", capacity: "80 cum", image_file: "concrete_pumps.png" },
   { name: "Transit Mixers", make: "TATA / ASHOK LEYLAND", capacity: "6–7 cum", image_file: "transit_mixers.png" },
   { name: "Soil Compactors", make: "ACE / ESCORTS / DYNAPACT", capacity: "10–12 ton", image_file: "soil_compactors.png" },
-  { name: "Motor Graders", make: "CASE / SEM", capacity: "12 feet", image_file: "motor-graders.png" },
-  { name: "Self Loading Mixtures", make: "AJAX / SCHWING", capacity: "2–4 cum", image_file: "self-loading-mixtures.png" },
+  { name: "Motor Graders", make: "CASE / SEM", capacity: "12 feet", image_file: "motor_graders.png" },
+  { name: "Self Loading Mixtures", make: "AJAX / SCHWING", capacity: "2–4 cum", image_file: "self_loading.png" },
 ];
+

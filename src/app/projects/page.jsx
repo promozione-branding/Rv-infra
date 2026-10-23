@@ -27,7 +27,7 @@ export default function Projects() {
           </div>
         </Reveal>
       </section>
-      <Clients />
+      
     </>
   );
 }

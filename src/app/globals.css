@@ -15,3 +15,36 @@ body { @apply bg-white text-slate-700 antialiased; }
   .eyebrow::before { content: ""; @apply h-8 w-1 rounded bg-brand; }
   .input { @apply w-full rounded-md border border-slate-200 bg-white px-3 py-2.5 text-sm text-navy outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30; }
 }
+
+
+@keyframes eq-scroll { to { transform: translateX(-50%); } }
+@keyframes eq-scroll-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+.eq-track { animation: eq-scroll var(--d, 60s) linear infinite; }
+.eq-track.rev { animation-name: eq-scroll-rev; }
+.eq-row:hover .eq-track { animation-play-state: paused; }
+
+.eq-spot { opacity: 0; transition: opacity .3s; pointer-events: none;
+  background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.14), transparent 70%); }
+.eq-card:hover .eq-spot { opacity: 1; }
+.eq-line { transform: scaleX(0); transform-origin: left; transition: transform .5s ease; }
+.eq-card:hover .eq-line { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) { .eq-track { animation: none; } }
+
+
+html,
+body {
+  max-width: 100%;
+}
+
+html {
+  overflow-x: hidden; /* fallback for old browsers */
+}
+
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip; /* hides sideways overflow without creating a scroll container */
+  }
+}

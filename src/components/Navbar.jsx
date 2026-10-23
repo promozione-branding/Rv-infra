@@ -42,7 +42,7 @@ export default function Navbar() {
               <Link
                 key={l.label}
                 href={l.href}
-                className={`group relative text-xs font-medium transition ${
+                className={`group relative text-sm font-medium transition font-semibold ${
                   active
                     ? "text-brand"
                     : "text-gray-800 hover:text-brand"
