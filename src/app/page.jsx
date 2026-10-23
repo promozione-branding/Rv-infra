@@ -11,8 +11,9 @@ export default function Home() {
       <Industries />
       <EquipmentSuppliers/>
       <WhyChoose />
-      <ProjectsPreview />
       <Safety />
+      <ProjectsPreview />
+      
       
       <QuoteSection />
     </>

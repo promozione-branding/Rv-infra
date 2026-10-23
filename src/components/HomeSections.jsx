@@ -385,7 +385,6 @@ export function EquipmentSuppliers() {
 
   return (
     <section className="relative overflow-hidden bg-[#acb1b7] py-12 md:py-14">
-      {/* blueprint grid */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -747,28 +746,28 @@ const SAFETY_CARDS = [
     title: "Regular\nEquipment Inspection",
     text: "Routine inspection and maintenance to ensure maximum safety and reliability.",
     icon: ClipboardCheck,
-    image: "/images/safety/inspection.jpg",
+    image: "/industries/ind_1.png",
     href: "/safety#inspection",
   },
   {
     title: "Skilled Operators",
     text: "Certified and experienced operators for efficient and safe operations.",
     icon: HardHat,
-    image: "/images/safety/operators.jpg",
+    image: "/images/safety.jpg",
     href: "/safety#operators",
   },
   {
     title: "Site Risk Assessment",
     text: "Detailed site evaluation to identify and minimize potential risks.",
     icon: ShieldCheck,
-    image: "/images/safety/risk.jpg",
+    image: "/images/rv_hero.png",
     href: "/safety#risk",
   },
   {
     title: "Compliance with\nIndustry Standards",
     text: "We adhere to all safety regulations and industry best practices.",
     icon: BadgeCheck,
-    image: "/images/safety/compliance.jpg",
+    image: "/industries/ind_3.png",
     href: "/safety#compliance",
   },
 ];
@@ -873,11 +872,9 @@ export function Safety() {
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover object-right transition-transform duration-700 group-hover:scale-105"
                 />
-                {/* navy fade from left + bottom so text stays readable */}
                 <div className="absolute inset-0 bg-gradient-to-r from-[#08121F] via-[#08121F]/85 to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#08121F]/90 via-transparent to-[#08121F]/30" />
  
-                {/* gold left accent */}
                 <span
                   aria-hidden="true"
                   className="absolute left-0 top-4 h-[38%] w-[4px] rounded-r"
@@ -959,14 +956,14 @@ export function Clients() {
   );
 }
 
-const Q_GOLD = "#F5A524";
+const Q_GOLD = "#F5B100";
  
 function QField({ label, icon: IconCmp, children }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-[13px] font-semibold text-[#0F1B2B]">{label}</span>
-      <span className="flex h-11 items-center gap-3 rounded-lg border border-slate-200 bg-white px-3.5 transition focus-within:border-[#F5A524] focus-within:ring-2 focus-within:ring-[#F5A524]/20">
-        <IconCmp size={18} strokeWidth={1.6} className="shrink-0 text-slate-500" />
+      <span className="mb-1 block text-[13px] font-semibold text-[#0F1B2B]">{label}</span>
+      <span className="flex h-10 items-center gap-3 rounded-lg border border-slate-200 bg-white px-3.5 transition focus-within:border-[#F5B100] focus-within:ring-2 focus-within:ring-[#F5B100]/20">
+        <IconCmp size={17} strokeWidth={1.5} className="shrink-0 text-slate-600" />
         {children}
       </span>
     </label>
@@ -974,7 +971,7 @@ function QField({ label, icon: IconCmp, children }) {
 }
  
 const qInput =
-  "w-full min-w-0 bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400";
+  "w-full min-w-0 bg-transparent text-[12.5px] text-slate-800 outline-none placeholder:text-slate-400";
  
 export function QuoteSection() {
   const [sent, setSent] = useState(false);
@@ -982,66 +979,66 @@ export function QuoteSection() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget));
+    console.log(data);
     setSent(true);
   };
  
   const contacts = [
-    {
-      icon: Phone,
-      title: "Call Us",
-      lines: [`${company.mobile}  |  ${company.phones[0]}`],
-    },
-    { icon: MailIcon, title: "Email Us", lines: [company.email] },
-    {
-      icon: MapPin,
-      title: "Serving Across India",
-      lines: ["Reliable Lifting Solutions Nationwide"],
-      small: true,
-    },
+    { icon: Phone, title: "Call Us", text: `${company.mobile}  |  ${company.phones[0]}` },
+    { icon: Mail, title: "Email Us", text: company.email },
+    { icon: MapPin, title: "Serving Across India", text: "Reliable Lifting Solutions Nationwide", small: true },
   ];
  
   return (
-    <section id="quote" className="relative isolate overflow-hidden bg-[#0F1B2B] py-12 lg:py-14">
-      {/* ---------- right: crane photo with angled gold backing ---------- */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-y-0 right-0 -z-10 hidden w-[36%] lg:block"
-        style={{
-          background: "linear-gradient(160deg, #D9A93A, #B8862A)",
-          clipPath: "polygon(30% 0, 88% 0, 62% 100%, 0 56%, 8% 40%)",
-          opacity: 0.95,
-        }}
-      />
-      <div
-        className="absolute inset-y-0 right-0 -z-10 hidden w-[30%] lg:block"
-        style={{ clipPath: "polygon(14% 4%, 100% 4%, 100% 100%, 0 90%, 0 20%)" }}
-      >
-        <img
-          src="/images/quote.jpg"
-          alt="Crane lifting a concrete block"
-          className="h-full w-full object-cover object-center"
+    <section
+      id="quote"
+      className="relative isolate overflow-hidden bg-[#0F1B2B] py-10 lg:py-[2.7vw]"
+    >
+      {/* ===== RIGHT ART (lg+): muted gold slab + angled crane photo + gold corner ===== */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[30%] lg:block">
+        {/* gold slab behind the photo */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(180deg, #C9A23F 0%, #B58E2C 100%)",
+            clipPath: "polygon(31.7% 0, 57.7% 0, 46% 15%, 38% 30%, 20% 55%, 9% 39%)",
+          }}
+        />
+        {/* photo */}
+        <div
+          className="absolute inset-0"
+          style={{ clipPath: "polygon(38% 11.5%, 100% 11.5%, 100% 100%, 88.6% 100%, 0% 90.4%)" }}
+        >
+          <img
+            src="/fleets/crawler_crane.png"
+            alt="Crane lifting a concrete block"
+            className="h-full w-full object-cover object-[40%_center]"
+          />
+        </div>
+        {/* bright gold corner, bottom right */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background: Q_GOLD,
+            clipPath: "polygon(100% 77%, 100% 100%, 88.6% 100%)",
+          }}
         />
       </div>
-      {/* gold corner, bottom right */}
-      <div
-        aria-hidden="true"
-        className="absolute bottom-0 right-0 -z-10 hidden h-24 w-20 lg:block"
-        style={{ background: Q_GOLD, clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
-      />
  
-      <div className="mx-auto grid w-[92%] max-w-[1500px] items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.9fr)_minmax(0,0.6fr)] lg:gap-12">
-        {/* ---------- left: form card ---------- */}
+      <div className="relative grid gap-10 px-[4.8%] lg:grid-cols-[39.6%_minmax(0,1fr)] lg:items-center lg:gap-[3.9%] lg:pr-0">
         <Reveal>
-          <div className="rounded-2xl bg-[#FBFBFC] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.4)] sm:p-8">
-            <span className="block h-[4px] w-14 rounded-full" style={{ background: Q_GOLD }} />
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-[#0F1B2B]">
+          <div className="rounded-2xl bg-[#FBFBFC] px-6 py-6 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:px-8 lg:px-[2.3%] lg:py-[1.8%]">
+            <span className="block h-[4px] w-[52px] rounded-full" style={{ background: Q_GOLD }} />
+            <h2 className="mt-2.5 text-[28px] font-extrabold leading-tight tracking-tight text-[#0F1B2B] sm:text-[32px]">
               Request a <span style={{ color: Q_GOLD }}>Quote</span>
             </h2>
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-0.5 text-[13.5px] text-slate-500">
               Fill in your details and our team will get back to you shortly.
             </p>
  
-            <form onSubmit={handleSubmit} className="mt-6 grid gap-x-5 gap-y-4 sm:grid-cols-2">
+            <form onSubmit={handleSubmit} className="mt-4 grid gap-x-[5%] gap-y-3 sm:grid-cols-2">
               <QField label="Full Name *" icon={User}>
                 <input name="name" required placeholder="Enter your full name" className={qInput} />
               </QField>
@@ -1058,19 +1055,19 @@ export function QuoteSection() {
                 <input name="location" placeholder="Enter project location" className={qInput} />
               </QField>
               <QField label="Equipment Required" icon={Anchor}>
-                <select name="equipment" defaultValue="" className={`${qInput} cursor-pointer appearance-none`}>
+                <select name="equipment" defaultValue="" className={`${qInput} cursor-pointer appearance-none text-slate-600`}>
                   <option value="" disabled>Select equipment</option>
                   {fleetGroups.map((f) => (
                     <option key={f.name} value={f.name}>{f.name}</option>
                   ))}
                 </select>
-                <ChevronDown size={16} className="shrink-0 text-slate-700" />
+                <ChevronDown size={16} strokeWidth={2.2} className="shrink-0 text-slate-900" />
               </QField>
  
               <label className="block sm:col-span-2">
-                <span className="mb-1.5 block text-[13px] font-semibold text-[#0F1B2B]">Project Details</span>
-                <span className="flex gap-3 rounded-lg border border-slate-200 bg-white px-3.5 py-3 transition focus-within:border-[#F5A524] focus-within:ring-2 focus-within:ring-[#F5A524]/20">
-                  <FileText size={18} strokeWidth={1.6} className="mt-0.5 shrink-0 text-slate-500" />
+                <span className="mb-1 block text-[13px] font-semibold text-[#0F1B2B]">Project Details</span>
+                <span className="flex gap-3 rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 transition focus-within:border-[#F5B100] focus-within:ring-2 focus-within:ring-[#F5B100]/20">
+                  <FileText size={17} strokeWidth={1.5} className="mt-0.5 shrink-0 text-slate-600" />
                   <textarea
                     name="details"
                     rows={2}
@@ -1083,78 +1080,70 @@ export function QuoteSection() {
               <div className="sm:col-span-2">
                 <button
                   type="submit"
-                  className="group/btn inline-flex items-center gap-3 rounded-lg px-8 py-3.5 text-[15px] font-bold text-[#0F1B2B] shadow-[0_10px_24px_-10px_rgba(245,165,36,0.9)] transition hover:-translate-y-0.5 hover:brightness-105"
+                  className="group/btn inline-flex items-center gap-3 rounded-lg px-8 py-3 text-[15px] font-bold text-[#0F1B2B] transition hover:-translate-y-0.5 hover:brightness-105"
                   style={{ background: Q_GOLD }}
                 >
                   Submit Request
-                  <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
+                  <ArrowRight size={18} strokeWidth={2.2} className="transition-transform group-hover/btn:translate-x-1" />
                 </button>
                 {sent && (
-                  <p className="mt-3 text-sm font-medium text-emerald-600">
-                    Thanks! Our team will contact you shortly.
-                  </p>
+                  <span className="ml-4 text-sm font-medium text-emerald-600">
+                    Thanks! We&apos;ll contact you shortly.
+                  </span>
                 )}
               </div>
             </form>
           </div>
         </Reveal>
  
-        {/* ---------- middle: copy + contacts ---------- */}
         <Reveal x={30} y={0}>
-          <div>
-            <div className="flex items-center gap-3 border-l-[3px] pl-4" style={{ borderColor: Q_GOLD }}>
-              <span className="text-xs font-semibold uppercase tracking-[0.25em]" style={{ color: Q_GOLD }}>
+          <div className="lg:max-w-[460px]">
+            <div className="flex items-center border-l-[3px] pl-4" style={{ borderColor: Q_GOLD }}>
+              <span
+                className="py-1 text-xs font-semibold uppercase tracking-[0.22em]"
+                style={{ color: Q_GOLD }}
+              >
                 Get in Touch
               </span>
             </div>
  
-            <h2 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl">
+            <h2 className="mt-5 text-[clamp(2.2rem,3.9vw,4rem)] font-extrabold leading-[1.08] tracking-tight text-white">
               Let&apos;s Lift Your
               <br />
               Next <span style={{ color: Q_GOLD }}>Project</span>
             </h2>
  
-            <p className="mt-5 max-w-md text-base leading-relaxed text-slate-300">
+            <p className="mt-4 max-w-[440px] text-[15px] leading-relaxed text-slate-300">
               Share your requirements and our team will get back to you with the best solution.
             </p>
  
-            <ul className="mt-7 space-y-4">
+            <ul className="mt-6 space-y-3.5">
               {contacts.map((c) => (
                 <li key={c.title} className="flex items-center gap-4">
                   <span
-                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/[0.06]"
+                    className="flex h-[58px] w-[58px] shrink-0 items-center justify-center rounded-full bg-[#1A2738]"
                     style={{ color: Q_GOLD }}
                   >
-                    <c.icon size={24} strokeWidth={1.6} />
+                    <c.icon size={25} strokeWidth={1.6} />
                   </span>
-                  <span className="h-10 w-px" style={{ background: Q_GOLD, opacity: 0.7 }} />
-                  <div>
-                    <p className="text-[15px] font-semibold text-white">{c.title}</p>
-                    {c.lines.map((l) => (
-                      <p key={l} className={`${c.small ? "text-[13px]" : "text-base"} text-slate-300`}>
-                        {l}
-                      </p>
-                    ))}
+                  <span className="h-11 w-[2px]" style={{ background: Q_GOLD, opacity: 0.75 }} />
+                  <div className="min-w-0">
+                    <p className="text-[15.5px] font-semibold leading-tight text-white">{c.title}</p>
+                    <p className={`mt-0.5 leading-snug text-slate-200 ${c.small ? "text-[13px]" : "text-[15.5px]"}`}>
+                      {c.text}
+                    </p>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
         </Reveal>
- 
-        {/* spacer column: the photo is positioned absolutely on lg+ */}
-        <div className="hidden lg:block" />
       </div>
  
-      {/* mobile photo */}
-      <div className="mx-auto mt-10 w-[92%] overflow-hidden rounded-2xl lg:hidden">
-        <img
-          src="/images/quote.jpg"
-          alt="Crane lifting a concrete block"
-          className="h-56 w-full object-cover"
-        />
+      <div className="mx-[4.8%] mt-10 overflow-hidden rounded-2xl lg:hidden">
+        <img src="/fleets/crawler_crane.png" alt="Crane lifting a concrete block" className="h-56 w-full object-cover" />
       </div>
     </section>
   );
 }
-
+ 
