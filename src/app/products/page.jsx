@@ -17,11 +17,7 @@ export default function Projects() {
             <table className="w-full min-w-[640px] text-left text-sm">
               <thead className="bg-navy text-white"><tr>{["#", "Equipment", "Make", "Capacity", "Units"].map((h) => <th key={h} className="px-4 py-3 font-semibold">{h}</th>)}</tr></thead>
               <tbody>
-                {fleetTable.map((r, i) => (
-                  <tr key={i} className="border-t border-slate-100 transition hover:bg-brand-light">
-                    <td className="px-4 py-3">{i + 1}</td><td className="px-4 py-3 font-medium text-navy">{r[0]}</td><td className="px-4 py-3">{r[1]}</td><td className="px-4 py-3">{r[2]}</td><td className="px-4 py-3 font-semibold">{r[3]}</td>
-                  </tr>
-                ))}
+                
               </tbody>
             </table>
           </div>
