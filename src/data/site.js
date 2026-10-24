@@ -143,3 +143,11 @@ export const fleetGroups = [
   { name: "Self Loading Mixtures", make: "AJAX / SCHWING", capacity: "2–4 cum", image_file: "self_loading.png" },
 ];
 
+export const contact = {
+  phone: "+91 7629827285",
+  phoneHref: "+91 7629827285",
+  email: "info.siscosteel@gmail.com",
+  whatsapp: "+917629827285",
+  whatsappText: "Hello, I would like a quote for storage racks.",
+  hours: "Mon to Sat, 8am to 6pm"
+}

@@ -19,7 +19,7 @@ export default function Hero() {
   initial={{ opacity: 0, scale: 1.08 }}
   animate={{ opacity: 1, scale: 1 }}
   transition={{ duration: 1.4, ease: "easeOut" }}
-  className="absolute bottom-0 right-0 top-16 w-full overflow-hidden lg:w-[62%]"
+  className="absolute bottom-0 right-0 w-full overflow-hidden lg:w-[62%]"
 >
   <img
     src="/images/rv_hero.png"
@@ -27,7 +27,6 @@ export default function Hero() {
     className="h-full w-full animate-kenburns object-cover object-right"
   />
 </motion.div>
-{/* hero content */}
 <div className="relative mx-auto grid w-[92%] max-w-[1400px] items-center gap-8 pb-16 lg:w-[90%] lg:grid-cols-2">
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.p

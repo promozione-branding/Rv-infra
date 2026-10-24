@@ -40,13 +40,11 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
       style={scrolled ? GREY_SCROLLED : GREY_TOP}
-      className={`fixed inset-x-0 top-0 z-50 border-b border-slate-400/40 transition-[padding] duration-300 ${
-        scrolled ? "py-2 backdrop-blur-md" : "py-4"
-      }`}
+      className={`sticky top-0 z-50 border-b border-slate-400/40 transition-[padding] duration-300 ${
+  scrolled ? "py-2 backdrop-blur-md" : "py-4"
+}`}
     >
-      {/* shiny sweep: a soft diagonal glint that glides across every few seconds */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* static glossy top half */}
         <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/50 to-transparent" />
         <motion.div
           className="absolute -inset-y-2 w-40 -skew-x-[25deg] bg-gradient-to-r from-transparent via-white/70 to-transparent"
