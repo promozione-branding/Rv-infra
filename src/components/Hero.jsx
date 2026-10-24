@@ -58,6 +58,8 @@ const slides = [
 
 const SLIDE_INTERVAL = 6000;
 
+const PANEL_CLIP = "lg:[clip-path:polygon(0_0,100%_0,82%_100%,0_100%)]";
+
 const container = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
@@ -96,7 +98,6 @@ export default function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Full-width background images (cross-fade) */}
       <div className="absolute inset-0">
         <AnimatePresence mode="sync">
           <motion.div
@@ -115,11 +116,26 @@ export default function Hero() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Left side stays see-through: soft gradient only for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/70 via-navy/25 to-transparent" />
+        <div
+          aria-hidden
+          className={`absolute inset-y-0 left-0 hidden w-[44%] bg-brand ${PANEL_CLIP} lg:block`}
+        />
+        <div
+          aria-hidden
+          className={`absolute inset-y-0 left-0 w-full bg-gradient-to-br from-navy/95 via-navy/90 to-navy/80 lg:w-[42%] ${PANEL_CLIP}`}
+        >
+          <div
+            className="absolute inset-0 opacity-[0.08]"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, #fff 1px, transparent 1px)",
+              backgroundSize: "18px 18px",
+            }}
+          />
+          <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand/20 blur-3xl" />
+        </div>
       </div>
 
-      {/* Text content (transparent background) */}
       <div className="relative z-10 mx-auto flex min-h-[360px] w-[92%] max-w-[1400px] items-center pb-16 pt-6 lg:min-h-[440px] lg:pb-20 lg:w-[90%]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -174,13 +190,6 @@ export default function Hero() {
 
       {/* Slider controls */}
       <div className="absolute bottom-20 left-1/2 z-20 flex -translate-x-1/2 items-center gap-4 lg:bottom-[5.5rem]">
-        <button
-          onClick={prev}
-          aria-label="Previous slide"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 text-white transition hover:border-brand hover:text-brand"
-        >
-          <ChevronLeft size={18} />
-        </button>
         <div className="flex items-center gap-2">
           {slides.map((_, i) => (
             <button
@@ -193,13 +202,6 @@ export default function Hero() {
             />
           ))}
         </div>
-        <button
-          onClick={next}
-          aria-label="Next slide"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 text-white transition hover:border-brand hover:text-brand"
-        >
-          <ChevronRight size={18} />
-        </button>
       </div>
 
       {/* Stats bar */}
