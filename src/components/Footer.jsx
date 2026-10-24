@@ -3,9 +3,17 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import Logo from "./Logo";
 import { company, navLinks, services } from "@/data/site";
 
+const GREY_TOP = {
+  background:
+    "linear-gradient(180deg, #f7f8fa 0%, #e3e5e9 38%, #cfd2d8 70%, #bfc3ca 100%)",
+  boxShadow:
+    "inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.08)",
+};
+
+
 export default function Footer() {
   return (
-    <footer className="bg-yellow-50 text-gray-700 border-t border-yellow-100">
+    <footer style={GREY_TOP}>
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Logo />
@@ -65,10 +73,21 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-yellow-100 py-5 text-center text-xs text-gray-500">
-        © {new Date().getFullYear()} {company.name} All Rights Reserved. CIN{" "}
-        {company.cin} · GSTIN {company.gstin}
-      </div>
+ <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 max-[600px]:flex-col max-[600px]:items-start bg-navy px-4 py-4 text-white">
+  <small>
+    © {new Date().getFullYear()}. All rights reserved.
+  </small>
+
+  <small>
+    Website Designed By 
+    <a
+      href="https://inquirybazaar.com/"
+      className="font-medium underline-offset-4 transition-colors hover:underline"
+    >
+     {""} Inquiry Bazaar Pvt. Ltd.
+    </a>
+  </small>
+</div>
     </footer>
   );
 }

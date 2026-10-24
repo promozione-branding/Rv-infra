@@ -15,11 +15,11 @@ const item = {
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-navy via-navy-800 to-[#3a2a0c] pt-8">
-     <motion.div
+    <motion.div
   initial={{ opacity: 0, scale: 1.08 }}
   animate={{ opacity: 1, scale: 1 }}
   transition={{ duration: 1.4, ease: "easeOut" }}
-  className="absolute bottom-0 right-0 w-full overflow-hidden lg:w-[62%]"
+  className="absolute inset-y-0 right-0 w-full overflow-hidden lg:w-[62%]"
 >
   <img
     src="/images/rv_hero.png"

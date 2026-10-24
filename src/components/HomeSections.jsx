@@ -384,55 +384,83 @@ export function EquipmentSuppliers() {
   const [ref, seen] = useInView();
 
   return (
-    <section className="relative overflow-hidden bg-[#acb1b7] py-12 md:py-14">
+    <section className="relative isolate overflow-hidden bg-[#071626] py-12 md:py-14">
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-          maskImage: "radial-gradient(ellipse at center, #000 30%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(ellipse at center, #000 30%, transparent 75%)",
+            "url('/suppliers.png')",
         }}
+        aria-hidden="true"
       />
-      {/* glowing orbs */}
-      <div className="pointer-events-none absolute -left-24 top-0 h-56 w-56 animate-pulse rounded-full" />
 
-      <div className="relative">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(4,18,33,0.94) 0%, rgba(5,20,36,0.78) 48%, rgba(5,17,29,0.50) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          maskImage:
+            "linear-gradient(to bottom, black, transparent 95%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black, transparent 95%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <div
+        className="pointer-events-none absolute -left-24 top-0 h-64 w-64 rounded-full bg-brand/10 blur-3xl"
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10">
         <div
           ref={ref}
-          className={`flex flex-col items-start justify-between gap-4 transition-all duration-700 md:flex-row md:items-center ${
-            seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          className={`flex flex-col items-start justify-between gap-5 transition-all duration-700 md:flex-row md:items-center ${
+            seen
+              ? "translate-y-0 opacity-100"
+              : "translate-y-6 opacity-0"
           }`}
         >
-          <div className="max-w-xl ml-8">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-white/70">
+          <div className="ml-5 max-w-xl md:ml-8">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
               </span>
               Our Equipment Partners
             </span>
-            <h2 className="mt-3 text-2xl font-bold leading-tight text-white md:text-4xl">
+
+            <h2 className="mt-4 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
               Equipment sourced from{" "}
-              <span className="bg-gradient-to-r from-brand to-white bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand via-amber-300 to-white bg-clip-text text-transparent">
                 trusted suppliers
               </span>
             </h2>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-white/5 px-6 py-3 backdrop-blur mr-8">
-            <p className="text-3xl font-extrabold text-white md:text-4xl">
+          <div className="mr-5 rounded-2xl border border-white/15 bg-white/[0.08] px-6 py-3 backdrop-blur-lg md:mr-8">
+            <p className="text-3xl font-extrabold leading-none text-white md:text-4xl">
               <CountUp to={eqsupplier.length} />
               <span className="text-brand">+</span>
             </p>
-            <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-white/50">
+
+            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/65">
               Supplier partners
             </p>
           </div>
         </div>
 
-        <div className="mt-8 -mx-4 space-y-1 md:-mx-0">
+        <div className="relative mt-8 space-y-3 md:mt-10">
           <MarqueeRow items={rows[0]} duration={70} />
           <MarqueeRow items={rows[1]} duration={85} reverse />
         </div>
@@ -716,7 +744,6 @@ export function ProjectCards({ list = projects, limit }) {
             <ImageSlot src={p.image} alt={p.title} icon={p.icon} className="h-60" />
             <div className="p-4">
               <h3 className="text-sm font-semibold text-navy">{p.title}</h3>
-              <p className="mt-1 flex items-center gap-1 text-xs text-brand-dark"><Icon name="MapPin" size={12} />{p.place}</p>
               <p className="mt-2 text-xs text-slate-500">{p.text}</p>
             </div>
           </motion.div>
