@@ -11,10 +11,10 @@ import {
   Settings,
   HardHat,
 } from "lucide-react";
-import Reveal from  "@/components/Reveal";
+import Reveal from "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import { fleetGroups } from "@/data/site";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const IMAGE_BASE = "/fleets";
 const GOLD = "#E8A317";
@@ -32,14 +32,24 @@ const badges = [
 export function Fleet() {
   const [page, setPage] = useState(0);
   const pages = Math.max(1, Math.ceil(fleetGroups.length / PER_PAGE));
-  const goTo = (p) => setPage(Math.min(Math.max(p, 0), pages - 1));
+
+  // Always loop in both directions
+  const goTo = useCallback(
+    (p: number) => {
+      setPage(((p % pages) + pages) % pages);
+    },
+    [pages]
+  );
 
   const [paused, setPaused] = useState(false);
+
   useEffect(() => {
     if (paused || pages < 2) return;
-    const id = setInterval(() => setPage((p) => (p + 1) % pages), 10000);
+    const id = setInterval(() => {
+      setPage((p) => (p + 1) % pages);
+    }, 10000);
     return () => clearInterval(id);
-  }, [paused, pages, page]);
+  }, [paused, pages]);
 
   return (
     <section id="fleet" className="relative scroll-mt-20 overflow-hidden bg-white">
@@ -131,8 +141,7 @@ export function Fleet() {
           <button
             aria-label="Previous"
             onClick={() => goTo(page - 1)}
-            disabled={page === 0}
-            className="absolute -left-14 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-transparent text-white transition hover:bg-white/10 disabled:opacity-40 xl:flex"
+            className="absolute -left-14 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-transparent text-white transition hover:bg-white/10 xl:flex"
           >
             <ArrowLeft size={18} />
           </button>
@@ -140,8 +149,7 @@ export function Fleet() {
           <button
             aria-label="Next"
             onClick={() => goTo(page + 1)}
-            disabled={page === pages - 1}
-            className="absolute -right-14 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-navy shadow-lg transition hover:scale-105 disabled:opacity-40 xl:flex"
+            className="absolute -right-14 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-navy shadow-lg transition hover:scale-105 xl:flex"
             style={{ background: GOLD }}
           >
             <ArrowRight size={18} />
@@ -149,19 +157,17 @@ export function Fleet() {
 
           <div className="overflow-hidden pb-10 pt-8">
             <motion.div
-              animate={{ x: `-${page * 100}%` }}
+              key={page}
+              initial={{ x: "100%" }}
+              animate={{ x: "0%" }}
+              exit={{ x: "-100%" }}
               transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
               className="flex"
             >
-              {Array.from({ length: pages }).map((_, p) => (
-                <div
-                  key={p}
-                  aria-hidden={p !== page}
-                  className={`grid w-full shrink-0 gap-12 px-12 transition-opacity duration-500 sm:grid-cols-2 lg:grid-cols-3 ${
-                    p === page ? "opacity-100" : "pointer-events-none opacity-0"
-                  }`}
-                >
-                  {fleetGroups.slice(p * PER_PAGE, p * PER_PAGE + PER_PAGE).map((f) => (
+              <div className="grid w-full shrink-0 gap-12 px-12 sm:grid-cols-2 lg:grid-cols-3">
+                {fleetGroups
+                  .slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE)
+                  .map((f) => (
                     <div key={f.name} className="group relative h-[340px]">
                       <div
                         aria-hidden
@@ -197,7 +203,10 @@ export function Fleet() {
                           className="absolute bottom-[31%] left-6 right-6 text-white"
                           style={{ transform: UNTILT }}
                         >
-                          <span className="mb-1.5 block h-[3px] w-9" style={{ background: GOLD }} />
+                          <span
+                            className="mb-1.5 block h-[3px] w-9"
+                            style={{ background: GOLD }}
+                          />
                           <h3 className="text-[22px] font-extrabold leading-tight tracking-tight drop-shadow-sm">
                             {f.name}
                           </h3>
@@ -247,8 +256,7 @@ export function Fleet() {
                       </article>
                     </div>
                   ))}
-                </div>
-              ))}
+              </div>
             </motion.div>
           </div>
 
@@ -259,7 +267,9 @@ export function Fleet() {
                 aria-label={`Go to page ${p + 1}`}
                 onClick={() => goTo(p)}
                 className="h-1 w-16 rounded-full transition-colors"
-                style={{ background: p === page ? GOLD : "rgba(255,255,255,0.3)" }}
+                style={{
+                  background: p === page ? GOLD : "rgba(255,255,255,0.3)",
+                }}
               />
             ))}
           </div>
