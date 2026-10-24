@@ -35,7 +35,7 @@ export function Fleet() {
 
   // Always loop in both directions
   const goTo = useCallback(
-    (p: number) => {
+    (p) => {
       setPage(((p % pages) + pages) % pages);
     },
     [pages]
