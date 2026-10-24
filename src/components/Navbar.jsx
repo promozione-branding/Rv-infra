@@ -70,7 +70,7 @@ export default function Navbar() {
                 key={l.label}
                 href={l.href}
                 className={`group relative text-sm font-semibold transition ${
-                  active ? "text-brand" : "text-slate-800 hover:text-[#7f0d1a]"
+                  active ? "text-[#7f0b18]" : "text-slate-800 hover:text-[#7f0d1a]"
                 }`}
               >
                 {l.label}
@@ -84,7 +84,7 @@ export default function Navbar() {
           })}
         </nav>
 
-        <Link href="/contact" className="btn-primary hidden !py-2.5 lg:inline-flex">
+        <Link href="/contact" className="btn-primary hidden !py-2.5 lg:inline-flex bg-[#7f0b18] text-white">
           Get a Quote <ArrowRight size={14} />
         </Link>
 

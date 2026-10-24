@@ -1,17 +1,20 @@
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
-import { ProjectCards, Clients } from "@/components/HomeSections";
-import { fleetTable } from "@/data/site";
+import ProductsExplorer from "@/components/products/ProductsExplorer";
 
-export const metadata = { title: "Projects & Fleet | R.V. Infrastructural Pvt. Ltd." };
+export const metadata = { title: "Products & Equipment | R.V. Infrastructural Pvt. Ltd." };
 
-export default function Projects() {
+export default function Products() {
   return (
     <>
-      <PageHeader eyebrow="Our Products" title="Best Products all over India" text="Equipment and manpower supplied to leading infrastructure, industrial and construction companies." />
-      <section className="container-x py-16"><ProjectCards /></section>
-   
-      
+      <PageHeader
+        eyebrow="Our Products"
+        crumb="Products"
+        title="Best Products all over India"
+        highlight="Products"
+        text="Cranes, piling rigs, concrete equipment and earthmovers, supplied with skilled operators to leading infrastructure and industrial companies."
+        lottieSrc="/Building_Construction.json"
+      />
+      <ProductsExplorer />
     </>
   );
 }
