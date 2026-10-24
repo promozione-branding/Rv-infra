@@ -1,4 +1,4 @@
-import Reveal from  "@/components/SectionHeading";
+import Reveal from  "@/components/Reveal";
 export default function SectionHeading({ eyebrow, title, text, dark = false, children }) {
   return (
     <Reveal className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">

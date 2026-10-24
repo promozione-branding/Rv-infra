@@ -1,5 +1,5 @@
 "use client";
-import Reveal from  "@/components/SectionHeading";
+import Reveal from  "@/components/Reveal";
 import Icon from "@/components/Icon";
 import ImageSlot from "@/components/ImageSlot";
 import SectionHeading from "@/components/SectionHeading";

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import Reveal from  "@/components/SectionHeading";
+import Reveal from  "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import { services } from "@/data/site";
 

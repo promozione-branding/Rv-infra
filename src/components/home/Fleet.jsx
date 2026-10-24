@@ -11,7 +11,7 @@ import {
   Settings,
   HardHat,
 } from "lucide-react";
-import Reveal from  "@/components/SectionHeading";
+import Reveal from  "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import { fleetGroups } from "@/data/site";
 import { useEffect, useState } from "react";

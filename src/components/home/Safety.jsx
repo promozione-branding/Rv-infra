@@ -8,7 +8,7 @@ import {
   ShieldCheck,
   BadgeCheck,
 } from "lucide-react";
-import Reveal from  "@/components/SectionHeading";
+import Reveal from  "@/components/Reveal";
 
 const SAFETY_GOLD = "#F5A524";
 

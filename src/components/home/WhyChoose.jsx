@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Construction, HardHat, Users } from "lucide-react";
-import Reveal from  "@/components/SectionHeading";
+import Reveal from  "@/components/Reveal";
 import Icon from "@/components/Icon";
 import ImageSlot from "@/components/ImageSlot";
 import { whyChoose } from "@/data/site";

@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import Reveal from  "@/components/SectionHeading";
+import Reveal from  "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import { projects } from "@/data/site";
 

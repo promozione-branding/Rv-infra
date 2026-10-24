@@ -11,7 +11,7 @@ import {
   FileText,
   ArrowRight,
 } from "lucide-react";
-import Reveal from  "@/components/SectionHeading";
+import Reveal from  "@/components/Reveal";
 import { fleetGroups, company } from "@/data/site";
 
 const Q_GOLD = "#F5B100";
