@@ -14,7 +14,7 @@ const item = {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-navy via-navy-800 to-[#3a2a0c] pt-28">
+    <section className="relative overflow-hidden bg-gradient-to-br from-navy via-navy-800 to-[#3a2a0c] pt-8">
      <motion.div
   initial={{ opacity: 0, scale: 1.08 }}
   animate={{ opacity: 1, scale: 1 }}
