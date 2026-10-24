@@ -14,7 +14,7 @@ import {
 import Reveal from "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import { fleetGroups } from "@/data/site";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 
 const IMAGE_BASE = "/fleets";
 const GOLD = "#E8A317";
@@ -22,6 +22,7 @@ const SKEW = "-6deg";
 const ROT = "-2deg";
 const UNTILT = "rotate(2deg) skewX(6deg)";
 const PER_PAGE = 3;
+const DURATION = 0.7;
 
 const badges = [
   { icon: Settings, label: "Latest\nMachinery" },
@@ -30,26 +31,76 @@ const badges = [
 ];
 
 export function Fleet() {
-  const [page, setPage] = useState(0);
   const pages = Math.max(1, Math.ceil(fleetGroups.length / PER_PAGE));
 
-  // Always loop in both directions
-  const goTo = useCallback(
-    (p) => {
-      setPage(((p % pages) + pages) % pages);
-    },
+  const chunks = useMemo(
+    () =>
+      Array.from({ length: pages }, (_, p) =>
+        fleetGroups.slice(p * PER_PAGE, p * PER_PAGE + PER_PAGE)
+      ),
     [pages]
   );
 
+  const slides = pages > 1 ? [...chunks, chunks[0]] : chunks;
+
+  const [index, setIndex] = useState(0);
+  const [instant, setInstant] = useState(false);
   const [paused, setPaused] = useState(false);
+  const busy = useRef(false);
+  const pending = useRef(null);
+
+  const page = index % pages;
+
+  const next = useCallback(() => {
+    if (busy.current || pages < 2) return;
+    busy.current = true;
+    setInstant(false);
+    setIndex((i) => i + 1);
+  }, [pages]);
+
+  const prev = useCallback(() => {
+    if (busy.current || pages < 2) return;
+    busy.current = true;
+    if (index === 0) {
+      pending.current = "back";
+      setInstant(true);
+      setIndex(pages);
+    } else {
+      setInstant(false);
+      setIndex(index - 1);
+    }
+  }, [pages, index]);
+
+  const goTo = useCallback(
+    (p) => {
+      if (busy.current || pages < 2 || p === index % pages) return;
+      busy.current = true;
+      setInstant(false);
+      setIndex(p);
+    },
+    [pages, index]
+  );
+
+  const handleComplete = () => {
+    if (pending.current === "back") {
+      pending.current = null;
+      setInstant(false);
+      setIndex(pages - 1);
+      return;
+    }
+    if (index >= pages) {
+      setInstant(true);
+      setIndex(0);
+      return;
+    }
+    busy.current = false;
+  };
 
   useEffect(() => {
     if (paused || pages < 2) return;
-    const id = setInterval(() => {
-      setPage((p) => (p + 1) % pages);
-    }, 10000);
+    const id = setInterval(next, 2000);
     return () => clearInterval(id);
-  }, [paused, pages]);
+  }, [paused, pages, next]);
 
   return (
     <section id="fleet" className="relative scroll-mt-20 overflow-hidden bg-white">
@@ -140,7 +191,7 @@ export function Fleet() {
         >
           <button
             aria-label="Previous"
-            onClick={() => goTo(page - 1)}
+            onClick={prev}
             className="absolute -left-14 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-transparent text-white transition hover:bg-white/10 xl:flex"
           >
             <ArrowLeft size={18} />
@@ -148,7 +199,7 @@ export function Fleet() {
 
           <button
             aria-label="Next"
-            onClick={() => goTo(page + 1)}
+            onClick={next}
             className="absolute -right-14 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-navy shadow-lg transition hover:scale-105 xl:flex"
             style={{ background: GOLD }}
           >
@@ -157,17 +208,22 @@ export function Fleet() {
 
           <div className="overflow-hidden pb-10 pt-8">
             <motion.div
-              key={page}
-              initial={{ x: "100%" }}
-              animate={{ x: "0%" }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
               className="flex"
+              initial={false}
+              animate={{ x: `-${index * 100}%` }}
+              transition={
+                instant
+                  ? { duration: 0 }
+                  : { duration: DURATION, ease: [0.65, 0, 0.35, 1] }
+              }
+              onAnimationComplete={handleComplete}
             >
-              <div className="grid w-full shrink-0 gap-12 px-12 sm:grid-cols-2 lg:grid-cols-3">
-                {fleetGroups
-                  .slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE)
-                  .map((f) => (
+              {slides.map((group, s) => (
+                <div
+                  key={s}
+                  className="grid w-full shrink-0 content-start gap-12 px-12 sm:grid-cols-2 lg:grid-cols-3"
+                >
+                  {group.map((f) => (
                     <div key={f.name} className="group relative h-[340px]">
                       <div
                         aria-hidden
@@ -256,7 +312,8 @@ export function Fleet() {
                       </article>
                     </div>
                   ))}
-              </div>
+                </div>
+              ))}
             </motion.div>
           </div>
 

@@ -70,7 +70,7 @@ export default function Navbar() {
                 key={l.label}
                 href={l.href}
                 className={`group relative text-sm font-semibold transition ${
-                  active ? "text-brand" : "text-slate-800 hover:text-brand"
+                  active ? "text-brand" : "text-slate-800 hover:text-[#7f0d1a]"
                 }`}
               >
                 {l.label}

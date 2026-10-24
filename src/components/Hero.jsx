@@ -31,7 +31,7 @@ const slides = [
     secondary: { label: "View Our Work", href: "/projects" },
   },
   {
-    image: "/rv_hero_2.png",
+    image: "/rv_hero2.png",
     alt: "Heavy-duty crane at an industrial plant site",
     eyebrow: "Plant erection & industrial projects",
     titleTop: "HEAVY LIFTING",
