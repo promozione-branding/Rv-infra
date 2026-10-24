@@ -5,7 +5,10 @@ export const company = {
   tagline: "Construction Equipments & Readymix Concrete",
   phones: ["011-45570007", "011-27353368"],
   mobile: "9811017313",
+  mobiles: ["9811017313", "9911017313", "9811171313"],
   email: "rvpariwar@yahoo.com",
+  mdEmail: "suchitaggarwal@yahoo.com",
+  website: "www.srirvparivar.com",
   regOffice: "411, GD-ITL Northex Tower, A-9, Netaji Subhash Place, Pitampura, Delhi - 110034",
   workshop: "Behind Bharat Petroleum, Adj. Carnival Banquet Hall, GT Karnal Road, Delhi",
   cin: "U45203DL1999PTC099057",
@@ -13,6 +16,7 @@ export const company = {
   pan: "AABCR0548Q",
   iso: "ISO 9001:2008",
   directors: ["Mr. Suchit Aggarwal", "Mrs. Apurva Aggarwal"],
+  md: "Mr. Suchit Aggarwal",
   incorporated: "March 1999",
   turnover: "Rs. 27.21 Crores",
   target: "Rs. 30 Crores",
@@ -20,7 +24,6 @@ export const company = {
 
 export const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Products", href: "/products" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/#services" },
   { label: "Projects", href: "/projects" },
@@ -28,8 +31,8 @@ export const navLinks = [
 ];
 
 export const stats = [
-  { value: 27, suffix: "+", label: "Years of Experience", note: "Since 1999" },
-  { value: 134, suffix: "", label: "Equipment Units", note: "In our fleet" },
+  { value: 25, suffix: "+", label: "Years of Experience", note: "Since 1999" },
+  { value: 100, suffix: "+", label: "Equipment Units", note: "In our fleet" },
   { value: 45, suffix: "+", label: "Esteemed Clients", note: "Across India" },
   { value: 27.21, decimals: 2, prefix: "₹", suffix: " Cr", label: "FY 2025-26 Turnover", note: "Year ended Mar 2026" },
 ];
@@ -62,10 +65,10 @@ export const whyChoose = [
 ];
 
 export const projects = [
-  { title: "Highway & Road Works", image: "/industries/ind_1.png", place: "", icon: "Route", text: "Motor graders, soil compactors and tandem rollers supplied for road and earthwork packages." },
-  { title: "Bridge & Metro Construction", image: "/industries/ind_2.png", place: "", icon: "Construction", text: "Crawler cranes and boom lifts supporting heavy girder and structural erection." },
-  { title: "Industrial Plant Erection", image: "/industries/ind_3.png", place: "", icon: "Factory", text: "Plant erection with experienced staff and 20 to 150 Ton cranes for refineries and plants." },
-  { title: "Piling & Ground Engineering", image: "/industries/ind_4.png", place: "", icon: "Layers", text: "SANY rigs and hydraulic grabs working on foundation and diaphragm wall projects." },
+  { title: "Highway & Road Works", image: "/industries/ind_1.png", place: "Pan India", icon: "Route", text: "Motor graders, soil compactors and tandem rollers supplied for road and earthwork packages." },
+  { title: "Bridge & Metro Construction", image: "/industries/ind_2.png", place: "Pan India", icon: "Construction", text: "Crawler cranes and boom lifts supporting heavy girder and structural erection." },
+  { title: "Industrial Plant Erection", image: "/industries/ind_3.png", place: "Pan India", icon: "Factory", text: "Plant erection with experienced staff and 20 to 150 Ton cranes for refineries and plants." },
+  { title: "Piling & Ground Engineering", image: "/industries/ind_4.png", place: "Pan India", icon: "Layers", text: "SANY rigs and hydraulic grabs working on foundation and diaphragm wall projects." },
 ];
 
 export const safety = [
@@ -120,35 +123,86 @@ export const eqsupplier = [
 
 export const clients = [
   { name: "Reliance", logo: "/clients/reliance.png" },
-  { name: "Tata", logo: "/clients/tata.png" },
+  { name: "Tata Projects", logo: "/clients/tata.png" },
   { name: "Keller", logo: "/clients/keller.png" },
-  { name: "LT", logo: "/clients/lt.png" },
+  { name: "L&T", logo: "/clients/lt.png" },
   { name: "Afcons", logo: "/clients/afcons.png" },
-  { name: "DMRC", logo: "/clients/dmc.png" },
   { name: "Adani", logo: "/clients/adani.png" },
-  { name: "DMRC", logo: "/clients/dmc.png" },
   { name: "JSW", logo: "/clients/jsw.png" },
 ];
 
-
+// Categories shown in Fleet section (cards + slider)
 export const fleetGroups = [
-  { name: "Boom Lifts", make: "XCMG", capacity: "131–141 feet", image_file: "boom_lifts.png" },
-  { name: "Truck Mount Cranes", make: "XCMG / TIL / ACE", capacity: "20–75 tons", image_file: "truck_mounted.png" },
-  { name: "Crawler Crane", make: "XCMG / SANY", capacity: "45–150 ton", image_file: "crawler_crane.png" },
-  { name: "Hydraulic Grabs", make: "SANY", capacity: "600–1500 mm", image_file: "hydraulic-grabs.png" },
-  { name: "Piling Rigs", make: "SANY", capacity: "550–1200 mm", image_file: "pilling_rigs.png" },
-  { name: "Concrete Pumps", make: "PUTZMEISTER / SCHWING", capacity: "80 cum", image_file: "concrete_pumps.png" },
-  { name: "Transit Mixers", make: "TATA / ASHOK LEYLAND", capacity: "6–7 cum", image_file: "transit_mixers.png" },
-  { name: "Soil Compactors", make: "ACE / ESCORTS / DYNAPACT", capacity: "10–12 ton", image_file: "soil_compactors.png" },
-  { name: "Motor Graders", make: "CASE / SEM", capacity: "12 feet", image_file: "motor_graders.png" },
-  { name: "Self Loading Mixtures", make: "AJAX / SCHWING", capacity: "2–4 cum", image_file: "self_loading.png" },
+  { name: "Boom Lifts", category: "Lifts & Access", make: "XCMG", capacity: "131–141 feet", image_file: "boom_lifts.png", description: "Ideal for elevated work at construction, maintenance and industrial sites." },
+  { name: "Truck Mount Cranes", category: "Cranes", make: "XCMG / TIL / ACE", capacity: "20–75 tons", image_file: "truck_mounted.png", description: "High mobility and quick deployment for diverse lifting requirements." },
+  { name: "Crawler Cranes", category: "Cranes", make: "SANY / XCMG", capacity: "45–150 ton", image_file: "crawler_crane.png", description: "Powerful and stable lifting solution for heavy and large-scale projects." },
+  { name: "Hydraulic Grabs", category: "Foundation", make: "SANY", capacity: "600–1500 mm", image_file: "hydraulic-grabs.png", description: "Specialized equipment for diaphragm walls and deep foundation works." },
+  { name: "Piling Rigs", category: "Foundation", make: "SANY", capacity: "550–1200 mm", image_file: "pilling_rigs.png", description: "High-performance piling solutions for infrastructure and industrial foundations." },
+  { name: "Concrete Pumps", category: "Concrete", make: "PUTZMEISTER / SCHWING", capacity: "35–90 cum", image_file: "concrete_pumps.png", description: "Reliable concrete placement for high-rise and large volume pours." },
+  { name: "Transit Mixers", category: "Concrete", make: "TATA / ASHOK LEYLAND", capacity: "6–7 cum", image_file: "transit_mixers.png", description: "On-time delivery of quality ready-mix concrete to project sites." },
+  { name: "Soil Compactors", category: "Earthwork", make: "ACE / ESCORTS / DYNAPAC", capacity: "10–12 ton", image_file: "soil_compactors.png", description: "Efficient compaction for road works, embankments and site preparation." },
+  { name: "Motor Graders", category: "Earthwork", make: "CASE / SEM / Liugong", capacity: "12 feet", image_file: "motor_graders.png", description: "Precision grading for highways, airports and large earthwork packages." },
+  { name: "Self Loading Mixers", category: "Concrete", make: "AJAX / SCHWING", capacity: "2–4 cum", image_file: "self_loading.png", description: "Self-contained mixing and placement for remote or small-volume sites." },
+];
+
+// Featured products for homepage slider (subset of fleet with stronger highlights)
+export const featuredProducts = [
+  {
+    name: "Crawler Cranes",
+    make: "SANY / XCMG",
+    capacity: "45–150 Ton",
+    units: "40+",
+    image_file: "crawler_crane.png",
+    highlight: "Heavy lifting backbone for mega projects",
+  },
+  {
+    name: "Piling Rigs",
+    make: "SANY",
+    capacity: "550–1200 MM",
+    units: "8",
+    image_file: "pilling_rigs.png",
+    highlight: "Foundation specialists for complex sites",
+  },
+  {
+    name: "Boom Lifts",
+    make: "XCMG",
+    capacity: "131–141 Feet",
+    units: "5+",
+    image_file: "boom_lifts.png",
+    highlight: "Safe elevated access for construction & maintenance",
+  },
+  {
+    name: "Truck Mount Cranes",
+    make: "XCMG / TIL / ACE",
+    capacity: "20–75 Ton",
+    units: "Multiple",
+    image_file: "truck_mounted.png",
+    highlight: "Mobile, rapid-deployment lifting power",
+  },
+  {
+    name: "Transit Mixers",
+    make: "TATA / ASHOK LEYLAND",
+    capacity: "6–7 CUM",
+    units: "18",
+    image_file: "transit_mixers.png",
+    highlight: "Ready-mix concrete delivery fleet",
+  },
+  {
+    name: "Motor Graders",
+    make: "CASE / SEM",
+    capacity: "12 Feet",
+    units: "12",
+    image_file: "motor_graders.png",
+    highlight: "Precision grading for roads & airports",
+  },
 ];
 
 export const contact = {
-  phone: "+91 7629827285",
-  phoneHref: "+91 7629827285",
-  email: "info.siscosteel@gmail.com",
-  whatsapp: "+917629827285",
-  whatsappText: "Hello, I would like a quote for storage racks.",
-  hours: "Mon to Sat, 8am to 6pm"
-}
+  phone: "+91 9811017313",
+  phoneHref: "+919811017313",
+  email: "rvpariwar@yahoo.com",
+  whatsapp: "+919811017313",
+  whatsappText: "Hello, I would like a quote for equipment rental from R.V. Infrastructural.",
+  hours: "Mon to Sat, 9am to 7pm",
+  website: "www.srirvparivar.com",
+};
