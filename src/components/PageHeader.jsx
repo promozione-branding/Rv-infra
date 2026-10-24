@@ -1,4 +1,4 @@
-import Reveal from "./Reveal";
+import Reveal from  "@/components/SectionHeading";
 export default function PageHeader({ eyebrow, title, text }) {
   return (
     <section className="relative overflow-hidden bg-navy pb-16 pt-36">

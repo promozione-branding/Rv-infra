@@ -1,11 +1,9 @@
-import Icon from "./Icon";
+import Icon from "@/components/Icon";
 
-// Shows a real photo if `src` is set, otherwise a styled placeholder.
 export default function ImageSlot({ src, alt = "", icon = "Construction", className = "" }) {
   return (
     <div className={`relative overflow-hidden bg-gradient-to-br from-navy-700 via-navy-800 to-navy ${className}`}>
       {src ? (
-        // eslint-disable-next-line @next/next/no-img-element
         <img src={src} alt={alt} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110" />
       ) : (
         <>

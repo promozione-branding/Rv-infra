@@ -1,0 +1,20 @@
+"use client";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import SectionHeading from "@/components/SectionHeading";
+import { ProjectCards } from "./ProjectCards";
+
+export function ProjectsPreview() {
+  return (
+    <section className="py-20">
+      <div className="container-x">
+        <SectionHeading eyebrow="Our Projects" title="Lifting Success Across India">
+          <Link href="/projects" className="btn-outline w-48">
+            View All Projects <ArrowRight size={14} />
+          </Link>
+        </SectionHeading>
+        <ProjectCards limit={4} />
+      </div>
+    </section>
+  );
+}
