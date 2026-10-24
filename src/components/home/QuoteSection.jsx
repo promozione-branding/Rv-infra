@@ -84,7 +84,7 @@ export function QuoteSection() {
           }}
         >
           <img
-            src="/fleets/crawler_crane.png"
+            src="/fleets/crawler_crane_.png"
             alt="Crane lifting a concrete block"
             className="h-full w-full object-cover object-[40%_center]"
           />
@@ -281,7 +281,7 @@ export function QuoteSection() {
 
       <div className="mx-[4.8%] mt-10 overflow-hidden rounded-2xl lg:hidden">
         <img
-          src="/fleets/crawler_crane.png"
+          src="/fleets/crawler_crane_.png"
           alt="Crane lifting a concrete block"
           className="h-56 w-full object-cover"
         />

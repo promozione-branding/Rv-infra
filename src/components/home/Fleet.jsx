@@ -98,7 +98,7 @@ export function Fleet() {
 
   useEffect(() => {
     if (paused || pages < 2) return;
-    const id = setInterval(next, 2000);
+    const id = setInterval(next, 20000);
     return () => clearInterval(id);
   }, [paused, pages, next]);
 
@@ -125,7 +125,7 @@ export function Fleet() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-28 pt-8 lg:w-[80%] lg:pb-32 lg:pt-8">
+        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-12 pt-4 lg:w-[80%] lg:pb-14 lg:pt-4">
           <Reveal>
             <div className="max-w-xl">
               <div className="flex items-center gap-3">
@@ -135,18 +135,18 @@ export function Fleet() {
                 </span>
               </div>
 
-              <h2 className="mt-3 text-3xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl">
+              <h2 className="mt-2 text-2xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-3xl">
                 Project Ready
                 <br />
                 <span style={{ color: GOLD }}>Equipment</span>
               </h2>
 
-              <p className="mt-3 max-w-md text-base leading-relaxed text-slate-500">
+              <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-500">
                 A modern and well-maintained fleet of cranes, lifts and concrete
                 equipment, operated by skilled and dedicated technicians.
               </p>
 
-              <div className="mt-5 flex flex-wrap items-center gap-y-3">
+              <div className="mt-3 flex flex-wrap items-center gap-y-2">
                 {badges.map((b, i) => (
                   <div
                     key={b.label}
@@ -155,10 +155,10 @@ export function Fleet() {
                     }`}
                   >
                     <span
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
                       style={{ background: "#FDF3DC", color: GOLD }}
                     >
-                      <b.icon size={18} />
+                      <b.icon size={16} />
                     </span>
                     <span className="whitespace-pre-line text-sm font-medium leading-tight text-slate-700">
                       {b.label}
@@ -169,7 +169,7 @@ export function Fleet() {
 
               <Link
                 href="/projects#fleet-table"
-                className="mt-6 inline-flex items-center gap-3 rounded-full border-2 bg-navy px-7 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5"
+                className="mt-4 inline-flex items-center gap-3 rounded-full border-2 bg-navy px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5"
                 style={{ borderColor: GOLD }}
               >
                 View Full Fleet <ArrowRight size={16} style={{ color: GOLD }} />
@@ -179,11 +179,11 @@ export function Fleet() {
         </div>
       </div>
 
-      <div className="relative flow-root pb-10">
+      <div className="relative flow-root pb-3">
         <div className="absolute inset-0 bg-navy" />
 
         <div
-          className="relative z-20 mx-auto -mt-24 w-[90%] max-w-[1800px] lg:-mt-28 lg:w-[90%]"
+          className="relative z-20 mx-auto -mt-10 w-[90%] max-w-[1800px] lg:-mt-14 lg:w-[90%]"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onTouchStart={() => setPaused(true)}
@@ -206,7 +206,7 @@ export function Fleet() {
             <ArrowRight size={18} />
           </button>
 
-          <div className="overflow-hidden pb-10 pt-8">
+          <div className="overflow-hidden pb-4 pt-4">
             <motion.div
               className="flex"
               initial={false}
@@ -221,10 +221,10 @@ export function Fleet() {
               {slides.map((group, s) => (
                 <div
                   key={s}
-                  className="grid w-full shrink-0 content-start gap-12 px-12 sm:grid-cols-2 lg:grid-cols-3"
+                  className="grid w-full shrink-0 content-start gap-8 px-12 sm:grid-cols-2 lg:grid-cols-3"
                 >
                   {group.map((f) => (
-                    <div key={f.name} className="group relative h-[340px]">
+                    <div key={f.name} className="group relative h-[320px]">
                       <div
                         aria-hidden
                         className="absolute inset-0 rounded-[28px]"
@@ -245,30 +245,25 @@ export function Fleet() {
                             icon="Construction"
                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-navy/20 to-transparent" />
                         </div>
 
-                        <span
-                          className="absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-full bg-navy/90 text-white"
-                          style={{ transform: UNTILT }}
-                        >
-                          <ArrowRight size={18} />
-                        </span>
+                     
 
                         <div
-                          className="absolute bottom-[31%] left-6 right-6 text-white"
+                          className="absolute bottom-[28%] left-6 right-6 text-white"
                           style={{ transform: UNTILT }}
                         >
                           <span
                             className="mb-1.5 block h-[3px] w-9"
                             style={{ background: GOLD }}
                           />
-                          <h3 className="text-[22px] font-extrabold leading-tight tracking-tight drop-shadow-sm">
+                          <h3 className="text-lg font-extrabold leading-tight tracking-tight drop-shadow-sm">
                             {f.name}
                           </h3>
                         </div>
 
-                        <div className="absolute inset-x-5 bottom-3 grid h-[15%] grid-cols-2 divide-x divide-slate-200 rounded-[20px] bg-white">
+                        <div className="absolute inset-x-5 bottom-3 grid h-[21%] grid-cols-2 divide-x divide-slate-200 rounded-[20px] bg-white">
                           <div
                             className="flex min-w-0 items-center gap-2.5 pl-3.5 pr-2"
                             style={{ transform: UNTILT }}
@@ -317,7 +312,7 @@ export function Fleet() {
             </motion.div>
           </div>
 
-          <div className="mt-4 flex items-center justify-center gap-3">
+          <div className="mt-6 flex items-center justify-center gap-3">
             {Array.from({ length: pages }).map((_, p) => (
               <button
                 key={p}

@@ -135,9 +135,9 @@ export const clients = [
 export const fleetGroups = [
   { name: "Boom Lifts", category: "Lifts & Access", make: "XCMG", capacity: "131–141 feet", image_file: "boom_lifts.png", description: "Ideal for elevated work at construction, maintenance and industrial sites." },
   { name: "Truck Mount Cranes", category: "Cranes", make: "XCMG / TIL / ACE", capacity: "20–75 tons", image_file: "truck_mounted.png", description: "High mobility and quick deployment for diverse lifting requirements." },
-  { name: "Crawler Cranes", category: "Cranes", make: "SANY / XCMG", capacity: "45–150 ton", image_file: "crawler_crane.png", description: "Powerful and stable lifting solution for heavy and large-scale projects." },
-  { name: "Hydraulic Grabs", category: "Foundation", make: "SANY", capacity: "600–1500 mm", image_file: "hydraulic-grabs.png", description: "Specialized equipment for diaphragm walls and deep foundation works." },
-  { name: "Piling Rigs", category: "Foundation", make: "SANY", capacity: "550–1200 mm", image_file: "pilling_rigs.png", description: "High-performance piling solutions for infrastructure and industrial foundations." },
+  { name: "Crawler Cranes", category: "Cranes", make: "SANY / XCMG", capacity: "45–150 ton", image_file: "crawler_crane_.png", description: "Powerful and stable lifting solution for heavy and large-scale projects." },
+  { name: "Hydraulic Grabs", category: "Foundation", make: "SANY", capacity: "600–1500 mm", image_file: "hydraulic-grabs_.png", description: "Specialized equipment for diaphragm walls and deep foundation works." },
+  { name: "Piling Rigs", category: "Foundation", make: "SANY", capacity: "550–1200 mm", image_file: "pilling_rigs_.png", description: "High-performance piling solutions for infrastructure and industrial foundations." },
   { name: "Concrete Pumps", category: "Concrete", make: "PUTZMEISTER / SCHWING", capacity: "35–90 cum", image_file: "concrete_pumps.png", description: "Reliable concrete placement for high-rise and large volume pours." },
   { name: "Transit Mixers", category: "Concrete", make: "TATA / ASHOK LEYLAND", capacity: "6–7 cum", image_file: "transit_mixers.png", description: "On-time delivery of quality ready-mix concrete to project sites." },
   { name: "Soil Compactors", category: "Earthwork", make: "ACE / ESCORTS / DYNAPAC", capacity: "10–12 ton", image_file: "soil_compactors.png", description: "Efficient compaction for road works, embankments and site preparation." },
@@ -152,7 +152,7 @@ export const featuredProducts = [
     make: "SANY / XCMG",
     capacity: "45–150 Ton",
     units: "40+",
-    image_file: "crawler_crane.png",
+    image_file: "crawler_crane_.png",
     highlight: "Heavy lifting backbone for mega projects",
   },
   {
@@ -160,7 +160,7 @@ export const featuredProducts = [
     make: "SANY",
     capacity: "550–1200 MM",
     units: "8",
-    image_file: "pilling_rigs.png",
+    image_file: "pilling_rigs_.png",
     highlight: "Foundation specialists for complex sites",
   },
   {

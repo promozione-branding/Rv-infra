@@ -1153,7 +1153,7 @@ export function QuoteSection() {
           style={{ clipPath: "polygon(38% 11.5%, 100% 11.5%, 100% 100%, 88.6% 100%, 0% 90.4%)" }}
         >
           <img
-            src="/fleets/crawler_crane.png"
+            src="/fleets/crawler_crane_.png"
             alt="Crane lifting a concrete block"
             className="h-full w-full object-cover object-[40%_center]"
           />
@@ -1283,7 +1283,7 @@ export function QuoteSection() {
       </div>
  
       <div className="mx-[4.8%] mt-10 overflow-hidden rounded-2xl lg:hidden">
-        <img src="/fleets/crawler_crane.png" alt="Crane lifting a concrete block" className="h-56 w-full object-cover" />
+        <img src="/fleets/crawler_crane_.png" alt="Crane lifting a concrete block" className="h-56 w-full object-cover" />
       </div>
     </section>
   );
