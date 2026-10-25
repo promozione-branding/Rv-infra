@@ -39,10 +39,12 @@ export const stats = [
 
 
 export const services = [
-  { icon: "Construction", title: "Crawler Cranes" },
-  { icon: "Anchor", title: "Hydraulic Grabs" },
-  { icon: "Factory", title: "Concrete Pumps" },
-  { icon: "ClipboardCheck", title: "Self Loading Mixers" },
+  { title: "Crawler Cranes",      iconId: "crane-rental" },
+  { title: "Hydraulic Grabs",     iconId: "heavy-lifting" },
+  { title: "Concrete Pumps",      iconId: "readymix-concrete" },
+  { title: "Self Loading Mixers", iconId: "construction-equipment" },
+  { title: "Plant Erection",      iconId: "plant-erection" },    
+  { title: "Skilled Operators",   iconId: "skilled-operators" },   
 ];
 
 export const industries = [
