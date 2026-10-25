@@ -98,7 +98,7 @@ export function Fleet() {
 
   useEffect(() => {
     if (paused || pages < 2) return;
-    const id = setInterval(next, 20000);
+    const id = setInterval(next, 2000);
     return () => clearInterval(id);
   }, [paused, pages, next]);
 

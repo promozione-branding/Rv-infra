@@ -17,12 +17,15 @@ const IMAGE_BASE = "/fleets";
 const GOLD = "#E8A317";
 
 const VISIBLE = 3;
-const GAP = 24; 
+const GAP = 24;
 const CRANE_FROM = -0.15;
 const CRANE_TO = 3.15;
 const REVEAL_AT = 0.5;
 const REVEAL_SPAN = 0.5;
 const VH_PER_CARD = 120;
+
+// Only show 2 sets of 3 cards (total 6)
+const products = featuredProducts.slice(0, 6);
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
@@ -51,7 +54,6 @@ function shiftAt(c, N) {
   return w;
 }
 
-// 0 → 1 : how "revealed" card k is.
 function revealAt(k, c, N) {
   const cc = clamp(c, 0, N - 0.0001);
   const phase1 = Math.min(N, VISIBLE);
@@ -102,7 +104,6 @@ function Wheel({ x, spin }) {
         ))}
       </g>
       <circle r="2.4" fill="#111827" />
-      {/* highlight on tire (static) */}
       <path
         d="M -13 -8 A 15 15 0 0 1 -3 -15"
         stroke="#ffffff"
@@ -120,8 +121,6 @@ function CraneSvg({ spin, cx }) {
   const swing = useRef({ angle: 0, vel: 0, lastCx: null });
 
   // Hook + cable swing: a damped pendulum that is pushed by the crane's
-  // speed (lags behind when it drives / sways forward when it stops),
-  // plus a gentle idle sway so it is never static.
   useAnimationFrame((t, delta) => {
     const el = hookRef.current;
     if (!el) return;
@@ -129,11 +128,10 @@ function CraneSvg({ spin, cx }) {
     const dt = Math.min(delta, 50) / 1000 || 0.016;
     const now = cx.get();
     if (s.lastCx === null) s.lastCx = now;
-    const speed = (now - s.lastCx) / dt; // slots / second
+    const speed = (now - s.lastCx) / dt; 
     s.lastCx = now;
 
-    // pendulum: angle'' = -k*angle - c*angle' + push
-    const push = -speed * 140; // swings back when moving right
+    const push = -speed * 140; 
     const k = 26;
     const c = 2.6;
     s.vel += (-k * s.angle - c * s.vel + push) * dt;
@@ -200,7 +198,6 @@ function CraneSvg({ spin, cx }) {
         </pattern>
       </defs>
 
-      {/* ---------- exhaust puffs (behind everything) ---------- */}
       {[0, 0.7, 1.4].map((delay) => (
         <circle key={delay} cx="42" cy="34" r="3" fill="#9CA3AF" opacity="0">
           <animate attributeName="cy" values="34;14" dur="2.1s" begin={`${delay}s`} repeatCount="indefinite" />
@@ -210,7 +207,6 @@ function CraneSvg({ spin, cx }) {
         </circle>
       ))}
 
-      {/* ---------- far-side wheels (depth) ---------- */}
       {WHEELS_FAR.map((x) => (
         <g key={`far-${x}`} transform="translate(0 -5)">
           <circle cx={x} cy={WHEEL_Y} r="17" fill="#0A0D14" />
@@ -218,30 +214,23 @@ function CraneSvg({ spin, cx }) {
         </g>
       ))}
 
-      {/* ---------- undercarriage / chassis ---------- */}
       <rect x="14" y="100" width="260" height="19" rx="3" fill="url(#cr-dark)" />
       {/* carrier body: top face + side face for a 3D look */}
       <path d="M14 84 L26 76 H204 L204 84 Z" fill="#FFE08A" />
       <rect x="14" y="84" width="190" height="20" rx="2" fill="url(#cr-yellow)" />
       <rect x="14" y="84" width="190" height="2" fill="#fff" opacity="0.4" />
       <rect x="14" y="100" width="190" height="4" fill="#000" opacity="0.25" />
-      {/* panel lines + hazard strip */}
       <line x1="112" y1="86" x2="112" y2="102" stroke="#7A4F05" strokeOpacity="0.55" />
       <line x1="150" y1="86" x2="150" y2="102" stroke="#7A4F05" strokeOpacity="0.55" />
       <rect x="116" y="93" width="30" height="5" rx="1" fill="url(#cr-haz)" />
       <rect x="20" y="88" width="20" height="3" rx="1.5" fill="#7A4F05" opacity="0.5" />
 
-      {/* outrigger (stowed) */}
       <rect x="22" y="104" width="7" height="20" rx="1.5" fill="url(#cr-steel)" />
       <rect x="14" y="123" width="23" height="5" rx="1.5" fill="url(#cr-dark)" />
 
-      {/* ---------- superstructure ---------- */}
-      {/* turntable ring */}
       <rect x="36" y="72" width="82" height="6" rx="2" fill="url(#cr-dark)" />
-      {/* counterweight */}
       <path d="M12 56 L20 50 H36 V76 H12 Z" fill="url(#cr-dark)" />
       <rect x="12" y="56" width="24" height="3" fill="#fff" opacity="0.12" />
-      {/* engine house */}
       <path d="M32 54 L42 46 H112 V74 H32 Z" fill="#FFE08A" />
       <rect x="32" y="54" width="80" height="20" rx="2" fill="url(#cr-yellow)" />
       <rect x="32" y="54" width="80" height="2" fill="#fff" opacity="0.4" />
@@ -249,66 +238,48 @@ function CraneSvg({ spin, cx }) {
       {[0, 1, 2, 3].map((i) => (
         <line key={i} x1={44 + i * 6} y1="61" x2={44 + i * 6} y2="68" stroke="#FFD970" strokeOpacity="0.6" />
       ))}
-      {/* exhaust stack */}
       <rect x="39" y="34" width="6" height="14" rx="1" fill="url(#cr-steel)" />
       <rect x="38" y="33" width="8" height="3" rx="1" fill="#111827" />
-      {/* boom pivot housing */}
       <circle cx="100" cy="62" r="9" fill="url(#cr-steel)" />
       <circle cx="100" cy="62" r="4" fill="#1F2937" />
 
-      {/* ---------- telescopic boom ---------- */}
       <g transform="translate(100 62) rotate(-19)">
-        {/* soft shadow under boom */}
         <rect x="-12" y="7" width="168" height="4" rx="2" fill="#000" opacity="0.12" />
-        {/* tip section */}
         <rect x="108" y="-4.5" width="54" height="9" rx="2" fill="url(#cr-yellow)" />
-        {/* mid section */}
         <rect x="58" y="-6.5" width="64" height="13" rx="2.5" fill="url(#cr-yellow)" />
-        {/* base section */}
         <rect x="-14" y="-9" width="86" height="18" rx="3" fill="url(#cr-yellow)" />
-        {/* top highlights */}
         <line x1="-12" y1="-7.2" x2="70" y2="-7.2" stroke="#fff" strokeOpacity="0.55" strokeWidth="1.4" strokeLinecap="round" />
         <line x1="60" y1="-5" x2="120" y2="-5" stroke="#fff" strokeOpacity="0.55" strokeWidth="1.2" strokeLinecap="round" />
         <line x1="110" y1="-3" x2="160" y2="-3" stroke="#fff" strokeOpacity="0.55" strokeWidth="1" strokeLinecap="round" />
-        {/* section collars */}
         <rect x="68" y="-9.5" width="6" height="19" rx="1.5" fill="url(#cr-dark)" />
         <rect x="118" y="-7" width="5" height="14" rx="1.5" fill="url(#cr-dark)" />
-        {/* hazard decals + logo plate */}
         <rect x="6" y="-4" width="22" height="8" rx="1" fill="url(#cr-haz)" />
         <rect x="34" y="-3.5" width="26" height="7" rx="1.5" fill="#111827" opacity="0.8" />
         <rect x="38" y="-1" width="18" height="2" rx="1" fill={GOLD} />
-        {/* tip sheave */}
         <circle cx="160" cy="0" r="6" fill="url(#cr-steel)" />
         <circle cx="160" cy="0" r="2.2" fill="#1F2937" />
       </g>
 
-      {/* lift cylinder */}
       <line x1="90" y1="74" x2="120" y2="64" stroke="#111827" strokeWidth="7" strokeLinecap="round" />
       <line x1="90" y1="74" x2="120" y2="64" stroke="url(#cr-steel)" strokeWidth="4.5" strokeLinecap="round" />
       <line x1="118" y1="65" x2="141" y2="57" stroke="#E5E7EB" strokeWidth="3" strokeLinecap="round" />
       <circle cx="141" cy="57" r="2.6" fill="#1F2937" />
 
-      {/* ---------- cab ---------- */}
       <path
         d="M204 104 V74 L214 69 H250 L262 80 L272 92 V104 Z"
         fill="url(#cr-yellow-side)"
       />
       <path d="M204 74 L214 69 H250 L262 80 H204 Z" fill="#FFE08A" opacity="0.9" />
-      {/* window */}
       <path d="M220 74 H247 L258 87 H220 Z" fill="url(#cr-glass)" />
       <path d="M226 74 L237 74 L227 87 L220 87 L220 80 Z" fill="#fff" opacity="0.28" />
       <path d="M220 74 H247 L258 87 H220 Z" stroke="#0F172A" strokeWidth="1.6" strokeLinejoin="round" />
-      {/* door */}
       <path d="M232 89 V103" stroke="#7A4F05" strokeOpacity="0.6" />
       <rect x="236" y="94" width="7" height="2.4" rx="1" fill="#7A4F05" opacity="0.7" />
-      {/* mirror, step, bumper */}
       <rect x="256" y="78" width="5" height="8" rx="1.5" fill="#111827" />
       <rect x="208" y="105" width="22" height="4" rx="1" fill="url(#cr-dark)" />
       <rect x="264" y="101" width="12" height="7" rx="2" fill="url(#cr-dark)" />
-      {/* headlight with glow */}
       <circle cx="270" cy="93" r="9" fill="url(#cr-glow)" />
       <rect x="266" y="90" width="6" height="6" rx="1.5" fill="#FFF3B0" />
-      {/* roof beacon */}
       <rect x="232" y="65" width="8" height="4" rx="1" fill="#111827" />
       <circle cx="236" cy="63" r="3.2" fill="#FF7A00">
         <animate attributeName="opacity" values="1;0.15;1" dur="1.1s" repeatCount="indefinite" />
@@ -317,7 +288,6 @@ function CraneSvg({ spin, cx }) {
         <animate attributeName="opacity" values="0.35;0;0.35" dur="1.1s" repeatCount="indefinite" />
       </circle>
 
-      {/* ---------- near wheels + fenders ---------- */}
       {WHEELS_NEAR.map((x) => (
         <g key={`near-${x}`}>
           <Wheel x={x} spin={spin} />
@@ -328,7 +298,6 @@ function CraneSvg({ spin, cx }) {
         </g>
       ))}
 
-      {/* ---------- swinging cable + hook block ---------- */}
       <g ref={hookRef}>
         <line x1="249.5" y1="12" x2="249.5" y2="40" stroke="#1F2937" strokeWidth="1.2" />
         <line x1="252.5" y1="12" x2="252.5" y2="40" stroke="#1F2937" strokeWidth="1.2" />
@@ -357,7 +326,7 @@ function CraneSvg({ spin, cx }) {
 function SectionHeader({ controls, compact = false }) {
   return (
     <Reveal>
-      <div className={`${compact ? "mb-6" : "mb-10"} flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end"`}>
+      <div className={`${compact ? "mb-6" : "mb-10"} flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end`}>
         <div>
           <div className="flex items-center gap-3">
             <span className="h-[2px] w-10" style={{ background: GOLD }} />
@@ -411,9 +380,6 @@ function CardBody({ p, imgClass = "h-48" }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Desktop: scroll-driven crane scene                                  */
-/* ------------------------------------------------------------------ */
 function ScrollCard({ p, k, progress, N }) {
   const slot = useTransform(progress, (v) => k - shiftAt(v * N, N));
   const reveal = useTransform(progress, (v) => revealAt(k, v * N, N));
@@ -443,7 +409,7 @@ function ScrollCard({ p, k, progress, N }) {
 }
 
 function ScrollScene() {
-  const N = featuredProducts.length;
+  const N = products.length;
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -480,7 +446,7 @@ function ScrollScene() {
             className="relative"
             style={{ height: "clamp(300px, calc(100vh - 340px), 400px)" }}
           >
-            {featuredProducts.map((p, k) => (
+            {products.map((p, k) => (
               <ScrollCard key={p.name} p={p} k={k} progress={progress} N={N} />
             ))}
           </div>
@@ -511,9 +477,6 @@ function ScrollScene() {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Mobile / tablet: swipeable carousel                                 */
-/* ------------------------------------------------------------------ */
 function MobileCarousel() {
   const scroller = useRef(null);
   const go = (dir) => {
@@ -550,7 +513,7 @@ function MobileCarousel() {
           ref={scroller}
           className="-mx-1 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {featuredProducts.map((p) => (
+          {products.map((p) => (
             <article
               key={p.name}
               className="group w-[82%] shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100 sm:w-[46%]"

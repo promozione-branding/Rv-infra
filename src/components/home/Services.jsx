@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Reveal from  "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
@@ -36,18 +36,33 @@ function getServiceIconId(title, index) {
   return serviceIconIds[index] ?? serviceIconIds[0];
 }
 
-function ServiceSvgIcon({ id }) {
+function ServiceSvgIcon({ id, index = 0 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <img
-      src={`/icons/${id}.svg`}
-      alt=""
-      aria-hidden="true"
-      width="120"
-      height="120"
-      className="service-icon h-24 w-24 object-contain overflow-visible transition duration-300 group-hover:-translate-y-1 group-hover:scale-105"
-      loading="lazy"
-      draggable="false"
-    />
+    <motion.div
+      className="flex items-center justify-center"
+      style={{ transformOrigin: "50% 0%" }}
+      animate={reduceMotion ? undefined : { rotate: [-5, 5, -5] }}
+      transition={{
+        duration: 3.2,
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatType: "loop",
+        delay: index * 0.18,
+      }}
+    >
+      <img
+        src={`/icons/${id}.svg`}
+        alt=""
+        aria-hidden="true"
+        width="120"
+        height="120"
+        className="service-icon h-24 w-24 object-contain overflow-visible transition duration-300 group-hover:-translate-y-1 group-hover:scale-105"
+        loading="lazy"
+        draggable="false"
+      />
+    </motion.div>
   );
 }
 
@@ -133,7 +148,7 @@ export function Services() {
                   />
 
                   <div className="relative flex h-24 items-center justify-center">
-                    <ServiceSvgIcon id={iconId} />
+                    <ServiceSvgIcon id={iconId} index={i} />
                   </div>
 
                   <span className="relative mt-2 max-w-[170px] text-sm font-semibold leading-snug text-white sm:text-[15px]">

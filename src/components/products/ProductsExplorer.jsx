@@ -1,6 +1,5 @@
 "use client";
-import { useMemo, useRef, useState } from "react";
-import Link from "next/link";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -12,12 +11,13 @@ import {
 import { ArrowUpRight, Factory, Gauge, Search, SearchX } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
+import QuoteModal from "./QuoteModal";
 import { fleetGroups, featuredProducts, stats } from "@/data/site";
 
 const unitsByName = Object.fromEntries(featuredProducts.map((p) => [p.name, p.units]));
 const categories = ["All", ...Array.from(new Set(fleetGroups.map((p) => p.category)))];
 
-function ProductCard({ p, index }) {
+function ProductCard({ p, index, onQuote }) {
   const ref = useRef(null);
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
@@ -37,7 +37,6 @@ function ProductCard({ p, index }) {
   const onLeave = () => { mx.set(0.5); my.set(0.5); };
 
   const units = unitsByName[p.name];
-  const href = `/contact?product=${encodeURIComponent(p.name)}`;
 
   return (
     <motion.article
@@ -67,9 +66,7 @@ function ProductCard({ p, index }) {
           <span className="absolute left-3 top-3 rounded-full border border-white/25 bg-navy/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur">
             {p.category}
           </span>
-          <span className="absolute right-3 top-2 select-none text-4xl font-extrabold text-white/20 transition group-hover:text-brand/70">
-            {String(index + 1).padStart(2, "0")}
-          </span>
+         
           {units && (
             <span className="absolute bottom-3 left-3 rounded-md bg-brand px-2.5 py-1 text-xs font-bold text-navy shadow-lg">
               {units} units
@@ -96,10 +93,14 @@ function ProductCard({ p, index }) {
             </div>
           </dl>
 
-          <Link href={href} className="relative mt-5 inline-flex items-center justify-between rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-navy transition group-hover:border-brand group-hover:bg-brand">
+          <button
+            type="button"
+            onClick={() => onQuote(p.name)}
+            className="relative mt-5 inline-flex items-center justify-between rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-navy transition group-hover:border-brand group-hover:bg-brand"
+          >
             Request a Quote
             <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </Link>
+          </button>
         </div>
 
         {/* animated bottom accent */}
@@ -112,6 +113,9 @@ function ProductCard({ p, index }) {
 export default function ProductsExplorer() {
   const [cat, setCat] = useState("All");
   const [q, setQ] = useState("");
+  const [quote, setQuote] = useState({ open: false, product: "" });
+  const openQuote = (product = "") => setQuote({ open: true, product });
+  const closeQuote = useCallback(() => setQuote((s) => ({ ...s, open: false })), []);
 
   const list = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -194,7 +198,7 @@ export default function ProductsExplorer() {
           <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {list.map((p, i) => (
-                <ProductCard key={p.name} p={p} index={i} />
+                <ProductCard key={p.name} p={p} index={i} onQuote={openQuote} />
               ))}
             </AnimatePresence>
           </motion.div>
@@ -210,17 +214,7 @@ export default function ProductsExplorer() {
         </div>
       </section>
 
-      {/* brand marquee */}
-      <section className="overflow-hidden border-y border-slate-200 bg-white py-5">
-        <div className="flex w-max animate-marquee gap-4">
-          {[...makes, ...makes].map((m, i) => (
-            <span key={i} className="flex items-center gap-4 whitespace-nowrap px-4 text-sm font-bold uppercase tracking-[0.25em] text-slate-300">
-              {m}
-              <i className="h-1.5 w-1.5 rotate-45 bg-brand" />
-            </span>
-          ))}
-        </div>
-      </section>
+
 
       {/* CTA */}
       <section className="relative overflow-hidden bg-navy py-16">
@@ -233,12 +227,14 @@ export default function ProductsExplorer() {
             <p className="mt-2 max-w-xl text-slate-300">Tell us the tonnage, site and duration. Our team will respond with the right equipment and operators.</p>
           </Reveal>
           <Reveal delay={0.15}>
-            <Link href="/contact" className="btn-primary !px-8 !py-4 text-base">
+            <button type="button" onClick={() => openQuote("")} className="btn-primary !px-8 !py-4 text-base">
               Get a Quote <ArrowUpRight className="h-5 w-5" />
-            </Link>
+            </button>
           </Reveal>
         </div>
       </section>
+
+      <QuoteModal open={quote.open} onClose={closeQuote} product={quote.product} />
     </>
   );
 }

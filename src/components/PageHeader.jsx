@@ -141,9 +141,6 @@ export default function PageHeader({
         className="pointer-events-none absolute -left-12 bottom-8 z-0 h-10 w-[240px] -rotate-45 border border-[#f6b21b]/40 sm:w-[300px]"
       />
 
-      {/* =====================================================
-          ANGLED YELLOW RECTANGLES — RIGHT EDGE
-      ====================================================== */}
 
       <div
         aria-hidden="true"
