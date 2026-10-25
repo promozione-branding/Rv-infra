@@ -15,6 +15,7 @@ import Counter from "@/components/Counter";
 import QuoteModal from "./QuoteModal";
 import { stats } from "@/data/site";
 import { products as allProducts, categories as allCategories, productHref, categoryHref } from "@/data/product";
+import CtaBanner from "../CTABanner";
 
 const categories = ["All", ...allCategories.map((c) => c.name)];
 
@@ -227,22 +228,7 @@ export default function ProductsExplorer({ category = null }) {
 
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-navy py-16">
-        <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" />
-        <div className="container-x relative flex flex-col items-center justify-between gap-6 text-center lg:flex-row lg:text-left">
-          <Reveal>
-            <h2 className="text-2xl font-bold text-white sm:text-3xl">
-              Need a specific machine or a <span className="text-shine">custom fleet</span>?
-            </h2>
-            <p className="mt-2 max-w-xl text-slate-300">Tell us the tonnage, site and duration. Our team will respond with the right equipment and operators.</p>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <button type="button" onClick={() => openQuote("")} className="btn-primary !px-8 !py-4 text-base">
-              Get a Quote <ArrowUpRight className="h-5 w-5" />
-            </button>
-          </Reveal>
-        </div>
-      </section>
+      <CtaBanner/>
 
       <QuoteModal open={quote.open} onClose={closeQuote} product={quote.product} />
     </>
