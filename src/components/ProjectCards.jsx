@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowRight, Phone, Mail, Globe2, Factory, Gauge, Users, ShieldCheck , Settings , Star ,HardHat  , ArrowLeft , Construction, ClipboardCheck, ShieldCheckIcon, BadgeCheck, MapPin, MailCheck, MailIcon, User, Building2, Anchor, ChevronDown, FileText} from "lucide-react";
 import Reveal from  "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import { projects } from "@/data/site";

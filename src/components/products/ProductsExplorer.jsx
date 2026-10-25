@@ -227,8 +227,7 @@ export default function ProductsExplorer({ category = null }) {
 
 
 
-      {/* CTA */}
-      <CtaBanner/>
+     <CtaBanner name={p.name} onQuote={() => setOpen(true)} waHref={waHref} />
 
       <QuoteModal open={quote.open} onClose={closeQuote} product={quote.product} />
     </>
