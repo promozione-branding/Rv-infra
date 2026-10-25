@@ -11,7 +11,9 @@ import {
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
+import Link from "next/link";
 import { featuredProducts } from "@/data/site";
+import { slugify } from "@/data/product";
 
 const IMAGE_BASE = "/fleets";
 const GOLD = "#E8A317";
@@ -367,7 +369,11 @@ function CardBody({ p, imgClass = "h-48" }) {
         </span>
       </div>
       <div className="shrink-0 p-5">
-        <h3 className="text-lg font-extrabold text-navy">{p.name}</h3>
+        <h3 className="text-lg font-extrabold text-navy">
+          <Link href={`/products/${slugify(p.name)}`} className="after:absolute after:inset-0 after:z-10 hover:text-brand-dark">
+            {p.name}
+          </Link>
+        </h3>
         <p className="mt-1 text-sm text-slate-500">{p.highlight}</p>
         <div className="mt-4 flex items-center justify-between gap-3 border-t border-slate-100 pt-3 text-sm">
           <span className="font-semibold text-slate-700">{p.make}</span>
@@ -516,7 +522,7 @@ function MobileCarousel() {
           {products.map((p) => (
             <article
               key={p.name}
-              className="group w-[82%] shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100 sm:w-[46%]"
+              className="group relative w-[82%] shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100 sm:w-[46%]"
             >
               <CardBody p={p} />
             </article>

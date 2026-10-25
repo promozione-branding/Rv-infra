@@ -142,7 +142,7 @@ export default function QuoteModal({ open, onClose, product = "" }) {
             </div>
 
             {/* body */}
-            <div className="max-h-[calc(92vh-90px)] overflow-y-auto px-5 py-4 sm:px-6">
+            <div className="max-h-[calc(92vh-90px)] overflow-y-auto px-5 py-4 sm:px-6 bg-white">
               {sent ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -196,7 +196,7 @@ export default function QuoteModal({ open, onClose, product = "" }) {
                       type="tel"
                       value={form.phone}
                       onChange={set("phone")}
-                      placeholder="+91 00000 00000"
+                      placeholder="Enter Mobile Number"
                       className={fieldClass}
                       autoComplete="tel"
                     />
@@ -207,7 +207,7 @@ export default function QuoteModal({ open, onClose, product = "" }) {
                       type="email"
                       value={form.email}
                       onChange={set("email")}
-                      placeholder="you@company.com"
+                      placeholder="Enter Email"
                       className={fieldClass}
                       autoComplete="email"
                     />

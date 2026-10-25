@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
 import Logo from "./Logo";
 import { navLinks } from "@/data/site";
+import QuoteModal from "./products/QuoteModal";
 
 const GREY_TOP = {
   background:
@@ -24,6 +25,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const path = usePathname();
+  const [quote, setQuote] = useState({ open: false, product: "" });
+  const openQuote = (product = "") => setQuote({ open: true, product });
+  const closeQuote = useCallback(() => setQuote((s) => ({ ...s, open: false })), []);
 
   useEffect(() => {
     const f = () => setScrolled(window.scrollY > 20);
@@ -35,6 +39,7 @@ export default function Navbar() {
   useEffect(() => setOpen(false), [path]);
 
   return (
+    <>
     <motion.header
       initial={{ y: -80 }}
       animate={{ y: 0 }}
@@ -84,9 +89,13 @@ export default function Navbar() {
           })}
         </nav>
 
-        <Link href="/contact" className="btn-primary hidden !py-2.5 lg:inline-flex bg-[#7f0b18] text-white">
+        <button
+          type="button"
+          onClick={() => openQuote("")}
+          className="btn-primary hidden !py-2.5 lg:inline-flex bg-[#7f0b18] text-white"
+        >
           Get a Quote <ArrowRight size={14} />
-        </Link>
+        </button>
 
         <button
           className="text-slate-800 lg:hidden"
@@ -118,13 +127,22 @@ export default function Navbar() {
                   {l.label}
                 </Link>
               ))}
-              <Link href="/contact" className="btn-primary w-fit">
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  openQuote("");
+                }}
+                className="btn-primary w-fit"
+              >
                 Get a Quote
-              </Link>
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </motion.header>
+          <QuoteModal open={quote.open} onClose={closeQuote} product={quote.product} />
+    </>
   );
 }

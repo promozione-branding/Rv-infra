@@ -8,14 +8,15 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowUpRight, Factory, Gauge, Search, SearchX } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Factory, Gauge, Search, SearchX } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
 import QuoteModal from "./QuoteModal";
-import { fleetGroups, featuredProducts, stats } from "@/data/site";
+import { stats } from "@/data/site";
+import { products as allProducts, categories as allCategories, productHref, categoryHref } from "@/data/product";
 
-const unitsByName = Object.fromEntries(featuredProducts.map((p) => [p.name, p.units]));
-const categories = ["All", ...Array.from(new Set(fleetGroups.map((p) => p.category)))];
+const categories = ["All", ...allCategories.map((c) => c.name)];
 
 function ProductCard({ p, index, onQuote }) {
   const ref = useRef(null);
@@ -36,7 +37,7 @@ function ProductCard({ p, index, onQuote }) {
   };
   const onLeave = () => { mx.set(0.5); my.set(0.5); };
 
-  const units = unitsByName[p.name];
+  const units = p.units;
 
   return (
     <motion.article
@@ -56,19 +57,24 @@ function ProductCard({ p, index, onQuote }) {
       >
         {/* image */}
         <div className="relative aspect-[3/2] overflow-hidden bg-navy">
-          <img
-            src={`/fleets/${p.image_file}`}
-            alt={p.name}
-            loading="lazy"
-            className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
-          <span className="absolute left-3 top-3 rounded-full border border-white/25 bg-navy/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur">
+          <Link href={productHref(p)} aria-label={`View ${p.name}`} className="absolute inset-0 z-[1]">
+            <img
+              src={p.image}
+              alt={p.name}
+              loading="lazy"
+              className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+            />
+          </Link>
+          <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
+          <Link
+            href={`/products/category/${p.categorySlug}`}
+            className="absolute left-3 top-3 z-[2] rounded-full border border-white/25 bg-navy/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur transition hover:border-brand hover:bg-brand hover:text-navy"
+          >
             {p.category}
-          </span>
+          </Link>
          
           {units && (
-            <span className="absolute bottom-3 left-3 rounded-md bg-brand px-2.5 py-1 text-xs font-bold text-navy shadow-lg">
+            <span className="pointer-events-none absolute bottom-3 left-3 z-[2] rounded-md bg-brand px-2.5 py-1 text-xs font-bold text-navy shadow-lg">
               {units} units
             </span>
           )}
@@ -79,7 +85,7 @@ function ProductCard({ p, index, onQuote }) {
         {/* body */}
         <div className="relative flex flex-1 flex-col p-5">
           <motion.div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: spot }} />
-          <h3 className="relative text-lg font-bold text-navy">{p.name}</h3>
+          <h3 className="relative text-lg font-bold text-navy"><Link href={productHref(p)} className="transition hover:text-brand-dark">{p.name}</Link></h3>
           <p className="relative mt-2 flex-1 text-sm leading-relaxed text-slate-500">{p.description}</p>
 
           <dl className="relative mt-4 grid grid-cols-2 gap-3 text-xs">
@@ -93,14 +99,24 @@ function ProductCard({ p, index, onQuote }) {
             </div>
           </dl>
 
-          <button
-            type="button"
-            onClick={() => onQuote(p.name)}
-            className="relative mt-5 inline-flex items-center justify-between rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-navy transition group-hover:border-brand group-hover:bg-brand"
-          >
-            Request a Quote
-            <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </button>
+          <div className="relative mt-5 grid grid-cols-[1fr_auto] gap-2">
+            <Link
+              href={productHref(p)}
+              className="inline-flex items-center justify-between rounded-lg bg-navy px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand hover:text-navy"
+            >
+              View Details
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <button
+              type="button"
+              onClick={() => onQuote(p.name)}
+              aria-label={`Request a quote for ${p.name}`}
+              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2.5 text-sm font-semibold text-navy transition hover:border-brand hover:bg-brand"
+            >
+              Quote
+              <ArrowUpRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
         {/* animated bottom accent */}
@@ -110,8 +126,9 @@ function ProductCard({ p, index, onQuote }) {
   );
 }
 
-export default function ProductsExplorer() {
-  const [cat, setCat] = useState("All");
+export default function ProductsExplorer({ category = null }) {
+  // `category` (a category object) locks the list to one category (used by /products/category/[slug])
+  const [cat, setCat] = useState(category ? category.name : "All");
   const [q, setQ] = useState("");
   const [quote, setQuote] = useState({ open: false, product: "" });
   const openQuote = (product = "") => setQuote({ open: true, product });
@@ -119,17 +136,12 @@ export default function ProductsExplorer() {
 
   const list = useMemo(() => {
     const s = q.trim().toLowerCase();
-    return fleetGroups.filter(
+    return allProducts.filter(
       (p) =>
         (cat === "All" || p.category === cat) &&
         (!s || `${p.name} ${p.make} ${p.category} ${p.description}`.toLowerCase().includes(s))
     );
   }, [cat, q]);
-
-  const makes = useMemo(
-    () => Array.from(new Set(fleetGroups.flatMap((p) => p.make.split("/").map((m) => m.trim())))),
-    []
-  );
 
   return (
     <>
@@ -160,22 +172,39 @@ export default function ProductsExplorer() {
               <div className="flex flex-wrap gap-2" role="tablist" aria-label="Product categories">
                 {categories.map((c) => {
                   const active = c === cat;
-                  return (
-                    <button
-                      key={c}
-                      role="tab"
-                      aria-selected={active}
-                      onClick={() => setCat(c)}
-                      className={`relative rounded-full px-4 py-2 text-sm font-semibold transition ${active ? "text-navy" : "text-slate-600 hover:text-navy"}`}
-                    >
+                  const cls = `relative rounded-full px-4 py-2 text-sm font-semibold transition ${active ? "text-navy" : "text-slate-600 hover:text-navy"}`;
+                  const inner = (
+                    <>
                       {active && (
                         <motion.span layoutId="cat-pill" className="absolute inset-0 rounded-full bg-brand shadow-md shadow-brand/40" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
                       )}
                       {!active && <span className="absolute inset-0 rounded-full bg-white ring-1 ring-slate-200" />}
                       <span className="relative">{c}</span>
+                    </>
+                  );
+                  // On a category page the tabs navigate between category pages
+                  if (category) {
+                    const target = c === "All" ? null : allCategories.find((x) => x.name === c);
+                    return (
+                      <Link key={c} href={target ? categoryHref(target) : "/products"} aria-current={active ? "page" : undefined} className={cls}>
+                        {inner}
+                      </Link>
+                    );
+                  }
+                  return (
+                    <button key={c} role="tab" aria-selected={active} onClick={() => setCat(c)} className={cls}>
+                      {inner}
                     </button>
                   );
                 })}
+                {!category && cat !== "All" && (
+                  <Link
+                    href={categoryHref(allCategories.find((x) => x.name === cat))}
+                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-brand-dark underline-offset-4 hover:underline"
+                  >
+                    Open {cat} page <ArrowRight className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
 
               <label className="relative block w-full lg:w-72">
@@ -192,7 +221,7 @@ export default function ProductsExplorer() {
           </Reveal>
 
           <p className="mb-6 text-sm text-slate-500" aria-live="polite">
-            Showing <b className="text-navy">{list.length}</b> of {fleetGroups.length} product lines
+            Showing <b className="text-navy">{list.length}</b> of {category ? allProducts.filter((p) => p.category === category.name).length : allProducts.length} product lines
           </p>
 
           <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -39,12 +39,10 @@ export const stats = [
 
 
 export const services = [
-  { icon: "Construction", title: "Crane Rental Services" },
-  { icon: "Anchor", title: "Heavy Lifting & Erection" },
-  { icon: "Factory", title: "Plant Erection" },
-  { icon: "Building2", title: "Construction Equipment Hiring" },
-  { icon: "Truck", title: "Readymix Concrete" },
-  { icon: "ClipboardCheck", title: "Skilled Operators & Support" },
+  { icon: "Construction", title: "Crawler Cranes" },
+  { icon: "Anchor", title: "Hydraulic Grabs" },
+  { icon: "Factory", title: "Concrete Pumps" },
+  { icon: "ClipboardCheck", title: "Self Loading Mixers" },
 ];
 
 export const industries = [
@@ -131,7 +129,6 @@ export const clients = [
   { name: "JSW", logo: "/clients/jsw.png" },
 ];
 
-// Categories shown in Fleet section (cards + slider)
 export const fleetGroups = [
   { name: "Boom Lifts", category: "Lifts & Access", make: "XCMG", capacity: "131–141 feet", image_file: "boom_lifts.png", description: "Ideal for elevated work at construction, maintenance and industrial sites." },
   { name: "Truck Mount Cranes", category: "Cranes", make: "XCMG / TIL / ACE", capacity: "20–75 tons", image_file: "truck_mounted.png", description: "High mobility and quick deployment for diverse lifting requirements." },

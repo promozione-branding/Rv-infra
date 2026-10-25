@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -34,6 +33,7 @@ export default function PageHeader({
   highlight = "",
   lottieSrc,
   crumb,
+  parents = [],
   backgroundImage = "/fleets/boom_lifts.png",
 }) {
   const mx = useMotionValue(0);
@@ -70,15 +70,12 @@ export default function PageHeader({
   return (
     <section
       onMouseMove={onMove}
-      className="relative isolate overflow-hidden bg-[#0b1725] pb-16 pt-20 sm:pb-20 sm:pt-24 lg:pb-24"
+      className="relative isolate overflow-hidden bg-[#0b1725] pt-10 sm:pb-20 sm:pt-14 lg:pb-14"
     >
-      {/* =====================================================
-          LEFT SIDE: CONSTRUCTION BACKGROUND IMAGE
-      ====================================================== */}
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 w-full lg:w-[63%]"
+        className="pointer-events-none absolute inset-y-0 left-0 w-full lg:w-[55%]"
         style={{
           backgroundImage: `url("${backgroundImage}")`,
           backgroundPosition: "center",
@@ -93,41 +90,93 @@ export default function PageHeader({
         className="pointer-events-none absolute inset-0 bg-[#071421]/75"
       />
 
-      {/* Stronger left-to-right fade into the plain right side */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
+        
+      />
+
+
+      {hasVisual && (
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[53%] lg:block"
+  >
+    {/* Slanted panel: gradient + amber glow */}
+    <div
+      className="absolute inset-0"
+      style={{
+        clipPath: "polygon(10% 0, 100% 0, 100% 100%, 0 100%)",
+        background:
+          "radial-gradient(circle at 55% 55%, rgba(246,178,27,0.22), transparent 55%), radial-gradient(circle at 85% 10%, rgba(59,130,246,0.18), transparent 45%), linear-gradient(135deg, #10253c 0%, #0a1624 55%, #07101b 100%)",
+      }}
+    >
+      {/* Dot grid, fading toward the edges */}
+      <div
+        className="absolute inset-0 opacity-60"
         style={{
-          background:
-            "linear-gradient(90deg, rgba(7,20,33,0.60) 0%, rgba(7,20,33,0.78) 38%, #0b1725 68%, #0b1725 100%)",
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+          maskImage:
+            "radial-gradient(ellipse at 55% 55%, black 20%, transparent 70%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at 55% 55%, black 20%, transparent 70%)",
         }}
       />
 
-      {/* =====================================================
-          RIGHT SIDE: CLEAN NAVY OVERLAY
-          No radial glow or glowing background
-      ====================================================== */}
+      {/* Concentric blueprint rings */}
+      <svg
+        className="absolute inset-0 h-full w-full opacity-40"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        {[18, 28, 38, 48].map((r) => (
+          <circle
+            key={r}
+            cx="55"
+            cy="55"
+            r={r}
+            fill="none"
+            stroke="#f6b21b"
+            strokeOpacity={0.25 - r / 400}
+            strokeWidth="0.15"
+            strokeDasharray="1 1.5"
+          />
+        ))}
+        <line x1="55" y1="0" x2="55" y2="100" stroke="#fff" strokeOpacity="0.06" strokeWidth="0.15" />
+        <line x1="0" y1="55" x2="100" y2="55" stroke="#fff" strokeOpacity="0.06" strokeWidth="0.15" />
+      </svg>
+    </div>
 
-      {hasVisual && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[53%]"
-          style={{
-            background:
-              "linear-gradient(105deg, rgba(11,23,37,0.15), #0b1725 38%, #0b1725 100%)",
-          }}
-        />
-      )}
+    {/* Amber edge line following the slant */}
+    <svg
+      className="absolute inset-0 h-full w-full"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+    >
+      <line
+        x1="10" y1="0" x2="0" y2="100"
+        stroke="#f6b21b"
+        strokeWidth="2"
+        vectorEffect="non-scaling-stroke"
+      />
+      <line
+        x1="12" y1="0" x2="2" y2="100"
+        stroke="#f6b21b"
+        strokeOpacity="0.35"
+        strokeWidth="1"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  </div>
+)}
 
-      {/* Subtle structural grid */}
       <div
         aria-hidden="true"
         className="hero-grid pointer-events-none absolute inset-0 opacity-30"
       />
 
-      {/* =====================================================
-          ANGLED YELLOW RECTANGLES — LEFT EDGE
-      ====================================================== */}
 
       <div
         aria-hidden="true"
@@ -183,6 +232,15 @@ export default function PageHeader({
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
+
+            {parents.map((pp) => (
+              <span key={pp.href} className="flex items-center gap-2">
+                <ChevronRight className="h-4 w-4 text-slate-500" />
+                <Link href={pp.href} className="transition-colors hover:text-[#f6b21b]">
+                  {pp.label}
+                </Link>
+              </span>
+            ))}
 
             <ChevronRight className="h-4 w-4 text-slate-500" />
 
@@ -240,7 +298,7 @@ export default function PageHeader({
           {/* Description */}
           {text && (
             <Reveal delay={0.55}>
-              <p className="mt-5 max-w-[650px] text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 lg:text-[17px]">
+              <p className="mt-5 max-w-[580px] text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 lg:text-[17px]">
                 {text}
               </p>
             </Reveal>
@@ -259,25 +317,20 @@ export default function PageHeader({
               delay: 0.2,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative mx-auto aspect-[4/3] w-full max-w-[440px] sm:max-w-[500px] lg:max-w-[560px]"
+            className="relative mx-auto aspect-[4/3] w-full max-w-[540px] sm:max-w-[500px] lg:max-w-[560px]"
           >
-            {/* Dashed oval outline — no glow */}
             <div className="absolute inset-2 rounded-[48%] border border-dashed border-[#f6b21b]/70 sm:inset-3" />
 
-            {/* Static decorative orbit dot — no shadow */}
             <span
               aria-hidden="true"
               className="absolute left-1/2 top-2 z-20 h-3 w-3 -translate-x-1/2 rounded-full bg-[#f6b21b]"
             />
 
-            {/* Subtle solid inner panel */}
-            <div className="absolute inset-7 rounded-[2rem] bg-[#0b1725]/25 sm:inset-9" />
 
-            {/* Preserve the Lottie animation */}
             <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6">
               <LottieIcon
                 src={lottieSrc}
-                className="h-full w-full scale-110"
+                className="h-[550px] w-[600px] scale-100"
                 fallback={
                   <CraneFallback className="h-full w-full" />
                 }

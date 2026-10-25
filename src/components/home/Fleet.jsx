@@ -14,6 +14,7 @@ import {
 import Reveal from "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import { fleetGroups } from "@/data/site";
+import { slugify } from "@/data/product";
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 
 const IMAGE_BASE = "/fleets";
@@ -224,7 +225,7 @@ export function Fleet() {
                   className="grid w-full shrink-0 content-start gap-8 px-12 sm:grid-cols-2 lg:grid-cols-3"
                 >
                   {group.map((f) => (
-                    <div key={f.name} className="group relative h-[320px]">
+                    <Link key={f.name} href={`/products/${slugify(f.name)}`} aria-label={`View ${f.name}`} className="group relative block h-[320px]">
                       <div
                         aria-hidden
                         className="absolute inset-0 rounded-[28px]"
@@ -305,7 +306,7 @@ export function Fleet() {
                           </div>
                         </div>
                       </article>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               ))}
