@@ -30,7 +30,7 @@ import LottieIcon from "@/components/LottieIcon";
 import QuoteModal from "./QuoteModal";
 import { contact } from "@/data/site";
 import { productHref, categoryHref, getCategory } from "@/data/product";
-import CtaBanner from "../CTABanner";
+import CTABanner from "../CTABanner";
 
 const LOTTIE = {
   gear: "/product_detail/Excavator.json",
@@ -487,7 +487,7 @@ export default function ProductDetail({ product: p, related }) {
         </section>
       )}
 
-     <CtaBanner name={p.name} onQuote={() => setOpen(true)} waHref={waHref} />
+     <CTABanner name={p.name} onQuote={() => setOpen(true)} waHref={waHref} />
 
       <QuoteModal open={open} onClose={close} product={p.name} />
     </>

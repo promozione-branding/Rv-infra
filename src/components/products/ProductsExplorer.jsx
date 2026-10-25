@@ -15,7 +15,7 @@ import Counter from "@/components/Counter";
 import QuoteModal from "./QuoteModal";
 import { stats } from "@/data/site";
 import { products as allProducts, categories as allCategories, productHref, categoryHref } from "@/data/product";
-import CtaBanner from "../CTABanner";
+import CTABanner from "../CTABanner";
 
 const categories = ["All", ...allCategories.map((c) => c.name)];
 
@@ -227,7 +227,7 @@ export default function ProductsExplorer({ category = null }) {
 
 
 
-<CtaBanner
+<CTABanner
   name={category ? category.name : "construction equipment"}
   onQuote={() => openQuote(category ? category.name : "")}
   waHref="https://wa.me/919811017313"

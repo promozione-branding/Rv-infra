@@ -28,7 +28,7 @@ const ctaPills = [
   { icon: Settings, text: "Reliable Performance", offset: "lg:-mr-3" },
 ];
 
-export default function CtaBanner({ name, onQuote, waHref }) {
+export default function CTABanner({ name, onQuote, waHref }) {
   return (
     <section className="relative isolate overflow-hidden bg-navy">
       <div
