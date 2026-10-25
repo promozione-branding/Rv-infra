@@ -350,16 +350,16 @@ function SectionHeader({ controls, compact = false }) {
   );
 }
 
-function CardBody({ p, imgClass = "h-48" }) {
+function CardBody({ p, imgClass = "h-64" }) {
   return (
     <>
       <div className={`relative overflow-hidden ${imgClass}`}>
-        <ImageSlot
-          src={`${IMAGE_BASE}/${p.image_file}`}
-          alt={p.name}
-          icon="Construction"
-          className="h-[400px] w-full object-cover transition duration-500 group-hover:scale-105"
-        />
+      <ImageSlot
+  src={`${IMAGE_BASE}/${p.image_file}`}
+  alt={p.name}
+  icon="Construction"
+  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+/>
         <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent" />
         <span
           className="absolute left-4 top-4 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-navy"
@@ -447,17 +447,15 @@ function ScrollScene() {
         <div className="mx-auto w-[90%] max-w-[1400px]">
           <SectionHeader compact />
 
-          {/* card row — the crane drives along the SAME row */}
           <div
             className="relative"
-            style={{ height: "clamp(300px, calc(100vh - 340px), 400px)" }}
+            style={{ height: "clamp(360px, calc(100vh - 320px), 560px)" }}
           >
             {products.map((p, k) => (
               <ScrollCard key={p.name} p={p} k={k} progress={progress} N={N} />
             ))}
           </div>
 
-          {/* progress line — the crane's wheels sit directly on it */}
           <div className="relative mt-2 h-[3px] w-full rounded-full bg-slate-200">
             <motion.div
               className="h-full rounded-full"
