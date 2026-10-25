@@ -1,38 +1,43 @@
 "use client";
 import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
-  Box,
+  Building2,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
+  Construction,
   Factory,
   Gauge,
   HardHat,
+  Landmark,
   Layers,
   MessageCircle,
+  MoveVertical,
   Phone,
   Play,
-  Settings,
+  Route,
   ShieldCheck,
+  Truck,
   Wrench,
+  Zap,
 } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import LottieIcon from "@/components/LottieIcon";
 import QuoteModal from "./QuoteModal";
 import { contact } from "@/data/site";
 import { productHref, categoryHref, getCategory } from "@/data/product";
+import CtaBanner from "../CTABanner";
 
 const LOTTIE = {
   gear: "/product_detail/Excavator.json",
-  drum: "/product_detail/soilcompactor.json",
+  drum: "/product_detail/soilcompactor_industrial.json",
   truck: "/product_detail/truck_mounted_boom_lift_lottie.json",
-  hook: "/product_detail/",
-  pulse: "/product_detail/",
-  site: "/product_detail/soilcompactor.json", 
+  hook: "/product_detail/truck_mounted_boom_lift_lottie.json",
+  site: "/product_detail/",
 };
 
 const HERO_BY_CATEGORY = {
@@ -42,6 +47,12 @@ const HERO_BY_CATEGORY = {
   foundation: "gear",
   earthwork: "gear",
 };
+
+const LIFT_SVG = "/product_detail/boom-lift-v2.svg";
+const APPLICATIONS_IMG = "/industries/ind_2.png"; // override per product with product.applicationsImage
+
+const FEATURE_ICONS = [Truck, Zap, ShieldCheck, MoveVertical];
+const APPLICATION_ICONS = [Building2, Factory, Landmark, Route, Construction];
 
 const trust = [
   { icon: ShieldCheck, label: "Reliable Performance" },
@@ -64,6 +75,113 @@ function SectionTitle({ icon: Icon, children }) {
   );
 }
 
+/* ---------- Key Features / Typical Applications helpers ---------- */
+/* items can be plain strings or { title, desc } */
+const norm = (it) => (typeof it === "string" ? { title: it } : it);
+
+const dotsYellow =
+  "bg-[radial-gradient(circle,rgba(246,178,27,.55)_1.5px,transparent_1.8px)] bg-[length:14px_14px]";
+const dotsBlue =
+  "bg-[radial-gradient(circle,rgba(47,93,158,.35)_1.5px,transparent_1.8px)] bg-[length:14px_14px]";
+
+function FeatureRow({ icon: Icon, title, desc, tone }) {
+  const circle = tone === "blue" ? "bg-[#e8eefb] text-[#2f5d9e]" : "bg-[#fdf1da] text-brand-dark";
+  return (
+    <li className="flex items-center gap-4 border-b border-slate-200/70 py-2.5 last:border-b-0">
+      <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${circle}`}>
+        <Icon className="h-5 w-5" strokeWidth={1.8} />
+      </span>
+      <div className="min-w-0">
+        <p className="font-extrabold leading-snug text-navy">{title}</p>
+        {desc && <p className="mt-0.5 text-sm text-slate-500">{desc}</p>}
+      </div>
+    </li>
+  );
+}
+
+function CardHeading({ eyebrow, first, second, tone }) {
+  return (
+    <div>
+      <p className={`text-[13px] font-semibold uppercase tracking-[0.3em] ${tone === "blue" ? "text-[#2f5d9e]" : "text-brand"}`}>
+        {eyebrow}
+      </p>
+      <h3 className="mt-1 text-3xl font-extrabold tracking-tight text-navy sm:text-[2.1rem]">
+        {first} <span className="text-brand">{second}</span>
+      </h3>
+      <span className="mt-2 block h-[3px] w-14 rounded bg-brand" />
+    </div>
+  );
+}
+
+function FeaturesCard({ items }) {
+  return (
+    <div className="relative h-full min-h-[340px] overflow-hidden rounded-[28px] bg-white shadow-[0_20px_50px_-20px_rgba(15,23,42,0.25)] ring-1 ring-slate-200/70">
+      {/* warm decorative background */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white via-white to-[#fff6e3]" />
+      <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-full w-[62%] bg-gradient-to-bl from-[#fdeccb]/80 to-transparent [clip-path:polygon(30%_0,100%_0,100%_100%,0_100%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-24 right-[-4%] hidden aspect-square w-[58%] rounded-full bg-gradient-to-t from-[#fde4b0]/90 via-[#fdeccb]/60 to-transparent sm:block" />
+      {/* faint scaffold grid */}
+      <div aria-hidden="true" className="pointer-events-none absolute bottom-6 right-[26%] hidden h-[45%] w-[26%] opacity-30 [background-image:linear-gradient(#94a3b8_1px,transparent_1px),linear-gradient(90deg,#94a3b8_1px,transparent_1px)] [background-size:26px_26px] [mask-image:radial-gradient(circle_at_50%_60%,#000_30%,transparent_72%)] sm:block" />
+      <span aria-hidden="true" className="pointer-events-none absolute right-8 top-3 select-none text-[5rem] font-extrabold leading-none text-brand/10">01</span>
+      <div aria-hidden="true" className={`pointer-events-none absolute right-10 top-[26%] hidden h-20 w-32 sm:block ${dotsYellow}`} />
+
+      {/* content */}
+      <div className="relative z-10 p-6 sm:p-7 sm:pb-4">
+        <CardHeading eyebrow="Key Highlights" first="Key" second="Features" />
+        <ul className="mt-3 sm:w-[60%]">
+          {items.map((raw, n) => {
+            const it = norm(raw);
+            return <FeatureRow key={it.title} icon={FEATURE_ICONS[n % FEATURE_ICONS.length]} title={it.title} desc={it.desc} />;
+          })}
+        </ul>
+      </div>
+
+      {/* animated boom lift */}
+      <div className="relative z-10 mx-auto -mt-2 h-56 w-full max-w-xs px-6 pb-3 sm:absolute sm:bottom-0 sm:right-0 sm:mt-0 sm:h-[92%] sm:w-[48%] sm:max-w-none sm:px-0 sm:pb-3 sm:pr-3">
+        <img
+          src={LIFT_SVG}
+          alt="Animated boom lift"
+          className="h-full w-full object-contain object-bottom drop-shadow-[0_18px_18px_rgba(15,23,42,0.18)]"
+        />
+      </div>
+    </div>
+  );
+}
+
+function ApplicationsCard({ items, image }) {
+  return (
+    <div className="relative h-full min-h-[340px] overflow-hidden rounded-[28px] bg-white shadow-[0_20px_50px_-20px_rgba(15,23,42,0.25)] ring-1 ring-slate-200/70">
+      <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-full w-[60%] bg-gradient-to-bl from-[#dbe6f7]/70 to-transparent [clip-path:polygon(35%_0,100%_0,100%_100%,0_100%)]" />
+      <span aria-hidden="true" className="pointer-events-none absolute right-8 top-3 z-20 select-none text-[5rem] font-extrabold leading-none text-[#2f5d9e]/10">02</span>
+
+      <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 hidden h-full w-[38%] sm:block">
+        <div className="absolute inset-0 bg-brand [clip-path:polygon(1.5%_0,5.5%_0,29%_55%,25%_55%)]" />
+        <div className="absolute inset-0 bg-[#2f5d9e] [clip-path:polygon(25%_55%,29%_55%,55.5%_100%,51.5%_100%)]" />
+        <div className="absolute inset-0 [clip-path:polygon(8%_0,100%_0,100%_100%,58%_100%)]">
+          <img src={image} alt="" className="h-full w-full object-fill" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-navy/10 to-transparent" />
+        </div>
+      </div>
+      <div aria-hidden="true" className={`pointer-events-none absolute right-[36%] top-[62%] hidden h-16 w-16 sm:block ${dotsBlue}`} />
+
+      <div className="relative z-10 p-6 sm:p-7 sm:pb-4">
+        <CardHeading eyebrow="Built for more" first="Typical" second="Applications" tone="blue" />
+        <ul className="mt-3 sm:w-[66%]">
+          {items.map((raw, n) => {
+            const it = norm(raw);
+            return <FeatureRow key={it.title} icon={APPLICATION_ICONS[n % APPLICATION_ICONS.length]} title={it.title} desc={it.desc} tone="blue" />;
+          })}
+        </ul>
+      </div>
+
+      {/* mobile: photo as a banner under the list */}
+      <div className="relative h-36 sm:hidden">
+        <img src={image} alt="" className="h-full w-full object-cover" />
+      </div>
+    </div>
+  );
+}
+
 function Gallery({ product: p, badge }) {
   const items = [
     ...(p.gallery?.length ? p.gallery : [p.image]).map((src) => ({ type: "image", src })),
@@ -76,6 +194,10 @@ function Gallery({ product: p, badge }) {
 
   return (
     <div className="relative">
+      {/* offset frame accents behind the image */}
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-3 -right-3 hidden h-[72%] w-[56%] rounded-2xl border-2 border-brand sm:block" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-3 -top-3 hidden h-28 w-28 rounded-tl-3xl bg-navy sm:block" />
+
       <div className="relative overflow-hidden rounded-2xl bg-navy shadow-xl ring-1 ring-slate-200">
         <AnimatePresence mode="wait">
           <motion.div
@@ -93,6 +215,17 @@ function Gallery({ product: p, badge }) {
             )}
           </motion.div>
         </AnimatePresence>
+
+        {/* bottom fade + spec chip */}
+        {cur.type !== "video" && (
+          <>
+            <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy/70 to-transparent" />
+            <div className="pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-1.5 text-xs font-bold text-navy shadow-lg backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-brand" />
+              {[p.make, p.capacity].filter(Boolean).join(" · ")}
+            </div>
+          </>
+        )}
 
         {multi && (
           <>
@@ -126,18 +259,17 @@ function Gallery({ product: p, badge }) {
         </div>
       )}
 
-      {/* rotating drum / swinging hook badge */}
-      <div className="pointer-events-none absolute -left-3 top-[52%] hidden h-24 w-24 rounded-full bg-brand-light p-2 shadow-lg ring-4 ring-white sm:block">
+      <div className="pointer-events-none absolute -right-4 -top-4 z-10 hidden h-20 w-30 rounded-full bg-white border border-yellow-600 p-3 shadow-lg ring-4 ring-white sm:block">
         <Anim name={badge} className="h-full w-full" />
       </div>
     </div>
   );
 }
 
-/* ---------------- main ---------------- */
 export default function ProductDetail({ product: p, related }) {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
+  const reduce = useReducedMotion();
   const cat = getCategory(p.categorySlug);
   const hero = HERO_BY_CATEGORY[p.categorySlug] || "gear";
   const scroller = useRef(null);
@@ -150,6 +282,12 @@ export default function ProductDetail({ product: p, related }) {
     `Hello, I would like a quote for ${p.name} from R.V. Infrastructural.`
   )}`;
 
+  const specs = [
+    { icon: Factory, label: "Make", value: p.make },
+    { icon: Gauge, label: "Capacity", value: p.capacity },
+    p.units && { icon: Layers, label: "In Fleet", value: `${p.units} units` },
+  ].filter(Boolean);
+
   const renderActions = (className = "") => (
     <div className={`flex flex-wrap items-center gap-3 ${className}`}>
       <button type="button" onClick={() => setOpen(true)} className="btn-primary !px-7 !py-3.5">
@@ -158,107 +296,102 @@ export default function ProductDetail({ product: p, related }) {
       <a href={`tel:${contact.phoneHref}`} className="btn-outline !rounded-md !px-6 !py-3.5 !border-brand bg-white">
         <Phone className="h-4 w-4" /> {contact.phone}
       </a>
-      <a
-        href={waHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="relative flex h-12 w-12 items-center justify-center rounded-md border border-brand bg-white text-[#25D366] transition hover:bg-brand-light"
-      >
-        <Anim name="pulse" className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2" />
-        <MessageCircle className="relative h-5 w-5" />
-      </a>
+
+      {/* WhatsApp: same height as the other buttons, own pulse rings */}
+      <span className="relative inline-flex">
+        {!reduce &&
+          [0, 1].map((n) => (
+            <motion.span
+              key={n}
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 rounded-md bg-[#25D366]/40"
+              animate={{ scale: [1, 1.18], opacity: [0.5, 0] }}
+              transition={{ duration: 2, repeat: Infinity, delay: n, ease: "easeOut" }}
+            />
+          ))}
+        <a
+          href={waHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="relative z-10 inline-flex items-center gap-2 rounded-md bg-[#25D366] px-5 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-[#1fb455]"
+        >
+          <MessageCircle className="h-4 w-4" />
+          WhatsApp
+        </a>
+      </span>
     </div>
   );
 
   return (
     <>
-      {/* ===== overview ===== */}
-      <section className="relative z-10 bg-white py-14">
-        <div className="container-x grid items-start gap-12 lg:grid-cols-2">
+      <section className="relative z-10 bg-white py-14 lg:py-16">
+        <div className="container-x grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <Gallery product={p} badge={hero} />
+            <Gallery product={p} badge="gear" />
           </Reveal>
 
           <Reveal delay={0.1} className="relative">
-            <Link
-              href={categoryHref(cat)}
-              className="inline-flex rounded-full bg-brand-light px-3 py-1 text-xs font-bold uppercase tracking-wider text-navy transition hover:bg-brand"
-            >
-              {p.category}
-            </Link>
-            <div className="xl:pr-28">
-              <h2 className="mt-3 text-3xl font-extrabold text-navy sm:text-4xl">{p.name}</h2>
-              <p className="mt-3 leading-relaxed text-slate-600">{p.description}</p>
-              {p.highlight && p.highlight !== p.description && (
-                <p className="mt-2 text-sm leading-relaxed text-slate-500">{p.highlight}</p>
-              )}
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href={categoryHref(cat)}
+                className="inline-flex rounded-full bg-brand-light px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-navy transition hover:bg-brand"
+              >
+                {p.category}
+              </Link>
             </div>
 
-            <dl className="mt-6 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
-              {[
-                { icon: Factory, label: "Make", value: p.make },
-                { icon: Gauge, label: "Capacity", value: p.capacity },
-                p.units && { icon: Layers, label: "In Fleet", value: `${p.units} units` },
-              ]
-                .filter(Boolean)
-                .map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100 transition hover:bg-brand-light">
-                    <dt className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-light text-brand-dark"><Icon className="h-4 w-4" /></span>
-                      {label}
-                    </dt>
-                    <dd className="mt-2 font-bold text-navy">{value}</dd>
+            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl xl:text-[2.75rem]">{p.name}</h2>
+            <span className="mt-3 block h-1 w-14 rounded bg-brand" />
+
+            <p className="mt-5 text-[17px] leading-relaxed text-slate-600">{p.description}</p>
+            {p.highlight && p.highlight !== p.description && (
+              <p className="mt-4 rounded-r-lg border-l-4 border-brand bg-brand-light/40 py-2.5 pl-4 pr-3 text-sm font-medium leading-relaxed text-navy/80">
+                {p.highlight}
+              </p>
+            )}
+
+            <dl className="mt-7 flex flex-col divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:flex-row sm:divide-x sm:divide-y-0">
+              {specs.map(({ icon: Icon, label, value }) => (
+                <div key={label} className="flex items-center gap-3.5 p-4 transition hover:bg-brand-light/50 sm:flex-1">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-dark">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <div className="min-w-0">
+                    <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">{label}</dt>
+                    <dd className="mt-0.5 font-bold text-navy">{value}</dd>
                   </div>
-                ))}
+                </div>
+              ))}
             </dl>
 
             {renderActions("mt-7")}
 
-            <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-3 border-t border-slate-100 pt-5">
+            {/* trust badges: navy tiles */}
+            <ul className="mt-7 grid gap-3 sm:grid-cols-3">
               {trust.map(({ icon: Icon, label }) => (
-                <li key={label} className="flex items-center gap-2 text-xs font-semibold text-slate-600">
-                  <Icon className="h-5 w-5 text-navy" /> {label}
+                <li key={label} className="flex items-center gap-2.5 rounded-xl bg-navy px-3.5 py-3 text-xs font-semibold text-white">
+                  <Icon className="h-5 w-5 shrink-0 text-brand" /> {label}
                 </li>
               ))}
             </ul>
-
-            {/* highlight animation */}
-            <div className="pointer-events-none absolute -top-2 right-0 hidden h-28 w-28 rounded-full bg-brand-light/80 p-2.5 xl:block">
-              <Anim name={hero} className="h-full w-full" />
-            </div>
           </Reveal>
         </div>
       </section>
 
       {/* ===== features + applications ===== */}
       {(p.features.length > 0 || p.applications.length > 0) && (
-        <section className="bg-slate-50 py-14">
-          <div className="container-x grid gap-6 md:grid-cols-2">
-            {[
-              { title: "Key Features", icon: Box, items: p.features, anim: "gear" },
-              { title: "Typical Applications", icon: Settings, items: p.applications, anim: "hook" },
-            ].map(
-              ({ title, icon, items, anim }, k) =>
-                items.length > 0 && (
-                  <Reveal key={title} delay={k * 0.1}>
-                    <div className="relative h-full overflow-hidden rounded-2xl bg-white p-6 shadow ring-1 ring-slate-200">
-                      <SectionTitle icon={icon}>{title}</SectionTitle>
-                      <span className="mt-2 block h-1 w-10 rounded bg-brand" />
-                      <ul className="relative z-10 mt-5 space-y-3 sm:pr-28">
-                        {items.map((it) => (
-                          <li key={it} className="flex gap-3 text-sm text-slate-600">
-                            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand-dark" />
-                            {it}
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="pointer-events-none absolute right-3 bottom-2 hidden h-44 w-44 opacity-90 sm:block">
-                        <Anim name={anim} className="h-full w-full" />
-                      </div>
-                    </div>
-                  </Reveal>
-                )
+        <section className="bg-slate-50 py-10">
+          <div className="container-x grid gap-6 lg:grid-cols-2">
+            {p.features.length > 0 && (
+              <Reveal>
+                <FeaturesCard items={p.features} />
+              </Reveal>
+            )}
+            {p.applications.length > 0 && (
+              <Reveal delay={0.1}>
+                <ApplicationsCard items={p.applications} image={p.applicationsImage || APPLICATIONS_IMG} />
+              </Reveal>
             )}
           </div>
         </section>
@@ -354,30 +487,7 @@ export default function ProductDetail({ product: p, related }) {
         </section>
       )}
 
-      {/* ===== CTA ===== */}
-      <section className="relative overflow-hidden bg-navy py-16">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(246,178,27,.18),transparent_55%)]" />
-        <div className="container-x relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <Reveal>
-            <div className="rounded-3xl bg-white p-8 shadow-2xl sm:p-10">
-              <h3 className="text-2xl font-extrabold leading-tight text-navy sm:text-3xl">
-                Need the right equipment <br className="hidden sm:block" />
-                for your project?
-              </h3>
-              <p className="mt-3 max-w-md text-slate-500">
-                Get expert advice and best pricing for {p.name.toLowerCase()} and other construction equipment.
-              </p>
-              {renderActions("mt-6")}
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.15}>
-            <div className="mx-auto hidden aspect-square w-full max-w-sm rounded-full border-2 border-dashed border-brand/60 p-6 lg:block">
-              <Anim name="site" className="h-full w-full" />
-            </div>
-          </Reveal>
-        </div>
-      </section>
+     <CtaBanner name={p.name} onQuote={() => setOpen(true)} waHref={waHref} />
 
       <QuoteModal open={open} onClose={close} product={p.name} />
     </>

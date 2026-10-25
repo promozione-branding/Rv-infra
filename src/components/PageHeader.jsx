@@ -4,25 +4,41 @@ import Link from "next/link";
 import {
   motion,
   useMotionValue,
+  useReducedMotion,
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ChevronRight, Home, ShieldCheck } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronRight,
+  Cog,
+  Home,
+  PhoneCall,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
 
-import Reveal from "@/components/Reveal";
 import LottieIcon from "@/components/LottieIcon";
 import CraneFallback from "@/components/CraneFallback";
 
+/*
+  cream  #f8f1e3 / #fdf9f1   navy  #0f1f3d   gold  #f2b01c   slate  #6b7280
+*/
+
+const DISPLAY_FONT = 'var(--font-display), "Fraunces", Georgia, serif';
+const EASE = [0.22, 1, 0.36, 1];
+
+const DEFAULT_FEATURES = [
+  { icon: Cog, label: "High Mobility" },
+  { icon: Zap, label: "Quick Deployment" },
+  { icon: ShieldCheck, label: "Reliable Performance" },
+];
+
 const wordIn = {
-  hidden: { y: "110%", opacity: 0 },
+  hidden: { y: "105%" },
   show: (i) => ({
     y: "0%",
-    opacity: 1,
-    transition: {
-      duration: 0.7,
-      delay: 0.25 + i * 0.09,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 0.7, delay: 0.1 + i * 0.08, ease: EASE },
   }),
 };
 
@@ -34,317 +50,285 @@ export default function PageHeader({
   lottieSrc,
   crumb,
   parents = [],
-  backgroundImage = "/fleets/boom_lifts.png",
+  features = DEFAULT_FEATURES,
+  ctaLabel = "Request a Quote",
+  ctaHref = "/contact",
+  phone = "+91 9870173713",
 }) {
+  const reduce = useReducedMotion();
+
+  // Mouse parallax on the illustration
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-
-  const sx = useSpring(mx, {
-    stiffness: 80,
-    damping: 18,
-  });
-
-  const sy = useSpring(my, {
-    stiffness: 80,
-    damping: 18,
-  });
-
-  const vx = useTransform(sx, [-1, 1], [-8, 8]);
-  const vy = useTransform(sy, [-1, 1], [-5, 5]);
+  const sx = useSpring(mx, { stiffness: 70, damping: 18 });
+  const sy = useSpring(my, { stiffness: 70, damping: 18 });
+  const lx = useTransform(sx, [-1, 1], [-10, 10]);
+  const ly = useTransform(sy, [-1, 1], [-5, 5]);
 
   const onMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    mx.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
-    my.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
+    if (reduce) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set(((e.clientX - r.left) / r.width) * 2 - 1);
+    my.set(((e.clientY - r.top) / r.height) * 2 - 1);
   };
 
-  const hi = highlight
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(Boolean);
-
   const words = String(title).split(" ");
+  const hi = highlight.toLowerCase().split(/\s+/).filter(Boolean);
+  const clean = (w) => w.toLowerCase().replace(/[^\w]/g, "");
+  const isGold = (w, i) =>
+    hi.length ? hi.includes(clean(w)) : i === words.length - 1;
   const hasVisual = Boolean(lottieSrc);
+
+  const draw = (delay) => ({
+    initial: reduce ? false : { pathLength: 0 },
+    animate: { pathLength: 1 },
+    transition: { duration: 1, delay, ease: EASE },
+  });
+
+  const rise = (delay) => ({
+    initial: reduce ? false : { y: 60, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { duration: 0.85, delay, ease: EASE },
+  });
 
   return (
     <section
       onMouseMove={onMove}
-      className="relative isolate overflow-hidden bg-[#0b1725] pt-10 sm:pb-20 sm:pt-14 lg:pb-14"
-    >
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 w-full lg:w-[55%]"
-        style={{
-          backgroundImage: `url("${backgroundImage}")`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-
-      {/* Dark overlay over the background image */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[#071421]/75"
-      />
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        
-      />
-
-
-      {hasVisual && (
-  <div
-    aria-hidden="true"
-    className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[53%] lg:block"
-  >
-    {/* Slanted panel: gradient + amber glow */}
-    <div
-      className="absolute inset-0"
+      className="relative isolate overflow-hidden lg:min-h-[320px]"
       style={{
-        clipPath: "polygon(10% 0, 100% 0, 100% 100%, 0 100%)",
         background:
-          "radial-gradient(circle at 55% 55%, rgba(246,178,27,0.22), transparent 55%), radial-gradient(circle at 85% 10%, rgba(59,130,246,0.18), transparent 45%), linear-gradient(135deg, #10253c 0%, #0a1624 55%, #07101b 100%)",
+          "radial-gradient(800px 360px at 18% 30%, #fffdf8 0%, #f8f1e3 70%, #f3e9d6 100%)",
       }}
     >
-      {/* Dot grid, fading toward the edges */}
-      <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
-          maskImage:
-            "radial-gradient(ellipse at 55% 55%, black 20%, transparent 70%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse at 55% 55%, black 20%, transparent 70%)",
-        }}
-      />
-
-      {/* Concentric blueprint rings */}
+      {/* Navy geometry (desktop); gold lines draw in */}
       <svg
-        className="absolute inset-0 h-full w-full opacity-40"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full lg:block"
+        viewBox="0 0 2048 768"
+        preserveAspectRatio="none"
       >
-        {[18, 28, 38, 48].map((r) => (
-          <circle
-            key={r}
-            cx="55"
-            cy="55"
-            r={r}
-            fill="none"
-            stroke="#f6b21b"
-            strokeOpacity={0.25 - r / 400}
-            strokeWidth="0.15"
-            strokeDasharray="1 1.5"
-          />
-        ))}
-        <line x1="55" y1="0" x2="55" y2="100" stroke="#fff" strokeOpacity="0.06" strokeWidth="0.15" />
-        <line x1="0" y1="55" x2="100" y2="55" stroke="#fff" strokeOpacity="0.06" strokeWidth="0.15" />
+        <polygon points="0,0 120,0 0,160" fill="#0f1f3d" />
+        <polygon points="1800,0 2048,0 2048,768 760,768 1022,712 1800,712" fill="#0f1f3d" />
+        <motion.line x1="120" y1="0" x2="0" y2="160" stroke="#f2b01c" strokeWidth="2.5" vectorEffect="non-scaling-stroke" {...draw(0.2)} />
+        <motion.line x1="760" y1="768" x2="1022" y2="712" stroke="#f2b01c" strokeWidth="3" vectorEffect="non-scaling-stroke" {...draw(0.4)} />
+        <motion.line x1="2048" y1="300" x2="1900" y2="590" stroke="#f2b01c" strokeWidth="2" vectorEffect="non-scaling-stroke" {...draw(0.6)} />
       </svg>
-    </div>
 
-    {/* Amber edge line following the slant */}
-    <svg
-      className="absolute inset-0 h-full w-full"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-    >
-      <line
-        x1="10" y1="0" x2="0" y2="100"
-        stroke="#f6b21b"
-        strokeWidth="2"
-        vectorEffect="non-scaling-stroke"
-      />
-      <line
-        x1="12" y1="0" x2="2" y2="100"
-        stroke="#f6b21b"
-        strokeOpacity="0.35"
-        strokeWidth="1"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  </div>
-)}
-
-      <div
-        aria-hidden="true"
-        className="hero-grid pointer-events-none absolute inset-0 opacity-30"
-      />
-
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-20 bottom-[-40px] z-0 h-20 w-[340px] -rotate-45 bg-[#f6b21b]/20 sm:h-24 sm:w-[420px]"
-      />
-
-    
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-12 bottom-8 z-0 h-10 w-[240px] -rotate-45 border border-[#f6b21b]/40 sm:w-[300px]"
-      />
-
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 top-[-55px] z-0 h-16 w-[300px] -rotate-45 bg-[#f6b21b]/90 sm:h-20 sm:w-[380px]"
-      />
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-28 top-28 z-0 h-3 w-[260px] -rotate-45 bg-[#f6b21b]/50 sm:w-[330px]"
-      />
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-16 bottom-16 z-0 h-12 w-[240px] -rotate-45 border border-[#f6b21b]/40 sm:w-[300px]"
-      />
-
-      {/* =====================================================
-          MAIN CONTENT
-      ====================================================== */}
-
-      <div
-        className={`container-x relative z-10 grid items-center gap-8 lg:gap-10 ${
-          hasVisual ? "lg:grid-cols-[1.1fr_0.9fr]" : ""
-        }`}
-      >
-        {/* LEFT CONTENT */}
-        <div className="relative z-10 min-w-0">
-          {/* Breadcrumb */}
+      <div className="container-x relative z-10 pb-7 pt-6 lg:py-6">
+        <div className="min-w-0 lg:w-[50%]">
+          {/* Breadcrumb (current page doubles as the label) */}
           <motion.nav
             aria-label="Breadcrumb"
-            initial={{ opacity: 0, x: -20 }}
+            initial={reduce ? false : { opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#142233]/80 px-3.5 py-2 text-xs font-medium text-slate-300 backdrop-blur-sm sm:text-sm"
+            transition={{ duration: 0.5, ease: EASE }}
           >
-            <Link
-              href="/"
-              className="flex items-center gap-2 transition-colors hover:text-[#f6b21b]"
-            >
-              <Home className="h-4 w-4" />
-              <span>Home</span>
-            </Link>
-
-            {parents.map((pp) => (
-              <span key={pp.href} className="flex items-center gap-2">
-                <ChevronRight className="h-4 w-4 text-slate-500" />
-                <Link href={pp.href} className="transition-colors hover:text-[#f6b21b]">
-                  {pp.label}
+            <ol className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-[#0f1f3d]/15 bg-white/50 px-3.5 py-1 text-[13px] text-[#0f1f3d]">
+              <li>
+                <Link
+                  href="/"
+                  className="flex items-center gap-1.5 transition-colors hover:text-[#d99a0c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f2b01c]"
+                >
+                  <Home className="h-3.5 w-3.5" />
+                  Home
                 </Link>
-              </span>
-            ))}
-
-            <ChevronRight className="h-4 w-4 text-slate-500" />
-
-            <span
-              aria-current="page"
-              className="font-semibold text-[#f6b21b]"
-            >
-              {crumb || eyebrow}
-            </span>
+              </li>
+              {parents.map((p) => (
+                <li key={p.href} className="flex items-center gap-2">
+                  <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+                  <Link href={p.href} className="transition-colors hover:text-[#d99a0c]">
+                    {p.label}
+                  </Link>
+                </li>
+              ))}
+              <li className="flex items-center gap-2">
+                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+                <span aria-current="page" className="font-semibold text-[#d99a0c]">
+                  {crumb || eyebrow}
+                </span>
+              </li>
+            </ol>
           </motion.nav>
 
-          {/* Eyebrow */}
-          <Reveal delay={0.05}>
-            <div className="eyebrow !text-[#f6b21b]">
-              {eyebrow}
-            </div>
-          </Reveal>
-
-          {/* Heading */}
+          {/* Title */}
           <h1
             aria-label={title}
-            className="mt-3 max-w-[850px] text-3xl font-bold leading-[1.08] tracking-tight text-white sm:text-4xl md:text-5xl xl:text-[64px]"
+            className="mt-3 text-[2rem] font-extrabold leading-[1.05] tracking-[-0.02em] text-[#0f1f3d] sm:text-[2.6rem] lg:text-[2.8rem] xl:text-[3.2rem]"
+            style={{ fontFamily: DISPLAY_FONT }}
           >
-            {words.map((word, i) => {
-              const cleanWord = word
-                .toLowerCase()
-                .replace(/[^\w]/g, "");
-
-              const isHighlighted = hi.includes(cleanWord);
-
-              return (
-                <span
-                  key={`${word}-${i}`}
-                  className="mr-[0.24em] inline-block overflow-hidden align-bottom"
-                  aria-hidden="true"
+            {words.map((word, i) => (
+              <span
+                key={`${word}-${i}`}
+                aria-hidden="true"
+                className="mr-[0.22em] -mb-[0.14em] inline-block overflow-hidden pb-[0.14em] align-bottom"
+              >
+                <motion.span
+                  className={`inline-block ${isGold(word, i) ? "text-[#f2b01c]" : ""}`}
+                  variants={wordIn}
+                  custom={i}
+                  initial={reduce ? "show" : "hidden"}
+                  animate="show"
                 >
-                  <motion.span
-                    className={`inline-block ${
-                      isHighlighted
-                        ? "text-[#f6b21b]"
-                        : "text-white"
-                    }`}
-                    variants={wordIn}
-                    custom={i}
-                    initial="hidden"
-                    animate="show"
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              );
-            })}
+                  {word}
+                </motion.span>
+              </span>
+            ))}
           </h1>
 
-          {/* Description */}
           {text && (
-            <Reveal delay={0.55}>
-              <p className="mt-5 max-w-[580px] text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 lg:text-[17px]">
-                {text}
-              </p>
-            </Reveal>
+            <motion.p
+              initial={reduce ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-2 max-w-[32rem] text-sm leading-6 text-slate-500 sm:text-[15px]"
+            >
+              {text}
+            </motion.p>
           )}
 
-        
+          {/* Features: plain inline row */}
+          {features?.length > 0 && (
+            <ul className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[13px] font-semibold text-[#0f1f3d]">
+              {features.map(({ icon: Icon, label }, i) => (
+                <li
+                  key={label}
+                  className={`flex items-center gap-2 ${
+                    i > 0 ? "border-l border-slate-300 pl-4" : ""
+                  }`}
+                >
+                  <Icon className="h-4 w-4 text-[#f2b01c]" />
+                  {label}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* Actions */}
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link
+              href={ctaHref}
+              className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-md bg-[#f2b01c] px-5 py-2.5 text-sm font-bold text-[#0f1f3d] transition-colors hover:bg-[#e0a010] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0f1f3d]"
+            >
+              <span className="relative z-10">{ctaLabel}</span>
+              <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+              {!reduce && (
+                <motion.span
+                  aria-hidden="true"
+                  className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-white/45"
+                  animate={{ x: ["0%", "450%"] }}
+                  transition={{ duration: 1.1, repeat: Infinity, repeatDelay: 3.2, ease: "easeInOut" }}
+                />
+              )}
+            </Link>
+
+            {phone && (
+              <a
+                href={`tel:${phone.replace(/\s/g, "")}`}
+                className="inline-flex items-center gap-2.5 rounded-md border border-[#f2b01c] bg-white/40 px-4 py-2.5 text-sm font-bold text-[#0f1f3d] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0f1f3d]"
+              >
+                <PhoneCall className="h-4 w-4" />
+                {phone}
+              </a>
+            )}
+          </div>
         </div>
 
-        {hasVisual && (
-          <motion.div
-            style={{ x: vx, y: vy }}
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.2,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="relative mx-auto aspect-[4/3] w-full max-w-[540px] sm:max-w-[500px] lg:max-w-[560px]"
-          >
-            <div className="absolute inset-2 rounded-[48%] border border-dashed border-[#f6b21b]/70 sm:inset-3" />
-
-            <span
+             {hasVisual && (
+          <div className="relative mx-auto mt-6 h-[260px] w-full max-w-[380px] sm:h-[300px] lg:absolute lg:bottom-[-3%] lg:right-[3%] lg:top-[9%] lg:mx-0 lg:mt-0 lg:h-auto lg:w-[36%] lg:max-w-none">
+            <motion.div
               aria-hidden="true"
-              className="absolute left-1/2 top-2 z-20 h-3 w-3 -translate-x-1/2 rounded-full bg-[#f6b21b]"
+              {...rise(0.5)}
+              className="absolute -left-[10%] bottom-0 -z-10 hidden h-[58%] w-[24%] rounded-t-full border-2 border-b-0 border-[#f2b01c] bg-[#0f1f3d] lg:block"
+            />
+            <motion.div
+              aria-hidden="true"
+              {...rise(0.65)}
+              className="absolute -right-[8%] bottom-0 -z-10 hidden h-[62%] w-[26%] rounded-t-full border-2 border-b-0 border-[#f2b01c] bg-[#f8f1e3] lg:block"
             />
 
-
-            <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6">
-              <LottieIcon
-                src={lottieSrc}
-                className="h-[550px] w-[600px] scale-100"
-                fallback={
-                  <CraneFallback className="h-full w-full" />
-                }
+            {/* Panel */}
+            <motion.div
+              {...rise(0.2)}
+              className="absolute inset-0 overflow-hidden rounded-tl-[90px] bg-[#fdf9f1] shadow-[0_18px_40px_-20px_rgba(15,31,61,0.35)] lg:rounded-tl-[120px]"
+            >
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-[48%] aspect-square h-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f8ead2]"
               />
-            </div>
-          </motion.div>
+
+              {/* Orbit: dashes flow around the ellipse */}
+              <svg
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+              >
+                <motion.ellipse
+                  cx="50"
+                  cy="48"
+                  rx="47"
+                  ry="43"
+                  fill="none"
+                  stroke="#f2b01c"
+                  strokeOpacity="0.65"
+                  strokeWidth="1"
+                  strokeDasharray="4 5"
+                  vectorEffect="non-scaling-stroke"
+                  animate={reduce ? undefined : { strokeDashoffset: [0, -36] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                />
+              </svg>
+
+              <span
+                aria-hidden="true"
+                className="absolute right-[14%] top-[6%] h-6 w-6 rounded-full bg-[#f2b01c]"
+              />
+
+              <motion.div
+                style={reduce ? undefined : { x: lx, y: ly }}
+                className="absolute inset-x-[4%] bottom-[7%] top-[10%] flex items-end justify-center"
+              >
+                <LottieIcon
+                  src={lottieSrc}
+                  className="h-full w-full scale-125 origin-bottom"
+                  fallback={<CraneFallback className="h-full w-full" />}
+                />
+              </motion.div>
+
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-[6%] h-px bg-gradient-to-r from-transparent via-[#f2b01c]/80 to-transparent"
+              />
+            </motion.div>
+          </div>
         )}
       </div>
 
-      {/* Bottom edge */}
-      <div
+      {/* Right edge: navy zigzag with gold outline (desktop) */}
+      <svg
         aria-hidden="true"
-        className="hazard-bar absolute inset-x-0 bottom-0 h-1"
-      />
+        className="pointer-events-none absolute right-0 top-0 z-20 hidden h-full w-[3%] lg:block"
+        viewBox="0 0 40 768"
+        preserveAspectRatio="none"
+      >
+        <polygon
+          points="40,0 14,0 0,48 14,96 0,144 14,192 0,240 14,288 0,336 14,384 0,432 14,480 0,528 14,576 0,624 14,672 0,720 14,768 40,768"
+          fill="#0f1f3d"
+        />
+        <motion.polyline
+          points="14,0 0,48 14,96 0,144 14,192 0,240 14,288 0,336 14,384 0,432 14,480 0,528 14,576 0,624 14,672 0,720 14,768"
+          fill="none"
+          stroke="#f2b01c"
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+          initial={reduce ? false : { pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
+        />
+      </svg>
+
+      {/* Mobile: navy base with gold line */}
+      <div aria-hidden="true" className="h-2.5 border-t-2 border-[#f2b01c] bg-[#0f1f3d] lg:hidden" />
     </section>
   );
 }

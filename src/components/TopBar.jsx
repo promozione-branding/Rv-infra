@@ -13,6 +13,28 @@ const Mail = () => (
   </svg>
 )
 
+const Gst = () => (
+  <svg 
+    width="15" 
+    height="15" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    aria-hidden="true"
+  >
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <circle cx="9" cy="9" r="1" />
+  </svg>
+)
+
+
+
 const linkCls = "inline-flex min-w-0 items-center gap-2 transition-opacity duration-[180ms] ease-out hover:opacity-70"
 const textCls = "overflow-hidden text-ellipsis whitespace-nowrap"
 
@@ -28,6 +50,10 @@ export default function TopBar() {
           <a href={`mailto:${contact.email}`} className={linkCls}>
             <Mail />
             <span className={textCls}>{contact.email}</span>
+          </a>
+          <a href="/contact" className={linkCls}>
+            <Gst />
+            <span className={textCls}>07AABCR0548Q1Z0</span>
           </a>
         </div>
         <span className="whitespace-nowrap max-[720px]:hidden">{contact.hours}</span>

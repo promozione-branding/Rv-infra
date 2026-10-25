@@ -145,25 +145,6 @@ export default function ProductsExplorer({ category = null }) {
 
   return (
     <>
-      <section className="relative z-10 -mt-10">
-        <div className="container-x">
-          <Reveal>
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-slate-200 shadow-xl ring-1 ring-slate-200 lg:grid-cols-4">
-              {stats.map((s) => (
-                <div key={s.label} className="group relative bg-white p-5 text-center transition hover:bg-brand-light sm:p-6">
-                  <div className="text-2xl font-extrabold text-navy sm:text-3xl">
-                    <Counter value={s.value} decimals={s.decimals || 0} prefix={s.prefix || ""} suffix={s.suffix || ""} />
-                  </div>
-                  <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">{s.label}</div>
-                  <span className="absolute inset-x-6 bottom-0 h-0.5 origin-center scale-x-0 bg-brand transition-transform duration-500 group-hover:scale-x-100" />
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* filters + grid */}
       <section className="relative overflow-hidden bg-slate-50 py-16">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,rgba(11,22,35,.07)_1px,transparent_1px)] [background-size:22px_22px]" />
         <div className="container-x relative">
