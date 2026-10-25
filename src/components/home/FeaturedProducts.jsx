@@ -358,7 +358,7 @@ function CardBody({ p, imgClass = "h-48" }) {
           src={`${IMAGE_BASE}/${p.image_file}`}
           alt={p.name}
           icon="Construction"
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          className="h-[400px] w-full object-cover transition duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent" />
         <span

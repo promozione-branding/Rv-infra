@@ -227,7 +227,11 @@ export default function ProductsExplorer({ category = null }) {
 
 
 
-     <CtaBanner name={p.name} onQuote={() => setOpen(true)} waHref={waHref} />
+<CtaBanner
+  name={category ? category.name : "construction equipment"}
+  onQuote={() => openQuote(category ? category.name : "")}
+  waHref="https://wa.me/919811017313"
+/>
 
       <QuoteModal open={quote.open} onClose={closeQuote} product={quote.product} />
     </>
