@@ -1,6 +1,6 @@
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
-import { ProjectCards, Clients } from "@/components/HomeSections";
+import { ProjectCards, Clients } from "@/components/ProjectCards";
 import { fleetTable } from "@/data/site";
 
 export const metadata = { title: "Projects & Fleet | R.V. Infrastructural Pvt. Ltd." };
