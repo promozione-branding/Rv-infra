@@ -89,15 +89,12 @@ export default function PageHeader({
   return (
     <section
       onMouseMove={onMove}
-      // Fixed desktop height: the SVG uses preserveAspectRatio="none", so every
-      // page must have the same section size for the geometry to look identical.
-      className="relative isolate overflow-hidden lg:min-h-[440px]"
+      className="relative isolate overflow-hidden lg:min-h-[500px]"
       style={{
         background:
           "radial-gradient(800px 360px at 18% 30%, #fffdf8 0%, #f8f1e3 70%, #f3e9d6 100%)",
       }}
     >
-      {/* Navy geometry (desktop); gold lines draw in */}
       <svg
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full lg:block"
@@ -112,7 +109,7 @@ export default function PageHeader({
       </svg>
 
       {/* Text column */}
-      <div className="container-x relative z-10 pb-7 pt-6 lg:flex lg:min-h-[440px] lg:items-center lg:py-6">
+      <div className="container-x relative z-10 pb-7 pt-6 lg:flex lg:min-h-[572px] lg:items-center lg:py-6">
         <div className="min-w-0 lg:w-[50%]">
           <motion.nav
             aria-label="Breadcrumb"
@@ -229,15 +226,9 @@ export default function PageHeader({
         </div>
       </div>
 
-      {/*
-        Visual: sibling of the text container (not a child), so on desktop it is
-        positioned against the <section> -- the same box the SVG geometry uses.
-        `lg:contents` removes this wrapper's own box on desktop; on mobile it is
-        a normal block that flows under the text.
-      */}
       {hasVisual && (
         <div className="container-x relative z-10 pb-7 lg:contents">
-          <div className="relative mx-auto mt-2 h-[260px] w-full max-w-[380px] sm:h-[300px] lg:absolute lg:bottom-[-3%] lg:right-[12%] lg:top-[9%] lg:z-10 lg:mx-0 lg:mt-0 lg:h-auto lg:w-[35%] lg:max-w-none">
+          <div className="relative mx-auto mt-2 h-[260px] w-full max-w-[380px] sm:h-[300px] lg:absolute lg:bottom-[-3%] lg:right-[12%] lg:top-[9%] lg:z-10 lg:mx-0 lg:mt-0 lg:h-auto lg:w-[45%] lg:max-w-none">
             <motion.div
               aria-hidden="true"
               {...rise(0.5)}

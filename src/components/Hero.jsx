@@ -136,7 +136,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[360px] w-[92%] max-w-[1400px] items-center pb-16 pt-6 lg:min-h-[440px] lg:pb-20 lg:w-[90%]">
+      <div className="relative z-10 mx-auto flex min-h-[468px] w-[92%] max-w-[1400px] items-center pb-16 pt-6 lg:min-h-[500px] lg:pb-20 lg:w-[90%]">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
