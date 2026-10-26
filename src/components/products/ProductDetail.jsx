@@ -29,7 +29,7 @@ import Reveal from "@/components/Reveal";
 import LottieIcon from "@/components/LottieIcon";
 import QuoteModal from "./QuoteModal";
 import { contact } from "@/data/site";
-import { productHref, categoryHref, getCategory } from "@/data/product";
+import { productHref } from "@/data/product";
 import CTABanner from "../CTABanner";
 
 const LOTTIE = {
@@ -40,13 +40,6 @@ const LOTTIE = {
   site: "/product_detail/",
 };
 
-const HERO_BY_CATEGORY = {
-  concrete: "drum",
-  cranes: "hook",
-  "lifts-and-access": "hook",
-  foundation: "gear",
-  earthwork: "gear",
-};
 
 const LIFT_SVG = "/product_detail/boom-lift-v2.svg";
 const APPLICATIONS_IMG = "/industries/ind_2.png"; // override per product with product.applicationsImage
@@ -269,8 +262,7 @@ export default function ProductDetail({ product: p, related }) {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
   const reduce = useReducedMotion();
-  const cat = getCategory(p.categorySlug);
-  const hero = HERO_BY_CATEGORY[p.categorySlug] || "gear";
+  const hero = "hook";
   const scroller = useRef(null);
   const slide = (d) => {
     const el = scroller.current;
@@ -332,12 +324,7 @@ export default function ProductDetail({ product: p, related }) {
 
           <Reveal delay={0.1} className="relative">
             <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href={categoryHref(cat)}
-                className="inline-flex rounded-full bg-brand-light px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-navy transition hover:bg-brand"
-              >
-                {p.category}
-              </Link>
+              <span className="inline-flex rounded-full bg-brand-light px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-navy">{p.category}</span>
             </div>
 
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl xl:text-[2.75rem]">{p.name}</h2>
@@ -443,9 +430,6 @@ export default function ProductDetail({ product: p, related }) {
             <div className="flex items-center justify-between gap-4">
               <SectionTitle icon={HardHat}>Related Equipment</SectionTitle>
               <div className="flex items-center gap-4">
-                <Link href={categoryHref(cat)} className="hidden items-center gap-1 text-sm font-semibold text-brand-dark hover:underline sm:inline-flex">
-                  More in {p.category} <ArrowRight className="h-4 w-4" />
-                </Link>
                 {related.length > 1 && (
                   <div className="flex gap-2">
                     <button type="button" aria-label="Previous" onClick={() => slide(-1)} className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white text-navy transition hover:border-brand hover:bg-brand">

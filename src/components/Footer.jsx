@@ -8,9 +8,7 @@ import {
   UserCog,
   Settings,
   Construction,
-  Grab,
   Truck,
-  Container,
   Factory,
   HardHat,
 } from "lucide-react";
@@ -29,10 +27,9 @@ const quickLinks = [
 ];
 
 const categories = [
-  { label: "Crawler Cranes", href: "/products/crawler-cranes", Icon: Construction },
-  { label: "Hydraulic Grabs", href: "/products", Icon: Grab },
-  { label: "Concrete Pumps", href: "/products/category/concrete", Icon: Truck },
-  { label: "Self Loading Mixers", href: "/products/category/concrete", Icon: Container },
+  { label: "24 Mtrs Articulated Boom Lift", href: "/products/24-mtrs-truck-mounted-articulated-boom-lift", Icon: Construction },
+  { label: "30 Mtrs Telescopic Boom Lift", href: "/products/30-mtrs-truck-mounted-telescopic-boom-lift", Icon: Truck },
+  { label: "35 Mtrs Telescopic Boom Lift", href: "/products/35-mtrs-truck-mounted-telescopic-boom-lift", Icon: Truck },
   { label: "Plant Erection", href: "/projects", Icon: Factory },
   { label: "Skilled Operators", href: "/contact", Icon: HardHat },
 ];

@@ -1,45 +1,20 @@
-import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
-import ProductDetail from "@/components/products/ProductDetail";
-import { products, getProduct, getCategory, relatedProducts } from "@/data/product";
+import ProductsExplorer from "@/components/products/ProductsExplorer";
 
-export const dynamicParams = false;
+export const metadata = { title: "Products & Equipment | R.V. Infrastructural Pvt. Ltd." };
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
-
-export function generateMetadata({ params }) {
-  const p = getProduct(params.slug);
-  if (!p) return {};
-  return {
-    title: `${p.name} on Rent | R.V. Infrastructural Pvt. Ltd.`,
-    description: `${p.description} Make: ${p.make}. Capacity: ${p.capacity}.`,
-    openGraph: { images: [p.image] },
-  };
-}
-
-export default function ProductPage({ params }) {
-  const p = getProduct(params.slug);
-  if (!p) notFound();
-  const cat = getCategory(p.categorySlug);
-
+export default function Products() {
   return (
     <>
       <PageHeader
-        eyebrow={p.category}
-        crumb={p.name}
-        parents={[
-          { label: "Products", href: "/products" },
-          { label: p.category, href: `/products/category/${cat.slug}` },
-        ]}
-        title={p.name}
-        highlight={p.name.split(" ")[0]}
-        text={p.highlight}
+        eyebrow="Our Products"
+        crumb="Products"
+        title="Best Products all over India"
+        highlight="Products"
+        text="Truck mounted boom lifts from 24 to 35 mtrs, supplied with skilled operators to leading infrastructure and industrial companies."
         lottieSrc="/Building_Construction.json"
-        backgroundImage={p.image}
       />
-      <ProductDetail product={p} related={relatedProducts(p, 6)} />
+      <ProductsExplorer />
     </>
   );
 }

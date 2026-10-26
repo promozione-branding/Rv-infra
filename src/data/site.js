@@ -1,4 +1,3 @@
-
 export const company = {
   name: "R.V. Infrastructural Pvt. Ltd.",
   short: "RV INFRASTRUCTURAL",
@@ -39,10 +38,9 @@ export const stats = [
 
 
 export const services = [
-  { title: "Crawler Cranes",      iconId: "crane-rental" },
-  { title: "Hydraulic Grabs",     iconId: "heavy-lifting" },
-  { title: "Concrete Pumps",      iconId: "readymix-concrete" },
-  { title: "Self Loading Mixers", iconId: "construction-equipment" },
+  { title: "24 Mtrs Articulated Boom Lift", iconId: "construction-equipment" },
+  { title: "30 Mtrs Telescopic Boom Lift",  iconId: "heavy-lifting" },
+  { title: "35 Mtrs Telescopic Boom Lift",  iconId: "crane-rental" },
   { title: "Plant Erection",      iconId: "plant-erection" },    
   { title: "Skilled Operators",   iconId: "skilled-operators" },   
 ];
@@ -132,16 +130,9 @@ export const clients = [
 ];
 
 export const fleetGroups = [
-  { name: "Boom Lifts", category: "Lifts & Access", make: "XCMG", capacity: "131–141 feet", image_file: "boom_lifts.png", description: "Ideal for elevated work at construction, maintenance and industrial sites." },
-  { name: "Truck Mount Cranes", category: "Cranes", make: "XCMG / TIL / ACE", capacity: "20–75 tons", image_file: "truck_mounted.png", description: "High mobility and quick deployment for diverse lifting requirements." },
-  { name: "Crawler Cranes", category: "Cranes", make: "SANY / XCMG", capacity: "45–150 ton", image_file: "crawler_crane_.png", description: "Powerful and stable lifting solution for heavy and large-scale projects." },
-  { name: "Hydraulic Grabs", category: "Foundation", make: "SANY", capacity: "600–1500 mm", image_file: "hydraulic-grabs_.png", description: "Specialized equipment for diaphragm walls and deep foundation works." },
-  { name: "Piling Rigs", category: "Foundation", make: "SANY", capacity: "550–1200 mm", image_file: "pilling_rigs_.png", description: "High-performance piling solutions for infrastructure and industrial foundations." },
-  { name: "Concrete Pumps", category: "Concrete", make: "PUTZMEISTER / SCHWING", capacity: "35–90 cum", image_file: "concrete_pumps.png", description: "Reliable concrete placement for high-rise and large volume pours." },
-  { name: "Transit Mixers", category: "Concrete", make: "TATA / ASHOK LEYLAND", capacity: "6–7 cum", image_file: "transit_mixers.png", description: "On-time delivery of quality ready-mix concrete to project sites." },
-  { name: "Soil Compactors", category: "Earthwork", make: "ACE / ESCORTS / DYNAPAC", capacity: "10–12 ton", image_file: "soil_compactors.png", description: "Efficient compaction for road works, embankments and site preparation." },
-  { name: "Motor Graders", category: "Earthwork", make: "CASE / SEM / Liugong", capacity: "12 feet", image_file: "motor_graders.png", description: "Precision grading for highways, airports and large earthwork packages." },
-  { name: "Self Loading Mixers", category: "Concrete", make: "AJAX / SCHWING", capacity: "2–4 cum", image_file: "self_loading.png", description: "Self-contained mixing and placement for remote or small-volume sites." },
+  { name: "24 mtrs truck mounted articulated boom lift", category: "Lifts & Access", make: "XCMG", capacity: "24 mtrs", image_file: "product_1.png", description: "Safe elevated access for construction & maintenance" },
+  { name: "30 mtrs truck mounted telescopic boom lift", category: "Lifts & Access", make: "XCMG", capacity: "30 mtrs", image_file: "product_2.png", description: "Safe elevated access for construction & maintenance" },
+  { name: "35 mtrs truck mounted telescopic boom lift", category: "Lifts & Access", make: "XCMG", capacity: "35 mtrs", image_file: "product_3.png", description: "Safe elevated access for construction & maintenance" },
 ];
 
 export const featuredProducts = [
