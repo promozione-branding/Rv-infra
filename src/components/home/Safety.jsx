@@ -11,6 +11,7 @@ import {
 import Reveal from  "@/components/Reveal";
 
 const SAFETY_GOLD = "#F5A524";
+const GOLD_TEXT = "#B7740B"; // darker gold for readable text on light bg
 
 const SAFETY_CARDS = [
   {
@@ -47,21 +48,21 @@ export function Safety() {
   return (
     <section
       id="safety"
-      className="relative isolate scroll-mt-20 overflow-hidden bg-[#e5e7eb] mt-5"
+      className="relative isolate scroll-mt-20 overflow-hidden bg-[#f4f6fa] mt-5"
     >
       <img
         src="/images/construction_card.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover object-left opacity-40"
+        className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover object-left opacity-15"
       />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#06101C] via-[#06101C]/90 to-[#06101C]/30" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/90 to-white/20" />
 
       <div
         aria-hidden="true"
         className="absolute inset-y-0 right-0 -z-10 hidden w-[66%] lg:block"
         style={{
-          background: `linear-gradient(135deg, ${SAFETY_GOLD}, #7a5410)`,
+          background: `linear-gradient(135deg, #FFD27A, ${SAFETY_GOLD})`,
           clipPath: "polygon(24% 0, 100% 0, 100% 100%, 0 100%, 0 78%, 8% 62%)",
         }}
       />
@@ -77,7 +78,7 @@ export function Safety() {
           alt="RV safety officer supervising a crane lift"
           className="h-full w-full object-cover object-top"
         />
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#06101C] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[12%] bg-gradient-to-t from-[#f4f6fa]/60 to-transparent" />
       </div>
 
       <div className="relative h-56 lg:hidden">
@@ -86,7 +87,7 @@ export function Safety() {
           alt="RV safety officer supervising a crane lift"
           className="h-full w-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#06101C] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#f4f6fa]/60 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto w-[92%] max-w-[1500px] pb-6 pt-6 lg:pb-6 lg:pt-8">
@@ -98,19 +99,19 @@ export function Safety() {
             >
               <span
                 className="text-sm font-medium uppercase tracking-[0.25em]"
-                style={{ color: SAFETY_GOLD }}
+                style={{ color: GOLD_TEXT }}
               >
                 Safety First
               </span>
             </div>
 
-            <h2 className="mt-3 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[2.5rem]">
+            <h2 className="mt-3 text-3xl font-bold leading-[1.1] tracking-tight text-[#0f1a2e] sm:text-4xl lg:text-[2.5rem]">
               Our Commitment
               <br />
-              to a Safer <span style={{ color: SAFETY_GOLD }}>Tomorrow</span>
+              to a Safer <span style={{ color: GOLD_TEXT }}>Tomorrow</span>
             </h2>
 
-            <p className="mt-3 max-w-[440px] text-sm leading-relaxed text-slate-300">
+            <p className="mt-3 max-w-[440px] text-sm leading-relaxed text-slate-600">
               We follow stringent safety protocols, regular equipment
               inspections and skilled operations to ensure a safe working
               environment on every project.
@@ -118,8 +119,8 @@ export function Safety() {
 
             <Link
               href="/safety"
-              className="group/btn mt-4 inline-flex items-center gap-3 rounded-full border-2 bg-transparent px-5 py-2 text-sm font-semibold transition hover:bg-white/5"
-              style={{ borderColor: SAFETY_GOLD, color: SAFETY_GOLD }}
+              className="group/btn mt-4 inline-flex items-center gap-3 rounded-full border-2 bg-transparent px-5 py-2 text-sm font-semibold transition hover:bg-[#F5A524]/10"
+              style={{ borderColor: SAFETY_GOLD, color: GOLD_TEXT }}
             >
               Our Safety Practices
               <ArrowRight
@@ -138,7 +139,7 @@ export function Safety() {
               <motion.article
                 whileHover={{ y: -6 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                className="group relative h-[215px] overflow-hidden rounded-2xl border border-white/10 bg-[#0A1624] shadow-[0_18px_40px_rgba(0,0,0,0.45)]"
+                className="group relative h-[215px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_12px_30px_rgba(15,26,46,0.12)]"
               >
                 <img
                   src={c.image}
@@ -147,8 +148,8 @@ export function Safety() {
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover object-right transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#08121F] via-[#08121F]/85 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#08121F]/90 via-transparent to-[#08121F]/30" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/25 via-transparent to-transparent" />
 
                 <span
                   aria-hidden="true"
@@ -164,10 +165,10 @@ export function Safety() {
                     <c.icon size={22} strokeWidth={1.7} />
                   </span>
 
-                  <h3 className="mt-3 whitespace-pre-line text-[15px] font-bold leading-tight text-white">
+                  <h3 className="mt-3 whitespace-pre-line text-[15px] font-bold leading-tight text-[#0f1a2e]">
                     {c.title}
                   </h3>
-                  <p className="mt-1 max-w-[210px] text-xs leading-snug text-slate-300">
+                  <p className="mt-1 max-w-[210px] text-xs leading-snug text-slate-600">
                     {c.text}
                   </p>
 
@@ -175,7 +176,7 @@ export function Safety() {
                     href={c.href}
                     aria-label={`Learn more: ${c.title.replace("\n", " ")}`}
                     className="mt-auto flex h-8 w-8 items-center justify-center rounded-full border transition hover:bg-[#F5A524] hover:text-[#101D2A]"
-                    style={{ borderColor: SAFETY_GOLD, color: SAFETY_GOLD }}
+                    style={{ borderColor: SAFETY_GOLD, color: GOLD_TEXT }}
                   >
                     <ArrowRight size={16} />
                   </Link>
