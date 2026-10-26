@@ -232,7 +232,7 @@ export function QuoteSection() {
               </span>
             </div>
 
-            <h2 className="mt-5 text-[clamp(2.2rem,3.9vw,4rem)] font-extrabold leading-[1.08] tracking-tight text-white">
+            <h2 className="mt-6 mb-6 text-[clamp(2.2rem,3.9vw,4rem)] font-extrabold leading-[1.08] tracking-tight text-white">
               Let&apos;s Lift Your
               <br />
               Next <span style={{ color: Q_GOLD }}>Project</span>

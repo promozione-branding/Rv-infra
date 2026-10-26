@@ -105,7 +105,7 @@ export function Safety() {
               </span>
             </div>
 
-            <h2 className="mt-3 text-3xl font-bold leading-[1.1] tracking-tight text-[#0f1a2e] sm:text-4xl lg:text-[2.5rem]">
+            <h2 className="mt-6 mb-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#0f1a2e] sm:text-4xl lg:text-[2.5rem]">
               Our Commitment
               <br />
               to a Safer <span style={{ color: GOLD_TEXT }}>Tomorrow</span>
