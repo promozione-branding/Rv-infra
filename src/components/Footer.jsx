@@ -142,7 +142,7 @@ export default function Footer() {
               Construction equipment hiring, crane rental, plant erection and readymix
               concrete since 1999. ISO 9001 certified.
             </p>
-            <ul className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(125px,1fr))] gap-y-3 lg:grid-cols-3" style={{width: "max-content"}}>
+            {/* <ul className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(125px,1fr))] gap-y-3 lg:grid-cols-3" >
               {badges.map(({ Icon, text }) => (
                 <li
                   key={text[0]}
@@ -158,7 +158,7 @@ export default function Footer() {
                   </span>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
 
           {/* quick links */}
