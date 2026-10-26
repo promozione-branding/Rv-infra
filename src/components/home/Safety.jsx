@@ -47,7 +47,7 @@ export function Safety() {
   return (
     <section
       id="safety"
-      className="relative isolate scroll-mt-20 overflow-hidden bg-[#e5e7eb]"
+      className="relative isolate scroll-mt-20 overflow-hidden bg-[#e5e7eb] mt-5"
     >
       <img
         src="/images/construction_card.png"

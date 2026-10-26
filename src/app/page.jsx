@@ -18,7 +18,7 @@ export default function Home() {
   const [animationData, setAnimationData] = useState(null);
 
   useEffect(() => {
-    fetch("/RV_Infrastructural_Animation.json")
+    fetch("/RV_Infrastructural_Animation_wider.json")
       .then((res) => res.json())
       .then(setAnimationData)
       .catch(console.error);
