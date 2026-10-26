@@ -131,9 +131,9 @@ export const clients = [
 ];
 
 export const fleetGroups = [
-  { name: "24 mtrs truck mounted articulated boom lift", category: "Lifts & Access", make: "XCMG", capacity: "24 mtrs", image_file: "product_.png", description: "Reach over obstacles and around structures with flexible, multi-angle positioning" },
-  { name: "30 mtrs truck mounted telescopic boom lift", category: "Lifts & Access", make: "XCMG", capacity: "30 mtrs", image_file: "product_2.png", description: "Straight-line reach for facade work, signage, and mid-rise maintenance" },
-  { name: "35 mtrs truck mounted telescopic boom lift", category: "Lifts & Access", make: "XCMG", capacity: "35 mtrs", image_file: "product_3.png", description: "Maximum height and outreach for high-rise and large-scale industrial jobs" },
+  { name: "24 mtrs truck mounted articulated boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "24 mtrs", image_file: "product_.png", description: "Reach over obstacles and around structures with flexible, multi-angle positioning" },
+  { name: "30 mtrs truck mounted telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "30 mtrs", image_file: "product_2.png", description: "Straight-line reach for facade work, signage, and mid-rise maintenance" },
+  { name: "35 mtrs truck mounted telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "35 mtrs", image_file: "product_3.png", description: "Maximum height and outreach for high-rise and large-scale industrial jobs" },
 ];
 
 export const featuredProducts = [
