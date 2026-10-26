@@ -328,7 +328,7 @@ function CraneSvg({ spin, cx }) {
 function SectionHeader({ controls, compact = false }) {
   return (
     <Reveal>
-      <div className={`${compact ? "mb-6" : "mb-10"} flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end`}>
+      <div className={`${compact ? "mb-6" : "mb-10"} flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end mt-8`}>
         <div>
           <div className="flex items-center gap-3">
             <span className="h-[2px] w-10" style={{ background: GOLD }} />
