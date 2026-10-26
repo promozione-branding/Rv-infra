@@ -143,7 +143,7 @@ export const featuredProducts = [
     capacity: "24 mtrs",
     units: "5+",
     image_file: "product_.png",
-    highlight: "Safe elevated access for construction & maintenance",
+    highlight: "Reach over obstacles and around structures with flexible, multi-angle positioning",
   },
     {
     name: "30 mtrs truck mounted telescopic boom lift",
@@ -151,7 +151,7 @@ export const featuredProducts = [
     capacity: "30 mtrs",
     units: "15+",
     image_file: "product_2.png",
-    highlight: "Safe elevated access for construction & maintenance",
+    highlight: "Straight-line reach for facade work, signage, and mid-rise maintenance",
   },
   {
     name: "35 mtrs truck mounted telescopic boom lift",
@@ -159,7 +159,7 @@ export const featuredProducts = [
     capacity: "35 mtrs",
     units: "10+",
     image_file: "product_3.png",
-    highlight: "Safe elevated access for construction & maintenance",
+    highlight: "Maximum height and outreach for high-rise and large-scale industrial jobs",
   },
 
 ];
