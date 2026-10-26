@@ -186,7 +186,6 @@ function Gallery({ product: p, badge }) {
 
   return (
     <div className="relative">
-      {/* offset frame accents behind the image */}
       <div aria-hidden="true" className="pointer-events-none absolute -bottom-3 -right-3 hidden h-[72%] w-[56%] rounded-2xl border-2 border-brand sm:block" />
       <div aria-hidden="true" className="pointer-events-none absolute -left-3 -top-3 hidden h-28 w-28 rounded-tl-3xl bg-navy sm:block" />
 
