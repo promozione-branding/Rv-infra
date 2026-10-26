@@ -242,7 +242,7 @@ export function QuoteSection() {
               Next <span style={{ color: Q_GOLD }}>Project</span>
             </h2>
 
-            <p className="mt-4 max-w-[440px] text-[15px] leading-relaxed text-slate-300">
+            <p className="mt-4 max-w-[380px] text-[15px] leading-relaxed text-slate-300">
               Share your requirements and our team will get back to you with the
               best solution.
             </p>
