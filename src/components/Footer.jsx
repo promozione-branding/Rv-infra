@@ -175,7 +175,7 @@ export default function Footer() {
 
           {/* categories */}
           <div className={col}>
-            <Heading>Our Categories</Heading>
+            <Heading>Our Products</Heading>
             <ul className="space-y-1.5">
               {categories.map(({ label, href, Icon }) => (
                 <li key={label}>
