@@ -38,9 +38,10 @@ export const stats = [
 
 
 export const services = [
-  { title: "24 Mtrs Articulated Boom Lift", iconId: "construction-equipment" },
-  { title: "30 Mtrs Telescopic Boom Lift",  iconId: "heavy-lifting" },
-  { title: "35 Mtrs Telescopic Boom Lift",  iconId: "crane-rental" },
+  { title: "Crawler Cranes",      iconId: "crane-rental" },
+  { title: "Hydraulic Grabs",     iconId: "heavy-lifting" },
+  { title: "Concrete Pumps",      iconId: "readymix-concrete" },
+  { title: "Self Loading Mixers", iconId: "construction-equipment" },
   { title: "Plant Erection",      iconId: "plant-erection" },    
   { title: "Skilled Operators",   iconId: "skilled-operators" },   
 ];
