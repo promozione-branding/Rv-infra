@@ -7,9 +7,6 @@ import { buildMatteData } from "./rvMatte";
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (t) => t * t * (3 - 2 * t);
 
-// The crane / board slide in from just outside the 700x500 comp. The comp is only as wide as the
-// fitted animation frame, which can be much narrower than the screen, so push the start (and the
-// exit) point further left by `extra` comp units: the crane then enters from the screen's left edge.
 function shiftEntry(data, extra) {
   if (!(extra > 0)) return data;
   const comp = data.assets.find((a) => a.layers);
@@ -40,7 +37,7 @@ export default function RVVideoReveal({
   easing = 0.15,
   topOffset = 80,       // px reserved for the sticky navbar so nothing hides underneath it
   bottomOffset = 24,    // px kept free at the bottom of the screen
-  fit = 0.96,           // how much of the free area the animation / video may use (1 = edge to edge)
+  fit = 0.96,           // how much of the free area the animation may use (1 = edge to edge)
   scrollHeight,         // how long the pinned section lasts, e.g. "300vh" (default "330vh")
   hint = "Scroll",
   className,
@@ -48,8 +45,8 @@ export default function RVVideoReveal({
 }) {
   const container = useRef(null);
   const stage = useRef(null);
-  const box = useRef(null);       // the 700x500 animation frame
-  const clip = useRef(null);      // clips the video (animation frame -> full video)
+  const box = useRef(null);       // the animation frame
+  const clip = useRef(null);      // clips the video (full-width band -> full screen)
   const videoEl = useRef(null);
   const videoRatio = useRef(16 / 9);
   const artHost = useRef(null);
@@ -75,8 +72,7 @@ export default function RVVideoReveal({
       return total > 0 ? clamp(-r.top / total) : 0;
     };
 
-    // Size everything from the space that is really free on screen (below the navbar),
-    // so the animation and the video can never be taller / wider than the viewport.
+    // Size everything from the space that is really free on screen (below the navbar).
     const geometry = () => {
       const vw = stage.current.clientWidth;
       const vh = stage.current.clientHeight;
@@ -91,27 +87,29 @@ export default function RVVideoReveal({
       // animation frame: largest box of the comp's aspect ratio that fits (contain)
       const aw = Math.min(availW * fit, availH * fit * compRatio);
       const ah = aw / compRatio;
-      // final video: largest box of the video's aspect ratio that fits (contain, no crop)
-      const vfh = Math.min(availH * fit, (availW * fit) / vr);
-      const vfw = vfh * vr;
-      return { vw, vh, cy, aw, ah, vr, vfw, vfh };
+
+      // video base size: ALWAYS covers the full screen width, and at least the animation band height
+      const vidW = Math.max(vw, ah * vr);
+      const vidH = vidW / vr;
+
+      return { vw, vh, cy, aw, ah, vr, vidW, vidH };
     };
 
     const layout = (g) => {
       if (!box.current || !videoEl.current) return;
       const b = box.current.style;
-      b.width = `${g.vw}px`; // full screen width: the crane may travel outside the 700x500 comp area
+      b.width = `${g.vw}px`; // full screen width: the crane may travel outside the comp area
       b.height = `${g.ah}px`;
-      b.transform = "none"; // CSS fallback centering is no longer needed once px are set
+      b.transform = "none";
       b.left = "0px";
       b.top = `${g.cy - g.ah / 2}px`;
-      // the video element starts as a "cover" of the animation frame and is scaled up later
+
+      // video: full-width layer behind the animation (like a background), centered on the band
       const v = videoEl.current.style;
-      const w0 = g.ah * g.vr;
-      v.width = `${w0}px`;
-      v.height = `${g.ah}px`;
-      v.left = `${(g.vw - w0) / 2}px`;
-      v.top = `${g.cy - g.ah / 2}px`;
+      v.width = `${g.vidW}px`;
+      v.height = `${g.vidH}px`;
+      v.left = `${(g.vw - g.vidW) / 2}px`;
+      v.top = `${g.cy - g.vidH / 2}px`;
     };
 
     const render = () => {
@@ -125,24 +123,24 @@ export default function RVVideoReveal({
       const g = geometry();
       layout(g);
 
-      // phase 1: animation frame follows scroll (animation stays fully inside its frame)
+      // phase 1: animation follows scroll
       const frame = clamp(eased / zoomEnd) * lastFrame;
       artAnim.goToAndStop(frame, true);
       matteAnim.goToAndStop(frame, true);
 
-      // phase 2: after the zoom into the "R", the video opens up from the animation
-      // frame to the whole screen
+      // phase 2: after the zoom into the "R", the video band grows vertically to the full screen
       const t = smooth(clamp((eased - zoomEnd) / (1 - zoomEnd)));
-      const clipW = g.aw + (g.vw - g.aw) * t;
-      const clipH = g.ah + (g.vh - g.ah) * t;
-      const cyT = g.cy + (g.vh / 2 - g.cy) * t;
-      const left = (g.vw - clipW) / 2;
-      clip.current.style.clipPath =
-        `inset(${cyT - clipH / 2}px ${left}px ${g.vh - (cyT + clipH / 2)}px ${left}px)`;
 
-      // the video starts as a "cover" of the animation frame and ends as a "cover" of the screen
-      const w0 = g.ah * g.vr;
-      const sEnd = Math.max(g.vw / w0, g.vh / g.ah);
+const clipH = g.ah + (g.vh - g.ah) * t;
+const cyT = g.cy + (g.vh / 2 - g.cy) * t;
+
+const sideInset = Math.max(0, (g.vw - g.aw) / 2 + 1) * (1 - t);
+
+clip.current.style.clipPath =
+  `inset(${cyT - clipH / 2}px ${sideInset}px ${g.vh - (cyT + clipH / 2)}px ${sideInset}px)`;
+
+      // the video starts covering the band at full width and ends covering the whole screen
+      const sEnd = Math.max(1, g.vh / g.vidH);
       const sc = 1 + (sEnd - 1) * t;
       videoEl.current.style.transform = `translateY(${cyT - g.cy}px) scale(${sc})`;
 
@@ -235,7 +233,7 @@ export default function RVVideoReveal({
       >
         {/* one isolated group: video + matte + art, so the multiply blend still works */}
         <div style={{ ...layer, isolation: "isolate", background: "#fff" }}>
-          {/* video: clipped to the animation frame first, then opened up to the full video */}
+          {/* video: full-width background, clipped to a band first, then opened up to the full screen */}
           <div ref={clip} style={{ ...layer, overflow: "hidden" }}>
             <video
               ref={videoEl}
@@ -249,11 +247,11 @@ export default function RVVideoReveal({
               style={{
                 position: "absolute",
                 // sizes are set from JS; this is only the pre-hydration fallback
-                width: "min(96vw, 160vh)",
+                width: "100%",
                 aspectRatio: "16 / 9",
                 left: 0,
                 top: 0,
-                objectFit: "contain", // box already has the video's ratio, so nothing is cropped
+                objectFit: "cover", // box already has the video's ratio, so nothing is really cropped
                 transformOrigin: "50% 50%",
                 willChange: "transform",
               }}
@@ -265,8 +263,7 @@ export default function RVVideoReveal({
             ref={box}
             style={{
               position: "absolute",
-              // fallback until JS measures: fit below the navbar, keep 700:500 ratio
-              width: "100%",
+              width: "110%",
               height: `min(calc(96vw / 1.4), calc((100svh - ${topOffset + bottomOffset}px) * 0.96))`,
               left: 0,
               top: `${topOffset}px`,
