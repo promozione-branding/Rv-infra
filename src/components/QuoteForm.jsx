@@ -5,8 +5,6 @@ import { company } from "@/data/site";
 
 const types = ["Crawler Crane", "Hydraulic Tyre Mounted Crane", "Boom / Scissor Lift", "Transit Mixer / Concrete Pump", "Road Equipment", "Other"];
 
-// Opens the visitor's email app with the details pre-filled.
-// Replace with a fetch() to an API route / email service when ready.
 export default function QuoteForm() {
   const [sent, setSent] = useState(false);
   const submit = (e) => {

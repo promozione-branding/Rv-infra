@@ -31,7 +31,7 @@ const slides = [
     secondary: { label: "View Our Work", href: "/projects" },
   },
   {
-    image: "/rv_hero2.png",
+    image: "/suppliers.png",
     alt: "Heavy-duty crane at an industrial plant site",
     eyebrow: "Plant erection & industrial projects",
     titleTop: "HEAVY LIFTING",
@@ -43,7 +43,7 @@ const slides = [
     secondary: { label: "View Our Work", href: "/projects" },
   },
   {
-    image: "/rv_hero3.png",
+    image: "/metro_rv.png",
     alt: "Crane fleet on a highway infrastructure site",
     eyebrow: "Infrastructure across India",
     titleTop: "A FLEET YOU",
@@ -56,7 +56,7 @@ const slides = [
   },
 ];
 
-const SLIDE_INTERVAL = 6000;
+const SLIDE_INTERVAL = 2000;
 
 const PANEL_CLIP = "lg:[clip-path:polygon(0_0,100%_0,82%_100%,0_100%)]";
 

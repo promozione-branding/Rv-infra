@@ -63,9 +63,7 @@ export function QuoteSection() {
       id="quote"
       className="relative isolate overflow-hidden bg-[#0F1B2B] py-10 lg:py-[2.7vw]"
     >
-      {/* ===== RIGHT ART (lg+): muted gold slab + angled crane photo + gold corner ===== */}
       <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[30%] lg:block">
-        {/* gold slab behind the photo */}
         <div
           aria-hidden="true"
           className="absolute inset-0"
@@ -75,7 +73,6 @@ export function QuoteSection() {
               "polygon(31.7% 0, 57.7% 0, 46% 15%, 38% 30%, 20% 55%, 9% 39%)",
           }}
         />
-        {/* photo */}
         <div
           className="absolute inset-0"
           style={{
@@ -84,12 +81,11 @@ export function QuoteSection() {
           }}
         >
           <img
-            src="/fleets/crawler_crane_.png"
+            src="/suppliers.png"
             alt="Crane lifting a concrete block"
             className="h-full w-full object-cover object-[40%_center]"
           />
         </div>
-        {/* bright gold corner, bottom right */}
         <div
           aria-hidden="true"
           className="absolute inset-0"
@@ -281,7 +277,7 @@ export function QuoteSection() {
 
       <div className="mx-[4.8%] mt-10 overflow-hidden rounded-2xl lg:hidden">
         <img
-          src="/fleets/crawler_crane_.png"
+          src="/suppliers.png"
           alt="Crane lifting a concrete block"
           className="h-56 w-full object-cover"
         />

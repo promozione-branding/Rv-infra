@@ -144,56 +144,32 @@ export const fleetGroups = [
   { name: "Self Loading Mixers", category: "Concrete", make: "AJAX / SCHWING", capacity: "2–4 cum", image_file: "self_loading.png", description: "Self-contained mixing and placement for remote or small-volume sites." },
 ];
 
-// Featured products for homepage slider (subset of fleet with stronger highlights)
 export const featuredProducts = [
   {
-    name: "Crawler Cranes",
-    make: "SANY / XCMG",
-    capacity: "45–150 Ton",
-    units: "40+",
-    image_file: "crawler_crane_.png",
-    highlight: "Heavy lifting backbone for mega projects",
-  },
-  {
-    name: "Piling Rigs",
-    make: "SANY",
-    capacity: "550–1200 MM",
-    units: "8",
-    image_file: "pilling_rigs_.png",
-    highlight: "Foundation specialists for complex sites",
-  },
-  {
-    name: "Boom Lifts",
+    name: "24 mtrs truck mounted articulated boom lift",
     make: "XCMG",
-    capacity: "131–141 Feet",
+    capacity: "24 mtrs",
     units: "5+",
-    image_file: "boom_lifts.png",
+    image_file: "product_1.png",
+    highlight: "Safe elevated access for construction & maintenance",
+  },
+    {
+    name: "30 mtrs truck mounted telescopic boom lift",
+    make: "XCMG",
+    capacity: "30 mtrs",
+    units: "15+",
+    image_file: "product_2.png",
     highlight: "Safe elevated access for construction & maintenance",
   },
   {
-    name: "Truck Mount Cranes",
-    make: "XCMG / TIL / ACE",
-    capacity: "20–75 Ton",
-    units: "Multiple",
-    image_file: "truck_mounted.png",
-    highlight: "Mobile, rapid-deployment lifting power",
+    name: "35 mtrs truck mounted telescopic boom lift",
+    make: "XCMG",
+    capacity: "35 mtrs",
+    units: "10+",
+    image_file: "product_3.png",
+    highlight: "Safe elevated access for construction & maintenance",
   },
-  {
-    name: "Transit Mixers",
-    make: "TATA / ASHOK LEYLAND",
-    capacity: "6–7 CUM",
-    units: "18",
-    image_file: "transit_mixers.png",
-    highlight: "Ready-mix concrete delivery fleet",
-  },
-  {
-    name: "Motor Graders",
-    make: "CASE / SEM",
-    capacity: "12 Feet",
-    units: "12",
-    image_file: "motor_graders.png",
-    highlight: "Precision grading for roads & airports",
-  },
+
 ];
 
 export const contact = {

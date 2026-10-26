@@ -29,7 +29,7 @@ export function WhyChoose() {
         style={{ clipPath: NOTCH }}
       >
         <ImageSlot
-          src="/why_choose.png"
+          src="/fleets/concrete_pumps.png"
           alt="RV crane at sunset"
           icon="Construction"
           className="h-full w-full object-cover"
@@ -46,7 +46,7 @@ export function WhyChoose() {
 
       <div className="h-44 lg:hidden">
         <ImageSlot
-          src="/why_choose.png"
+          src="/fleets/concrete_pumps.png"
           alt="RV crane at sunset"
           icon="Construction"
           className="h-full w-full object-cover"

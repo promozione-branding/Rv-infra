@@ -447,10 +447,10 @@ function ScrollScene() {
         <div className="mx-auto w-[90%] max-w-[1400px]">
           <SectionHeader compact />
 
-          <div
-            className="relative"
-            style={{ height: "clamp(360px, calc(100vh - 320px), 560px)" }}
-          >
+         <div
+  className="relative"
+  style={{ height: "clamp(440px, calc(100vh - 240px), 720px)" }}
+>
             {products.map((p, k) => (
               <ScrollCard key={p.name} p={p} k={k} progress={progress} N={N} />
             ))}
