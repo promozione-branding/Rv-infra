@@ -139,7 +139,7 @@ export const fleetGroups = [
 export const featuredProducts = [
   {
     name: "24 mtrs truck mounted articulated boom lift",
-    make: "XCMG",
+    make: "CNS/PALFINGER",
     capacity: "24 mtrs",
     units: "5+",
     image_file: "product_.png",
@@ -147,7 +147,7 @@ export const featuredProducts = [
   },
     {
     name: "30 mtrs truck mounted telescopic boom lift",
-    make: "XCMG",
+    make: "CNS/PALFINGER",
     capacity: "30 mtrs",
     units: "15+",
     image_file: "product_2.png",
@@ -155,7 +155,7 @@ export const featuredProducts = [
   },
   {
     name: "35 mtrs truck mounted telescopic boom lift",
-    make: "XCMG",
+    make: "CNS/PALFINGER",
     capacity: "35 mtrs",
     units: "10+",
     image_file: "product_3.png",

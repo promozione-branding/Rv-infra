@@ -4,7 +4,7 @@ export const slugify = (s) =>
   s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const boomExtras = {
-  features: ["Truck mounted for quick site-to-site mobility", "XCMG build with stable outreach", "Safe elevated access at height"],
+  features: ["Truck mounted for quick site-to-site mobility", "CNS/PALFINGER build with stable outreach", "Safe elevated access at height"],
   applications: ["Facade and structural work", "Plant and industrial maintenance", "Bridge and metro inspection"],
 };
 
