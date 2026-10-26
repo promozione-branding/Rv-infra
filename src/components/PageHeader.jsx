@@ -21,11 +21,7 @@ import {
 import LottieIcon from "@/components/LottieIcon";
 import CraneFallback from "@/components/CraneFallback";
 
-/*
-  cream  #f8f1e3 / #fdf9f1   navy  #0f1f3d   gold  #f2b01c   slate  #6b7280
-*/
 
-const DISPLAY_FONT = 'var(--font-display), "Fraunces", Georgia, serif';
 const EASE = [0.22, 1, 0.36, 1];
 
 const DEFAULT_FEATURES = [
@@ -154,7 +150,6 @@ export default function PageHeader({
           <h1
             aria-label={title}
             className="mt-3 text-[2rem] font-extrabold leading-[1.05] tracking-[-0.02em] text-[#0f1f3d] sm:text-[2.6rem] lg:text-[2.8rem] xl:text-[3.2rem]"
-            style={{ fontFamily: DISPLAY_FONT }}
           >
             {words.map((word, i) => (
               <span
