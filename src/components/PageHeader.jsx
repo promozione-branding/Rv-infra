@@ -110,7 +110,7 @@ export default function PageHeader({
 
       {/* Text column */}
       <div className="container-x relative z-10 pb-7 pt-6 lg:flex lg:min-h-[572px] lg:items-center lg:py-6">
-        <div className="min-w-0 lg:w-[50%]">
+        <div className="min-w-0 lg:w-[52%] pr-8">
           <motion.nav
             aria-label="Breadcrumb"
             initial={reduce ? false : { opacity: 0, x: -16 }}
@@ -228,16 +228,16 @@ export default function PageHeader({
 
       {hasVisual && (
         <div className="container-x relative z-10 pb-7 lg:contents">
-          <div className="relative mx-auto mt-2 h-[260px] w-full max-w-[380px] sm:h-[300px] lg:absolute lg:bottom-[-3%] lg:right-[12%] lg:top-[9%] lg:z-10 lg:mx-0 lg:mt-0 lg:h-auto lg:w-[45%] lg:max-w-none">
+          <div className="relative mx-auto mt-2 h-[260px] w-full max-w-[380px] sm:h-[300px] lg:absolute lg:bottom-[-3%] lg:right-[5%] lg:top-[9%] lg:z-10 lg:mx-0 lg:mt-0 lg:h-auto lg:w-[40%] lg:max-w-none">
             <motion.div
               aria-hidden="true"
               {...rise(0.5)}
-              className="absolute -left-[10%] bottom-0 -z-10 hidden h-[58%] w-[24%] rounded-t-full border-2 border-b-0 border-[#f2b01c] bg-[#0f1f3d] lg:block"
+              className="absolute -left-[6%] bottom-0 -z-10 hidden h-[58%] w-[18%] rounded-t-full border-2 border-b-0 border-[#f2b01c] bg-[#0f1f3d] lg:block"
             />
             <motion.div
               aria-hidden="true"
               {...rise(0.65)}
-              className="absolute -right-[8%] bottom-0 -z-10 hidden h-[62%] w-[26%] rounded-t-full border-2 border-b-0 border-[#f2b01c] bg-[#f8f1e3] lg:block"
+              className="absolute -right-[4%] bottom-0 -z-10 hidden h-[62%] w-[20%] rounded-t-full border-2 border-b-0 border-[#f2b01c] bg-[#f8f1e3] lg:block"
             />
 
             {/* Panel */}
