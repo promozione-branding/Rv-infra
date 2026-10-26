@@ -66,7 +66,6 @@ function ProductCard({ p, index, onQuote }) {
               className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
             />
           </Link>
-          <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
           <Link
             href={`/products/category/${p.categorySlug}`}
             className="absolute left-3 top-3 z-[2] rounded-full border border-white/25 bg-navy/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur transition hover:border-brand hover:bg-brand hover:text-navy"

@@ -202,6 +202,6 @@ export const contact = {
   email: "rvpariwar@yahoo.com",
   whatsapp: "+919811017313",
   whatsappText: "Hello, I would like a quote for equipment rental from R.V. Infrastructural.",
-  hours: "Mon to Sat, 9am to 7pm",
+  gst: "07AABCR0548Q1Z0",
   website: "www.srirvparivar.com",
 };

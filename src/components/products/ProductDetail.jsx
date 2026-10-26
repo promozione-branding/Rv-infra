@@ -122,7 +122,6 @@ function FeaturesCard({ items }) {
       <div aria-hidden="true" className="pointer-events-none absolute -bottom-24 right-[-4%] hidden aspect-square w-[58%] rounded-full bg-gradient-to-t from-[#fde4b0]/90 via-[#fdeccb]/60 to-transparent sm:block" />
       {/* faint scaffold grid */}
       <div aria-hidden="true" className="pointer-events-none absolute bottom-6 right-[26%] hidden h-[45%] w-[26%] opacity-30 [background-image:linear-gradient(#94a3b8_1px,transparent_1px),linear-gradient(90deg,#94a3b8_1px,transparent_1px)] [background-size:26px_26px] [mask-image:radial-gradient(circle_at_50%_60%,#000_30%,transparent_72%)] sm:block" />
-      <span aria-hidden="true" className="pointer-events-none absolute right-8 top-3 select-none text-[5rem] font-extrabold leading-none text-brand/10">01</span>
       <div aria-hidden="true" className={`pointer-events-none absolute right-10 top-[26%] hidden h-20 w-32 sm:block ${dotsYellow}`} />
 
       {/* content */}

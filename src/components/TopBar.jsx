@@ -51,12 +51,9 @@ export default function TopBar() {
             <Mail />
             <span className={textCls}>{contact.email}</span>
           </a>
-          <a href="/contact" className={linkCls}>
-            <Gst />
-            <span className={textCls}>07AABCR0548Q1Z0</span>
-          </a>
+          
         </div>
-        <span className="whitespace-nowrap max-[720px]:hidden">{contact.hours}</span>
+        <span className="whitespace-nowrap max-[720px]:hidden">{contact.gst}</span>
       </div>
     </div>
   )
