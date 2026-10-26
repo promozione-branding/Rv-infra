@@ -533,7 +533,7 @@ function MobileCarousel() {
 
 export function FeaturedProducts() {
   return (
-    <div id="featured" className="scroll-mt-20">
+    <div id="featured" className="scroll-mt-20 pb-8 lg:pb-12">
       <ScrollScene />
       <MobileCarousel />
     </div>

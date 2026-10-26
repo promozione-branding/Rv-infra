@@ -142,7 +142,7 @@ export function Fleet() {
                 <span style={{ color: GOLD }}>Equipment</span>
               </h2>
 
-              <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-500">
+              <p className="mt-6 mb-4 max-w-md text-sm leading-relaxed text-slate-500">
                 A modern and well-maintained fleet of cranes, lifts and concrete
                 equipment, operated by skilled and dedicated technicians.
               </p>
@@ -184,7 +184,7 @@ export function Fleet() {
         <div className="absolute inset-0 bg-navy" />
 
         <div
-          className="relative z-20 mx-auto -mt-10 w-[90%] max-w-[1800px] lg:-mt-14 lg:w-[90%]"
+          className="relative z-20 mx-auto -mt-6 w-[90%] max-w-[1800px] pt-4 lg:-mt-8 lg:w-[90%] lg:pt-6"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onTouchStart={() => setPaused(true)}
@@ -222,7 +222,7 @@ export function Fleet() {
               {slides.map((group, s) => (
                 <div
                   key={s}
-                  className="grid w-full shrink-0 content-start gap-8 px-12 sm:grid-cols-2 lg:grid-cols-3"
+                  className="grid w-full shrink-0 content-start gap-8 px-12 sm:grid-cols-2 lg:grid-cols-3 mt-6"
                 >
                   {group.map((f) => (
                     <Link key={f.name} href={`/products/${slugify(f.name)}`} aria-label={`View ${f.name}`} className="group relative block h-[320px]">
