@@ -119,7 +119,7 @@ export default function Footer() {
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage: "url(/suppliers.png)",
-              clipPath: "polygon(30% 0,100% 0,100% 100%,82% 100%)",
+              clipPath: "polygon(50% 0,100% 0,100% 100%,82% 100%)",
               maskImage: "linear-gradient(90deg,transparent,rgba(0,0,0,.35) 22%,#000 100%)",
               WebkitMaskImage: "linear-gradient(90deg,transparent,rgba(0,0,0,.35) 22%,#000 100%)",
             }}
