@@ -132,7 +132,7 @@ export const clients = [
 
 export const fleetGroups = [
   { name: "24 Mtrs Truck Mounted Articulated Boom Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "24 Mtrs", image_file: "product_.png", description: "Reach over obstacles and around structures with flexible, multi-angle positioning" },
-  { name: "30 Mtrs Truck Mounted Telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "30 mtrs", image_file: "product_2.png", description: "Straight-line reach for facade work, signage, and mid-rise maintenance" },
+  { name: "30 Mtrs Truck Mounted Telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "30 mtrs", image_file: "product_2_2.png", description: "Straight-line reach for facade work, signage, and mid-rise maintenance" },
   { name: "35 Mtrs Truck Mounted Telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "35 mtrs", image_file: "product_3.png", description: "Maximum height and outreach for high-rise and large-scale industrial jobs" },
 ];
 
@@ -150,7 +150,7 @@ export const featuredProducts = [
     make: "CNS/PALFINGER",
     capacity: "30 Mtrs",
     units: "15+",
-    image_file: "product_2.png",
+    image_file: "product_2_2.png",
     highlight: "Straight-line reach for facade work, signage, and mid-rise maintenance",
   },
   {

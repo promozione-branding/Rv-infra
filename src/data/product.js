@@ -13,16 +13,25 @@ const highlightByName = Object.fromEntries(featuredProducts.map((p) => [p.name, 
 
 const galleryBySlug = {
   "24-mtrs-truck-mounted-articulated-boom-lift": [
-    "/product_2.png",
-    "/product_3.png",
+    "/product_1_1.png",
+    "product_1_2.png",
+    "/product_1_3.png",
+    "/product_1_4.png",
+    "product_1_5.png",
+    "/product_1_6.png",
+    "product_1_video.mp4"
   ],
   "30-mtrs-truck-mounted-telescopic-boom-lift": [
-    "/product_.png",
-    "/product_3.png",
+    "/product_2_2.png",
+    "product_2_1.png",
+    "/product_3_1.png",
+    "product_2_video.mp4"
   ],
   "35-mtrs-truck-mounted-telescopic-boom-lift": [
-    "/product_2.png",
-    "/product_.png",
+    "/product_3_1.png",
+    "/product_3_2.png",
+       "/product_3_3.png",
+        "/product_3_1.png",
   ],
 };
 
@@ -49,7 +58,6 @@ export const getProduct = (slug) => products.find((p) => p.slug === slug);
 export const relatedProducts = (p, n = 3) => products.filter((x) => x.slug !== p.slug).slice(0, n);
 export const productHref = (p) => `/products/${p.slug}`;
 
-// ---- Categories (derived from products) ----
 export const categories = Array.from(
   new Map(
     products.map((p) => [

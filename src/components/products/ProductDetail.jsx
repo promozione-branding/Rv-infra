@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
@@ -23,6 +23,7 @@ import {
   ShieldCheck,
   Truck,
   Wrench,
+  X,
   Zap,
 } from "lucide-react";
 import Reveal from "@/components/Reveal";
@@ -43,6 +44,8 @@ const LOTTIE = {
 
 const LIFT_SVG = "/product_detail/boom-lift-v2.svg";
 const APPLICATIONS_IMG = "/industries/ind_2.png"; // override per product with product.applicationsImage
+
+const THUMB_LIMIT = 3; // thumbnails shown before the "+N" tile
 
 const FEATURE_ICONS = [Truck, Zap, ShieldCheck, MoveVertical];
 const APPLICATION_ICONS = [Building2, Factory, Landmark, Route, Construction];
@@ -68,8 +71,6 @@ function SectionTitle({ icon: Icon, children }) {
   );
 }
 
-/* ---------- Key Features / Typical Applications helpers ---------- */
-/* items can be plain strings or { title, desc } */
 const norm = (it) => (typeof it === "string" ? { title: it } : it);
 
 const dotsYellow =
@@ -174,15 +175,97 @@ function ApplicationsCard({ items, image }) {
   );
 }
 
+function GalleryModal({ items, current, onSelect, onClose, name }) {
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/80 p-4 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${name} gallery`}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 16, scale: 0.98 }}
+        transition={{ duration: 0.25 }}
+        onClick={(e) => e.stopPropagation()}
+        className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl sm:p-6"
+      >
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <h3 className="text-lg font-extrabold text-navy sm:text-xl">
+            {name} <span className="text-brand">· {items.length} photos</span>
+          </h3>
+          <button
+            type="button"
+            aria-label="Close gallery"
+            onClick={onClose}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-navy transition hover:border-brand hover:bg-brand"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {items.map((it, n) => (
+            <button
+              key={n}
+              type="button"
+              onClick={() => onSelect(n)}
+              aria-label={`Show ${it.type} ${n + 1}`}
+              className={`relative aspect-[3/2] overflow-hidden rounded-lg bg-navy ring-2 transition ${
+                n === current ? "ring-brand" : "ring-transparent hover:ring-brand/50"
+              }`}
+            >
+              {it.type === "video" ? (
+                <span className="flex h-full w-full items-center justify-center text-white">
+                  <Play className="h-7 w-7" />
+                </span>
+              ) : (
+                <img src={it.src} alt="" loading="lazy" className="h-full w-full object-cover" />
+              )}
+            </button>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function Gallery({ product: p, badge }) {
-  const items = [
-    ...(p.gallery?.length ? p.gallery : [p.image]).map((src) => ({ type: "image", src })),
-    ...(p.video ? [{ type: "video", src: p.video }] : []),
-  ];
+  const isVideo = (src) => /\.(mp4|webm|ogg|mov)$/i.test(src);
+
+const items = (p.gallery?.length ? p.gallery : [p.image])
+  .map((src) => ({ type: isVideo(src) ? "video" : "image", src }))
+  .concat(p.video && !p.gallery?.includes(p.video) ? [{ type: "video", src: p.video }] : []);
+  
   const [i, setI] = useState(0);
+  const [modal, setModal] = useState(false);
+  const closeModal = useCallback(() => setModal(false), []);
   const go = (d) => setI((v) => (v + d + items.length) % items.length);
   const cur = items[i];
   const multi = items.length > 1;
+
+  // Show 3 thumbs + a "+N" tile only when there are more than 4 items.
+  // With 4 or fewer, every item is shown (a "+1" tile would just hide one image).
+  const overflow = items.length > THUMB_LIMIT + 1;
+  const thumbs = overflow ? items.slice(0, THUMB_LIMIT) : items;
+  const extra = items.length - THUMB_LIMIT;
 
   return (
     <div className="relative">
@@ -232,7 +315,7 @@ function Gallery({ product: p, badge }) {
 
       {multi && (
         <div className="mt-3 grid grid-cols-4 gap-3">
-          {items.map((it, n) => (
+          {thumbs.map((it, n) => (
             <button
               key={n}
               type="button"
@@ -247,12 +330,43 @@ function Gallery({ product: p, badge }) {
               )}
             </button>
           ))}
+
+          {overflow && (
+            <button
+              type="button"
+              onClick={() => setModal(true)}
+              aria-label={`View all ${items.length} photos`}
+              className={`relative aspect-[3/2] overflow-hidden rounded-lg bg-navy ring-2 transition ${i >= THUMB_LIMIT ? "ring-brand" : "ring-transparent hover:ring-brand/50"}`}
+            >
+              {items[THUMB_LIMIT].type !== "video" && (
+                <img src={items[THUMB_LIMIT].src} alt="" loading="lazy" className="h-full w-full object-cover" />
+              )}
+              <span className="absolute inset-0 flex items-center justify-center bg-navy/65 text-xl font-extrabold text-white transition hover:bg-navy/50">
+                +{extra}
+              </span>
+            </button>
+          )}
         </div>
       )}
 
       <div className="pointer-events-none absolute -right-4 -top-4 z-10 hidden h-20 w-30 rounded-full bg-white border border-yellow-600 p-3 shadow-lg ring-4 ring-white sm:block">
         <Anim name={badge} className="h-full w-full" />
       </div>
+
+      <AnimatePresence>
+        {modal && (
+          <GalleryModal
+            items={items}
+            current={i}
+            name={p.name}
+            onClose={closeModal}
+            onSelect={(n) => {
+              setI(n);
+              setModal(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -287,7 +401,6 @@ export default function ProductDetail({ product: p, related }) {
         <Phone className="h-4 w-4" /> {contact.phone}
       </a>
 
-      {/* WhatsApp: same height as the other buttons, own pulse rings */}
       <span className="relative inline-flex">
         {!reduce &&
           [0, 1].map((n) => (
