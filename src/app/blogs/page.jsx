@@ -10,9 +10,11 @@ export default function Blogs() {
   return (
     <>
      <BgHeader
-          title="Built on the shop floor"
-          text="Sisco started as a two-person welding bay. Today we make racking for warehouses, workshops and shops across the country."
-          backgroundImage="/suppliers.png"
+          title="Blogs"
+          eyebrow="Latest Blogs"
+        accent="#f9c32f"
+          text="Insights That Shape Smarter, Better and Efficient Construction"
+          backgroundImage="/blogs_hero.png"
         />
       <BlogPage/>
       <Map/>

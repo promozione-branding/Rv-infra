@@ -14,7 +14,15 @@ export async function POST(req) {
     return NextResponse.json({ message: "Invalid credentials" }, { status: 401 })
   }
 
-  ;(await cookies()).set("admin", makeToken(), {
+  let token
+  try {
+    token = makeToken()
+  } catch (e) {
+    console.error(e.message)
+    return NextResponse.json({ message: "Server is not configured (SESSION_SECRET)" }, { status: 500 })
+  }
+
+  ;(await cookies()).set("admin", token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { company } from "@/data/site";
 
-const types = ["24 mtrs Articulated Boom Lift", "30 mtrs Telescopic Boom Lift", "35 mtrs Telescopic Boom Lift", "Other"];
+const types = ["24 Mtrs Articulated Boom Lift", "30 Mtrs Telescopic Boom Lift", "35 Mtrs Telescopic Boom Lift", "Other"];
 
 export default function QuoteForm() {
   const [sent, setSent] = useState(false);

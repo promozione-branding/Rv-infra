@@ -57,5 +57,6 @@ export async function DELETE(_req, { params }) {
   if (blog) await deleteImage(blog.imageFileId)
 
   revalidatePath("/blogs")
+  revalidatePath(`/blogs/${slug}`)
   return NextResponse.json({ ok: true })
 }

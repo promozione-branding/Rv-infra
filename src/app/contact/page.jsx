@@ -17,9 +17,11 @@ export default function Contact() {
   return (
     <>
   <BgHeader
-        title="Built on the shop floor"
-        text="Sisco started as a two-person welding bay. Today we make racking for warehouses, workshops and shops across the country."
-        backgroundImage="/suppliers.png"
+        title="Contact Us"
+        eyebrow="Let Us Know your Query"
+        accent="#f9c32f"
+        text="We have large varierty of Machinery Equipments"
+        backgroundImage="/contact_hero.png"
       />
       <section className="container-x grid gap-10 py-16 lg:grid-cols-[1fr_1.3fr]">
         <div className="space-y-4">

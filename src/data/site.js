@@ -23,9 +23,9 @@ export const company = {
 
 export const navLinks = [
   { label: "Home", href: "/" },
+    { label: "Products", href: "/products" },
     { label: "Blogs", href: "/blogs" },
   { label: "About Us", href: "/about" },
-  { label: "Projects", href: "/projects" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -131,32 +131,32 @@ export const clients = [
 ];
 
 export const fleetGroups = [
-  { name: "24 mtrs truck mounted articulated boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "24 mtrs", image_file: "product_.png", description: "Reach over obstacles and around structures with flexible, multi-angle positioning" },
-  { name: "30 mtrs truck mounted telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "30 mtrs", image_file: "product_2.png", description: "Straight-line reach for facade work, signage, and mid-rise maintenance" },
-  { name: "35 mtrs truck mounted telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "35 mtrs", image_file: "product_3.png", description: "Maximum height and outreach for high-rise and large-scale industrial jobs" },
+  { name: "24 Mtrs Truck Mounted Articulated Boom Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "24 Mtrs", image_file: "product_.png", description: "Reach over obstacles and around structures with flexible, multi-angle positioning" },
+  { name: "30 Mtrs Truck Mounted Telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "30 mtrs", image_file: "product_2.png", description: "Straight-line reach for facade work, signage, and mid-rise maintenance" },
+  { name: "35 Mtrs Truck Mounted Telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "35 mtrs", image_file: "product_3.png", description: "Maximum height and outreach for high-rise and large-scale industrial jobs" },
 ];
 
 export const featuredProducts = [
   {
-    name: "24 mtrs truck mounted articulated boom lift",
+    name: "24 Mtrs Truck Mounted Articulated Boom Lift",
     make: "CNS/PALFINGER",
-    capacity: "24 mtrs",
+    capacity: "24 Mtrs",
     units: "5+",
     image_file: "product_.png",
     highlight: "Reach over obstacles and around structures with flexible, multi-angle positioning",
   },
     {
-    name: "30 mtrs truck mounted telescopic boom lift",
+    name: "30 Mtrs Truck Mounted Telescopic Boom Lift",
     make: "CNS/PALFINGER",
-    capacity: "30 mtrs",
+    capacity: "30 Mtrs",
     units: "15+",
     image_file: "product_2.png",
     highlight: "Straight-line reach for facade work, signage, and mid-rise maintenance",
   },
   {
-    name: "35 mtrs truck mounted telescopic boom lift",
+    name: "35 Mtrs Truck Mounted Telescopic Boom Lift",
     make: "CNS/PALFINGER",
-    capacity: "35 mtrs",
+    capacity: "35 Mtrs",
     units: "10+",
     image_file: "product_3.png",
     highlight: "Maximum height and outreach for high-rise and large-scale industrial jobs",

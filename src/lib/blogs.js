@@ -1,4 +1,4 @@
-import db from "@/lib/db"
+import db from "./db"
 import Blog from "@/models/Blogs"
 
 export const slugify = (s = "") =>
