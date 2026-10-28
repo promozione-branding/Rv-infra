@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import QuoteForm from "@/components/QuoteForm";
 import { company } from "@/data/site";
 import BgHeader from "@/components/BgHeader";
+import LocationMap from "@/components/Map";
 
 export const metadata = { title: "Contact Us | R.V. Infrastructural Pvt. Ltd." };
 
@@ -37,6 +38,7 @@ export default function Contact() {
         </div>
         <Reveal x={40} y={0}><div className="rounded-2xl border border-slate-100 p-6 shadow-xl"><QuoteForm /></div></Reveal>
       </section>
+       <LocationMap/>
     </>
   );
 }

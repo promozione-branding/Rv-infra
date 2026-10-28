@@ -1,3 +1,8 @@
+"use client"
+
+import { useCallback, useState } from "react"
+import CTABanner from "./CTABanner"
+
 export default function LocationMap({
   address = "GALI NO-1, 41-B, BHAGAT VIHAR, KARAWAL NAGAR, New Delhi, Delhi, 110094",
   title = "Rackwell Steel location",
@@ -8,8 +13,16 @@ export default function LocationMap({
   const src = `https://maps.google.com/maps?q=${query}&z=${zoom}&output=embed`
   const viewUrl = `https://www.google.com/maps/search/?api=1&query=${query}`
   const directions = `https://www.google.com/maps/dir/?api=1&destination=${query}`
-
+  const [quote, setQuote] = useState({ open: false, product: "" });
+    const openQuote = (product = "") => setQuote({ open: true, product });
+    const closeQuote = useCallback(() => setQuote((s) => ({ ...s, open: false })), []);
   return (
+    <>
+    <CTABanner
+            name="construction equipment"
+            onQuote={() => openQuote("")}
+            waHref="https://wa.me/919811017313"
+          />
     <section className="mx-auto w-[90%] py-12">
       <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -45,6 +58,8 @@ export default function LocationMap({
           referrerPolicy="no-referrer-when-downgrade"
         />
       </div>
-    </section>
+    </section>    
+    </>
+
   )
 }

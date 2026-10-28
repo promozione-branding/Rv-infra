@@ -131,9 +131,16 @@ export const clients = [
 ];
 
 export const fleetGroups = [
-  { name: "24 Mtrs Truck Mounted Articulated Boom Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "24 Mtrs", image_file: "product_.png", description: "Reach over obstacles and around structures with flexible, multi-angle positioning" },
-  { name: "30 Mtrs Truck Mounted Telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "30 mtrs", image_file: "product_2_2.png", description: "Straight-line reach for facade work, signage, and mid-rise maintenance" },
-  { name: "35 Mtrs Truck Mounted Telescopic boom lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "35 mtrs", image_file: "product_3.png", description: "Maximum height and outreach for high-rise and large-scale industrial jobs" },
+  { name: "24 Mtrs Truck Mounted Articulated Boom Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "24 Mtrs", image_file: "product_.png", description: "RV Infrastructural Private Limited offers a 24 metres Truck Mounted Boom Lift designed for efficient aerial access in construction, industrial maintenance, and infrastructure projects." },
+  { name: "30 Mtrs Truck Mounted Telescopic Boom Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "30 Mtrs", image_file: "product_2_2.png", description: "RV Infrastructural Private Limited offers the 30 Mtrs Truck Mounted Telescopic Boom Lift, Model CR30, designed for elevated access in construction, industrial maintenance, and infrastructure projects." },
+  { name: "35 Mtrs Truck Mounted Telescopic Boom Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "35 Mtrs", image_file: "product_3.png", description: "RV Infrastructural Private Limited offers the CR35 model, designed to provide elevated access for construction, industrial maintenance, infrastructure development, and utility operations." },
+  { name: "Truck Mounted Rental Boom Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "6-10 Mtrs", image_file: "product_2_2.png", description: "RV Infrastructural Private Limited provides truck mounted boom lift rental solutions for construction, maintenance, and other elevated access requirements." },
+  { name: "Truck Mounted Sky Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "10-28 Mtrs", image_file: "product_3.png", description: "RV Infrastructural Private Limited offers Truck Mounted Sky Lift solutions designed for elevated access in maintenance, construction, and infrastructure projects." },
+  { name: "13m Truck Mounted Boom Lift", category: "Lifts & Access", make: "CGESL", capacity: "13 Mtrs", image_file: "product_.png", description: "RV Infrastructural Private Limited offers the 13m Truck Mounted Boom Lift, Model CGESL-13MCM, designed for elevated access in construction, infrastructure, and industrial maintenance applications." },
+  { name: "Truck Boom Lift Rental", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "6-10 Mtrs", image_file: "product_2_1.png", description: "RV Infrastructural Private Limited offers truck boom lift rental solutions for construction, infrastructure, and elevated maintenance projects requiring temporary aerial access equipment." },
+  { name: "Mild Steel Hydraulic Truck Mounted Man Lift", category: "Lifts & Access", make: "Lift and Reach", capacity: "0-20 Feet", image_file: "product_3_1.png", description: "The Mild Steel Hydraulic Truck Mounted Man Lift is designed to provide elevated access for construction, industrial maintenance, and infrastructure projects." },
+  { name: "24mtr Truck Mounted Boom Lift", category: "Lifts & Access", make: "CNS/PALFINGER", capacity: "24 Mtrs", image_file: "product_1_1.png", description: "RV Infrastructural Private Limited offers a 24mtr Truck Mounted Boom Lift designed for elevated access requirements in construction, infrastructure, industrial maintenance, and commercial projects." },
+  { name: "Truck Mounted Cherry Picker Lift", category: "Lifts & Access", make: "Century Crane", capacity: "30 Mtrs", image_file: "product_3_2.png", description: "The Truck Mounted Cherry Picker Lift is designed to provide elevated access for industrial, commercial, and infrastructure projects requiring efficient working-at-height solutions." },
 ];
 
 export const featuredProducts = [
@@ -143,15 +150,15 @@ export const featuredProducts = [
     capacity: "24 Mtrs",
     units: "5+",
     image_file: "product_.png",
-    highlight: "Reach over obstacles and around structures with flexible, multi-angle positioning",
+    highlight: "With a maximum working height of 23.2 metres and a horizontal outreach of 10.7 metres, this truck mounted aerial boom lift provides access to elevated and hard-to-reach work areas.",
   },
-    {
+  {
     name: "30 Mtrs Truck Mounted Telescopic Boom Lift",
     make: "CNS/PALFINGER",
     capacity: "30 Mtrs",
     units: "15+",
     image_file: "product_2_2.png",
-    highlight: "Straight-line reach for facade work, signage, and mid-rise maintenance",
+    highlight: "This 30m truck mounted boom lift features a maximum lifting height of 30 metres and a maximum working range of 16 metres for accessing elevated and hard-to-reach work areas.",
   },
   {
     name: "35 Mtrs Truck Mounted Telescopic Boom Lift",
@@ -159,9 +166,8 @@ export const featuredProducts = [
     capacity: "35 Mtrs",
     units: "10+",
     image_file: "product_3.png",
-    highlight: "Maximum height and outreach for high-rise and large-scale industrial jobs",
+    highlight: "This truck mounted telescopic boom lift features a maximum lifting height of 33 metres and a maximum working range of 18 metres, making it suitable for demanding aerial access applications.",
   },
-
 ];
 
 export const contact = {

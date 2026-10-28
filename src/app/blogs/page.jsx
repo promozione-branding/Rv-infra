@@ -17,7 +17,8 @@ export default function Blogs() {
           backgroundImage="/blogs_hero.png"
         />
       <BlogPage/>
-      <Map/>
+
+     
     </>
   )
 }
