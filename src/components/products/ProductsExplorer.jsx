@@ -15,6 +15,7 @@ import QuoteModal from "./QuoteModal";
 import { stats } from "@/data/site";
 import { products, productHref } from "@/data/product";
 import CTABanner from "../CTABanner";
+import LocationMap from "../Map";
 
 function ProductCard({ p, index, onQuote }) {
   const ref = useRef(null);
@@ -136,11 +137,7 @@ export default function ProductsExplorer() {
         </div>
       </section>
 
-      <CTABanner
-        name="construction equipment"
-        onQuote={() => openQuote("")}
-        waHref="https://wa.me/919811017313"
-      />
+     <LocationMap/>
 
       <QuoteModal open={quote.open} onClose={closeQuote} product={quote.product} />
     </>

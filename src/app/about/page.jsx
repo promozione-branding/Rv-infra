@@ -1,4 +1,5 @@
 import BgHeader from "@/components/BgHeader";
+import LocationMap from "@/components/Map";
 import Reveal from "@/components/Reveal";
 import { company } from "@/data/site";
 
@@ -37,6 +38,7 @@ export default function About() {
           </div>
         </Reveal>
       </section>
+      <LocationMap/>
     </>
   );
 }
