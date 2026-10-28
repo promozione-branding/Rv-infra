@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionTemplate,
@@ -38,6 +38,23 @@ function ProductCard({ p, index, onQuote }) {
 
   const units = p.units;
 
+  // View more / View less
+  const [expanded, setExpanded] = useState(false);
+  const [clamped, setClamped] = useState(false);
+  const descRef = useRef(null);
+
+  // Only show the toggle if the text is actually cut off
+  useEffect(() => {
+    const el = descRef.current;
+    if (!el) return;
+    const check = () => {
+      if (!expanded) setClamped(el.scrollHeight > el.clientHeight + 1);
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [expanded, p.description]);
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 40, scale: 0.94 }}
@@ -65,7 +82,7 @@ function ProductCard({ p, index, onQuote }) {
           <span className="absolute left-3 top-3 z-[2] rounded-full border border-white/25 bg-navy/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur">
             {p.category}
           </span>
-         
+
           {units && (
             <span className="pointer-events-none absolute bottom-3 left-3 z-[2] rounded-md bg-brand px-2.5 py-1 text-xs font-bold text-navy shadow-lg">
               {units} units
@@ -79,7 +96,26 @@ function ProductCard({ p, index, onQuote }) {
         <div className="relative flex flex-1 flex-col p-5">
           <motion.div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: spot }} />
           <h3 className="relative text-lg font-bold text-navy"><Link href={productHref(p)} className="transition hover:text-brand-dark">{p.name}</Link></h3>
-          <p className="relative mt-2 flex-1 text-sm leading-relaxed text-slate-500">{p.description}</p>
+
+          {/* description with clamp + toggle */}
+          <div className="relative mt-2 flex-1">
+            <p
+              ref={descRef}
+              className={`text-sm leading-relaxed text-slate-500 ${expanded ? "" : "line-clamp-3"}`}
+            >
+              {p.description}
+            </p>
+            {(clamped || expanded) && (
+              <button
+                type="button"
+                onClick={() => setExpanded((v) => !v)}
+                aria-expanded={expanded}
+                className="mt-1.5 text-sm font-semibold text-brand-dark transition hover:text-navy"
+              >
+                {expanded ? "View less" : "View more"}
+              </button>
+            )}
+          </div>
 
           <dl className="relative mt-4 grid grid-cols-2 gap-3 text-xs">
             <div className="rounded-lg bg-slate-50 p-3 transition group-hover:bg-brand-light">
@@ -137,7 +173,7 @@ export default function ProductsExplorer() {
         </div>
       </section>
 
-     <LocationMap/>
+      <LocationMap />
 
       <QuoteModal open={quote.open} onClose={closeQuote} product={quote.product} />
     </>
