@@ -17,50 +17,44 @@ export default async function AdminBlogs() {
   return (
     <>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-extrabold text-navy">Blogs <span className="text-base font-semibold text-slate-400">({blogs.length})</span></h1>
-        <Link href="/admin/blogs/new" className="btn-primary">+ New blog</Link>
+        <h1 className="text-[1.7rem] font-extrabold tracking-tight text-[#0b1623]">
+          All blogs <span className="text-base font-semibold text-slate-500">({blogs.length})</span>
+        </h1>
+        <Link href="/admin/blogs/new" className="rounded-xl bg-[#0b1623] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#16293f]">
+          + Add blog
+        </Link>
       </div>
 
-      {error && <p className="mt-6 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
+      {error && <p className="mt-6 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
 
-      <div className="mt-6 overflow-x-auto rounded-xl bg-white shadow-sm ring-1 ring-slate-200">
-        <table className="w-full min-w-[640px] text-left text-sm">
-          <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
-            <tr>
-              <th className="px-4 py-3">Blog</th>
-              <th className="px-4 py-3">Date</th>
-              <th className="px-4 py-3 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            {blogs.length === 0 && !error && (
-              <tr><td colSpan={3} className="px-4 py-10 text-center text-slate-500">No blogs yet. Create your first one.</td></tr>
-            )}
-            {blogs.map((b) => (
-              <tr key={b._id}>
-                <td className="px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <img src={thumb(b.image, 120)} alt="" className="h-12 w-20 shrink-0 rounded-md bg-slate-100 object-cover" />
-                    <div className="min-w-0">
-                      <p className="truncate font-semibold text-navy">{b.title}</p>
-                      <p className="truncate text-xs text-slate-400">/blogs/{b.permalink}</p>
-                    </div>
-                  </div>
-                </td>
-                <td className="whitespace-nowrap px-4 py-3 text-slate-500">
-                  {new Date(b.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })}
-                </td>
-                <td className="whitespace-nowrap px-4 py-3 text-right">
-                  <span className="inline-flex items-center gap-4">
-                    <Link href={`/blogs/${b.permalink}`} target="_blank" className="font-semibold text-slate-500 hover:underline">View</Link>
-                    <Link href={`/admin/blogs/${b.permalink}/edit`} className="font-semibold text-[#253970] hover:underline">Edit</Link>
-                    <DeleteButton slug={b.permalink} title={b.title} />
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="mt-6 rounded-2xl bg-white p-2 shadow-[0_8px_30px_rgba(15,40,90,0.07)]">
+        {blogs.length === 0 && !error && (
+          <p className="px-4 py-14 text-center text-slate-500">No blogs yet. Click “Add blog” to create your first one.</p>
+        )}
+
+        {blogs.map((b) => (
+          <div key={b._id} className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl px-3 py-4 sm:px-4">
+            <img src={thumb(b.image, 200)} alt="" className="h-[67px] w-24 shrink-0 rounded-lg bg-slate-100 object-cover" />
+
+            <div className="min-w-0 flex-1 basis-56">
+              <p className="truncate text-[1.08rem] font-semibold text-[#0b1623]">{b.title}</p>
+              <p className="mt-0.5 truncate text-sm text-slate-500">
+                {new Date(b.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })}
+                {" · "}/{b.permalink}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2.5 text-sm font-semibold">
+              <Link href={`/blogs/${b.permalink}`} target="_blank" className="px-3 py-2 text-slate-500 transition hover:text-[#0b1623]">
+                View
+              </Link>
+              <Link href={`/admin/blogs/${b.permalink}/edit`} className="rounded-lg bg-slate-100 px-4 py-2 text-[#0b1623] transition hover:bg-slate-200">
+                Edit
+              </Link>
+              <DeleteButton slug={b.permalink} title={b.title} />
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );

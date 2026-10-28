@@ -1,8 +1,18 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import RichTextEditor from "@/components/admin/RichTextEditor";
+
+// Jodit touches `window`, so it must only load on the client
+const JoditEditor = dynamic(() => import("jodit-react"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex min-h-[400px] items-center justify-center rounded-lg border border-slate-200 text-sm text-slate-400">
+      Loading editor…
+    </div>
+  ),
+});
 
 const slugify = (s = "") => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 const today = () => new Date().toISOString().slice(0, 10);
@@ -29,6 +39,23 @@ export default function BlogForm({ initial, originalSlug }) {
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+
+  // Keep the config stable (memoized) so Jodit doesn't re-initialise on every render
+  const joditConfig = useMemo(
+    () => ({
+      readonly: false,
+      height: 450,
+      placeholder: "Write your blog content…",
+      toolbarAdaptive: false,
+      askBeforePasteHTML: false,
+      askBeforePasteFromWord: false,
+      defaultActionOnPaste: "insert_clear_html",
+      uploader: { insertImageAsBase64URI: true },
+      buttons:
+        "bold,italic,underline,strikethrough,|,ul,ol,|,font,fontsize,paragraph,brush,|,link,image,table,|,align,undo,redo,|,hr,eraser,source,fullsize",
+    }),
+    []
+  );
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -64,7 +91,9 @@ export default function BlogForm({ initial, originalSlug }) {
     if (!form.title.trim()) return setError("Title is required");
     if (!form.date) return setError("Date is required");
     if (!form.image || !form.imageFileId) return setError("Please upload a cover image");
-    if (!form.content.trim()) return setError("Content cannot be empty");
+    // Jodit returns "<p><br></p>" for an empty editor, so strip tags before checking
+    const plain = form.content.replace(/<(?!img)[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
+    if (!plain && !/<img/i.test(form.content)) return setError("Content cannot be empty");
 
     setSaving(true);
     try {
@@ -103,7 +132,12 @@ export default function BlogForm({ initial, originalSlug }) {
         </div>
         <div>
           <Label>Content *</Label>
-          <RichTextEditor value={form.content} onChange={(html) => setForm((f) => ({ ...f, content: html }))} />
+          {/* onBlur (not onChange) avoids cursor-jumping while typing */}
+          <JoditEditor
+            value={form.content}
+            config={joditConfig}
+            onBlur={(html) => setForm((f) => ({ ...f, content: html }))}
+          />
         </div>
       </div>
 

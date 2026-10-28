@@ -22,7 +22,7 @@ export default function DeleteButton({ slug, title }) {
   }
 
   return (
-    <button onClick={remove} disabled={busy} className="font-semibold text-red-600 hover:underline disabled:opacity-50">
+    <button onClick={remove} disabled={busy} className="rounded-lg border border-slate-300 bg-white px-4 py-2 font-semibold text-red-600 transition hover:border-red-300 hover:bg-red-50 disabled:opacity-50">
       {busy ? "Deleting…" : "Delete"}
     </button>
   );

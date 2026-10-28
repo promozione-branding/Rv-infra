@@ -19,7 +19,7 @@ function r2() {
 
 const publicBase = () => (process.env.CLOUD_FLARE_R2_PUBLIC_URL || "").replace(/\/$/, "")
 
-export async function uploadImage(buffer, { folder = "uploads", contentType, fileName = "" } = {}) {
+export async function uploadImage(buffer, { folder = "rv_infra", contentType, fileName = "" } = {}) {
   const ext = path.extname(fileName).toLowerCase().replace(/[^.a-z0-9]/g, "")
   const key = `${folder}/${Date.now()}-${crypto.randomBytes(6).toString("hex")}${ext}`
   await r2().send(
