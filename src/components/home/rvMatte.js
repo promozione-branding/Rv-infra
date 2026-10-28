@@ -34,8 +34,6 @@ export function buildMatteData(art) {
     it: [
       sheet,
       ...contours,
-      // even-odd: the sheet is filled, every letter contour punches a hole,
-      // and inner contours (the counter of the R) fill back in
       { ty: "fl", nm: "Fill", c: { a: 0, k: [1, 1, 1, 1] }, o: { a: 0, k: 100 }, r: 2 },
       {
         ty: "tr",
@@ -45,12 +43,8 @@ export function buildMatteData(art) {
     ],
   };
 
-  // keep the board layer's own motion (position, rotation) but draw only the sheet
   comp.layers = [{ ...board, nm: "Matte", shapes: [group], hd: false }];
 
-  // lottie-web copies a precomp's layers onto the layers that use it when it loads
-  // an animation. If `art` was already loaded once, those stale copies would be
-  // used instead of the edited comp above, so drop them.
   for (const layer of data.layers) {
     if (layer.refId) delete layer.layers;
   }

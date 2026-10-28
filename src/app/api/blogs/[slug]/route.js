@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
 import { revalidatePath } from "next/cache"
 import { isAdmin } from "@/lib/auth"
-import db from "@/utils/db"
-import Blog from "@/"
+import db from "@/lib/db"
+import Blog from "@/models/Blogs"
 import { getBlog, pickBlog } from "@/lib/blogs"
 import { deleteImage } from "@/lib/r2"
 
@@ -39,7 +39,6 @@ export async function PUT(req, { params }) {
     return NextResponse.json({ message: e.message }, { status: 400 })
   }
 
-  // cover image was replaced: remove the old file from ImageKit
   if (data.imageFileId && data.imageFileId !== oldFileId) await deleteImage(oldFileId)
 
   revalidatePath("/blogs")

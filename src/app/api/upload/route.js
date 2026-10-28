@@ -11,7 +11,9 @@ export async function POST(req) {
   const file = form.get("file")
 
   if (!file || typeof file === "string") return NextResponse.json({ message: "No file" }, { status: 400 })
-  if (!file.type.startsWith("image/")) return NextResponse.json({ message: "Only images allowed" }, { status: 400 })
+  // allow-list (no SVG: it can carry scripts)
+  if (!["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"].includes(file.type))
+    return NextResponse.json({ message: "Only JPG, PNG, WebP, GIF or AVIF images allowed" }, { status: 400 })
   if (file.size > 4 * 1024 * 1024) return NextResponse.json({ message: "Max size is 4 MB" }, { status: 400 })
 
   try {

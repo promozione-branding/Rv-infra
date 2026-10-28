@@ -1,8 +1,13 @@
 import Link from "next/link"
-import { getBlogs, thumb } from "../data/blogs"
+import { getBlogs, thumb } from "@/lib/blogs"
 
 export default async function BlogPage() {
-  const blogs = await getBlogs()
+  let blogs = []
+  try {
+    blogs = await getBlogs()
+  } catch (e) {
+    console.error("Failed to load blogs:", e.message) // e.g. DB unreachable at build time; ISR retries in 60s
+  }
 
   return (
     <section className="bg-white py-16 max-[720px]:py-10">

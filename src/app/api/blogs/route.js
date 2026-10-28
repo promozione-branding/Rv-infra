@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
 import { revalidatePath } from "next/cache"
 import { isAdmin } from "@/lib/auth"
-import db from "@/utils/db"
-import Blog from "@/"
+import db from "@/lib/db"
+import Blog from "@/models/Blogs"
 import { getBlogs, pickBlog, slugify } from "@/lib/blogs"
 
 export const dynamic = "force-dynamic"

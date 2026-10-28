@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import { makeToken, isAdmin } from "@/lib/auth"
+import { makeToken, isAdmin, safeEqual } from "@/lib/auth"
 
 export async function POST(req) {
   const { username, password } = await req.json().catch(() => ({}))
 
-  if (username !== process.env.ADMIN_USERNAME || password !== process.env.ADMIN_PASSWORD) {
+  if (
+    !process.env.ADMIN_USERNAME ||
+    !process.env.ADMIN_PASSWORD ||
+    !safeEqual(username, process.env.ADMIN_USERNAME) ||
+    !safeEqual(password, process.env.ADMIN_PASSWORD)
+  ) {
     return NextResponse.json({ message: "Invalid credentials" }, { status: 401 })
   }
 
