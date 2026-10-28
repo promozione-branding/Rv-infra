@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import QuoteForm from "@/components/QuoteForm";
 import { company } from "@/data/site";
+import BgHeader from "@/components/BgHeader";
 
 export const metadata = { title: "Contact Us | R.V. Infrastructural Pvt. Ltd." };
 
@@ -15,7 +16,11 @@ export default function Contact() {
   ];
   return (
     <>
-      <PageHeader eyebrow="Contact Us" title="Let's Lift Your Next Project" text="Share your requirements and our team will get back to you." />
+  <BgHeader
+        title="Built on the shop floor"
+        text="Sisco started as a two-person welding bay. Today we make racking for warehouses, workshops and shops across the country."
+        backgroundImage="/suppliers.png"
+      />
       <section className="container-x grid gap-10 py-16 lg:grid-cols-[1fr_1.3fr]">
         <div className="space-y-4">
           {cards.map(([I, t, v], i) => (

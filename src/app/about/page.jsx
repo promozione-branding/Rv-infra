@@ -1,4 +1,4 @@
-import PageHeader from "@/components/PageHeader";
+import BgHeader from "@/components/BgHeader";
 import Reveal from "@/components/Reveal";
 import { company } from "@/data/site";
 
@@ -14,7 +14,11 @@ const facts = [
 export default function About() {
   return (
     <>
-      <PageHeader eyebrow="About Us" title="Building Success with the Right Machinery" text="Construction equipment hiring and plant erection for private and public sector projects since 1999." />
+         <BgHeader
+        title="Built on the shop floor"
+        text="Sisco started as a two-person welding bay. Today we make racking for warehouses, workshops and shops across the country."
+        backgroundImage="/suppliers.png"
+      />
       <section className="container-x grid gap-12 py-16 lg:grid-cols-[1.4fr_1fr]">
         <div className="space-y-5 leading-relaxed">
           <Reveal><p><strong className="text-navy">R.V. Infrastructural Private Limited</strong> ({company.iso} certified) was incorporated in March 1999 and provides construction equipment hiring to project sites in the private and public sector, along with plant erection by highly experienced staff.</p></Reveal>

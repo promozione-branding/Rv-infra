@@ -126,20 +126,20 @@ export function Fleet() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-12 pt-4 lg:w-[80%] lg:pb-14 lg:pt-4">
+        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-12 pt-4 lg:w-[90%] lg:pb-14 lg:pt-4">
           <Reveal>
             <div className="max-w-xl">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 mb-6">
                 <span className="h-[2px] w-10" style={{ background: GOLD }} />
-                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-600">
+                <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-600">
                   Our Categories
                 </span>
               </div>
 
-              <h2 className="mt-2 text-2xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-3xl">
-                Project Ready
-                <br />
-                <span style={{ color: GOLD }}>Equipment</span>
+              <h2 className="mt-2 text-2xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl">
+                Project Ready 
+               
+                <span style={{ color: GOLD }}> Equipment</span>
               </h2>
 
               <p className="mt-6 mb-4 max-w-md text-sm leading-relaxed text-slate-500">
@@ -147,7 +147,7 @@ export function Fleet() {
                 equipment, operated by skilled and dedicated technicians.
               </p>
 
-              <div className="mt-3 flex flex-wrap items-center gap-y-2">
+              <div className="mt-3 flex flex-wrap items-center gap-y-2 mb-4">
                 {badges.map((b, i) => (
                   <div
                     key={b.label}
@@ -181,7 +181,7 @@ export function Fleet() {
       </div>
 
       <div className="relative flow-root pb-3">
-        <div className="absolute inset-0 bg-navy" />
+        <div className="absolute inset-0 bg-navy mt-1" />
 
         <div
           className="relative z-20 mx-auto -mt-6 w-[90%] max-w-[1800px] pt-4 lg:-mt-8 lg:w-[90%] lg:pt-6"

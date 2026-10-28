@@ -90,7 +90,7 @@ export function Safety() {
         <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#f4f6fa]/60 to-transparent" />
       </div>
 
-      <div className="relative z-10 mx-auto w-[92%] max-w-[1500px] pb-6 pt-6 lg:pb-6 lg:pt-8">
+      <div className="relative z-10 mx-auto w-[84%] max-w-[1500px] pb-6 pt-6 lg:pb-6 lg:pt-8">
         <Reveal>
           <div className="max-w-[640px]">
             <div
@@ -105,7 +105,7 @@ export function Safety() {
               </span>
             </div>
 
-            <h2 className="mt-6 mb-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#0f1a2e] sm:text-4xl lg:text-[2.5rem]">
+            <h2 className="mt-6 mb-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#0f1a2e] sm:text-5xl lg:text-[2.5rem]">
               Our Commitment
               <br />
               to a Safer <span style={{ color: GOLD_TEXT }}>Tomorrow</span>

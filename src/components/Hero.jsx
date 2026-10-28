@@ -148,13 +148,13 @@ export default function Hero() {
           >
             <motion.p
               variants={item}
-              className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand"
+              className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-brand"
             >
               {slide.eyebrow}
             </motion.p>
             <motion.h1
               variants={item}
-              className="text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl lg:text-4xl mt-8 mb-8"
+              className="text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl lg:text-5xl mt-8 mb-8"
             >
               {slide.titleTop}{" "}
               <span className="block text-brand">{slide.titleHighlight}</span>{" "}
@@ -162,7 +162,7 @@ export default function Hero() {
             </motion.h1>
             <motion.p
               variants={item}
-              className="mt-3 mb-6 max-w-md text-sm leading-relaxed text-slate-200 drop-shadow"
+              className="mt-3 mb-6 max-w-md text-md leading-relaxed text-slate-200 drop-shadow"
             >
               {slide.description}
             </motion.p>

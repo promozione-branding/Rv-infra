@@ -151,7 +151,7 @@ export function EquipmentSuppliers() {
       <div className="relative z-10">
         <div
           ref={ref}
-          className={`flex flex-col items-start justify-between gap-5 transition-all duration-700 md:flex-row md:items-center ${
+          className={`flex flex-col items-start justify-between gap-5 transition-all duration-700 md:flex-row md:items-center px-20 ${
             seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
         >
@@ -164,7 +164,7 @@ export function EquipmentSuppliers() {
               Our Equipment Partners
             </span>
 
-            <h2 className="mt-4 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
+            <h2 className="mt-4 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-5xl">
               Equipment sourced from{" "}
               <span className="bg-gradient-to-r from-brand via-amber-300 to-white bg-clip-text text-transparent">
                 trusted suppliers

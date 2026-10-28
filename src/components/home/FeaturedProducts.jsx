@@ -330,16 +330,16 @@ function SectionHeader({ controls, compact = false }) {
     <Reveal>
       <div className={`${compact ? "mb-6" : "mb-10"} flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end mt-8`}>
         <div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 mt-6">
             <span className="h-[2px] w-10" style={{ background: GOLD }} />
-            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
               Featured Equipments
             </span>
           </div>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
+          <h2 className="mt-4 mb-6 text-3xl font-extrabold tracking-tight text-navy sm:text-5xl">
             Our Most Requested <span style={{ color: GOLD }}>Machines</span>
           </h2>
-          <p className="mt-2 max-w-lg text-slate-500">
+          <p className="mt-4 max-w-lg text-slate-500">
             A quick look at the equipment most frequently deployed on major
             infrastructure and industrial projects across India.
           </p>

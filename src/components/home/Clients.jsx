@@ -29,7 +29,7 @@ export function Clients() {
   const row = [...clients, ...clients];
   return (
     <section className="overflow-hidden py-20">
-      <div className="container-x">
+      <div className="px-20">
         <SectionHeading
           eyebrow="Our Clients"
           title="Trusted by India's Leading Companies"
