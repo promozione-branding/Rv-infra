@@ -22,7 +22,7 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "Products", href: "/products" },
   { label: "About Us", href: "/about" },
-  { label: "Projects", href: "/projects" },
+  { label: "Blogs", href: "/blogs" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -30,7 +30,6 @@ const categories = [
   { label: "24 Mtrs Articulated Boom Lift", href: "/products/24-mtrs-truck-mounted-articulated-boom-lift", Icon: Construction },
   { label: "30 Mtrs Telescopic Boom Lift", href: "/products/30-mtrs-truck-mounted-telescopic-boom-lift", Icon: Truck },
   { label: "35 Mtrs Telescopic Boom Lift", href: "/products/35-mtrs-truck-mounted-telescopic-boom-lift", Icon: Truck },
-  { label: "Plant Erection", href: "/projects", Icon: Factory },
   { label: "Skilled Operators", href: "/contact", Icon: HardHat },
 ];
 
