@@ -23,7 +23,7 @@ export default function Contact() {
         eyebrow="Let Us Know your Query"
         accent="#f9c32f"
         text="We have large varierty of Machinery Equipments"
-        backgroundImage="/contact_hero.png"
+        backgroundImage="/contact_hero_.png"
       />
       <section className="container-x grid gap-10 py-16 lg:grid-cols-[1fr_1.3fr]">
         <div className="space-y-4">

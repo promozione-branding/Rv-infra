@@ -46,7 +46,7 @@ export default function PageHeader({
   crumb,
   parents = [],
   features = DEFAULT_FEATURES,
-  ctaLabel = "Request a Quote",
+  ctaLabel = "Contact Us",
   ctaHref = "/contact",
   phone = "+91 9870173713",
 }) {

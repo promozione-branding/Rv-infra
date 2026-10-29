@@ -47,9 +47,16 @@ export function QuoteSection() {
     {
       icon: Phone,
       title: "Call Us",
-      text: `${company.mobile}  |  ${company.phones[0]}`,
+      links: [
+        { label: company.mobile, href: `tel:+91${company.mobile}` },
+        { label: company.phones[0], href: `tel:${company.phones[0].replace(/[^\d+]/g, "")}` },
+      ],
     },
-    { icon: Mail, title: "Email Us", text: company.email },
+    {
+      icon: Mail,
+      title: "Email Us",
+      links: [{ label: company.email, href: `mailto:${company.email}` }],
+    },
     {
       icon: MapPin,
       title: "Serving Across India",
@@ -265,7 +272,19 @@ export function QuoteSection() {
                         c.small ? "text-[13px]" : "text-[15.5px]"
                       }`}
                     >
-                      {c.text}
+                      {c.links
+                        ? c.links.map((l, i) => (
+                            <span key={l.href}>
+                              {i > 0 && <span className="mx-2 text-slate-500">|</span>}
+                              <a
+                                href={l.href}
+                                className="transition-colors hover:text-[#F5B100] hover:underline focus-visible:text-[#F5B100] focus-visible:underline"
+                              >
+                                {l.label}
+                              </a>
+                            </span>
+                          ))
+                        : c.text}
                     </p>
                   </div>
                 </li>
