@@ -252,7 +252,7 @@ function BoomLiftShowcase() {
     <div className="mt-10 hidden min-h-[280px] flex-1 bg-white [container-type:size] lg:block">
       <div className="flex h-full w-full items-end justify-center">
         <div
-          className="relative overflow-hidden"
+          className="relative overflow-hidden mt-6"
           style={{
             width: "min(100cqw, 250cqh)", // wider than before
             aspectRatio: "1044 / 640",     // exact Lottie ratio

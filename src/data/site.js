@@ -55,12 +55,12 @@ export const industries = [
 ];
 
 export const whyChoose = [
-  { icon: "Wrench", title: "Well-Maintained Fleet", text: "Own workshop in Delhi, GT Karnal Road" },
-  { icon: "HardHat", title: "Experienced Operators", text: "Skilled operators and technicians" },
-  { icon: "ShieldCheck", title: "Safety First", text: "Strict safety standards and compliance" },
-  { icon: "Award", title: "ISO 9001 Certified", text: "Quality-assured services" },
-  { icon: "MapPin", title: "Pan India Service", text: "Equipment hired to clients across India" },
-  { icon: "Cpu", title: "Latest Machinery", text: "Continuous technology upgrades" },
+  { icon: "Wrench", title: "Well-Maintained Fleet", text: "Reliable equipment backed by our Delhi workshop on GT Karnal Road" },
+  { icon: "HardHat", title: "Experienced Operators", text: "Skilled teams focused on efficient equipment operation" },
+  { icon: "ShieldCheck", title: "Safety First", text: "Safety-focused procedures and compliance practices" },
+  { icon: "Award", title: "ISO 9001 Certified", text: "Commitment to quality management and service standards" },
+  { icon: "MapPin", title: "Pan India Service", text: "Equipment hires solutions for projects across India" },
+  { icon: "Cpu", title: "Latest Machinery", text: "Continuous equipment upgrades to meet evolving project needs" },
 ];
 
 export const projects = [
@@ -150,7 +150,7 @@ export const featuredProducts = [
     capacity: "24 Mtrs",
     units: "Popular",
     image_file: "product_.png",
-    highlight: "With a maximum working height of 23.2 metres and a horizontal outreach of 10.7 metres, this truck mounted aerial boom lift provides access to elevated and hard-to-reach work areas.",
+    highlight: "Offers a maximum working height of 23.2 metres and 10.7 metres of horizontal outreach for accessing elevated and hard-to-reach areas.",
   },
   {
     name: "30 Mtrs Truck Mounted Telescopic Boom Lift",
@@ -158,7 +158,7 @@ export const featuredProducts = [
     capacity: "30 Mtrs",
     units: "Popular",
     image_file: "product_2_2.png",
-    highlight: "This 30m truck mounted boom lift features a maximum lifting height of 30 metres and a maximum working range of 16 metres for accessing elevated and hard-to-reach work areas.",
+    highlight: "Features a maximum lifting height of 30 metres and a working range of 16 metres for demanding aerial access applications.",
   },
   {
     name: "35 Mtrs Truck Mounted Telescopic Boom Lift",
@@ -166,7 +166,7 @@ export const featuredProducts = [
     capacity: "35 Mtrs",
     units: "Popular",
     image_file: "product_3.png",
-    highlight: "This truck mounted telescopic boom lift features a maximum lifting height of 33 metres and a maximum working range of 18 metres, making it suitable for demanding aerial access applications.",
+    highlight: "Provides a maximum lifting height of 33 metres and a working range of 18 metres for high-reach industrial and infrastructure projects.",
   },
 ];
 

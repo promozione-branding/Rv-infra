@@ -104,15 +104,14 @@ export function Services() {
           </div>
 
           <h2 className="max-w-lg text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl">
-            Complete Lifting{" "}
+            Your Trusted {" "}
             <span className="mt-1 block bg-gradient-to-r from-[#FFF0A6] via-[#FFC02E] to-[#F59E0B] bg-clip-text text-transparent">
-              Solutions
+           Aerial Access Partner
             </span>
           </h2>
 
           <p className="mt-5 max-w-md text-sm leading-7 text-slate-300 sm:text-base">
-            End-to-end equipment hiring with safety, efficiency and precision,
-            tailored to your project requirements.
+            Discover dependable truck mounted boom lifts and expert equipment solutions for demanding industrial and infrastructure projects across India.
           </p>
 
           <Link

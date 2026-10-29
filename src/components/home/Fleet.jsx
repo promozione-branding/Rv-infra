@@ -128,23 +128,22 @@ export function Fleet() {
 
         <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-12 pt-4 lg:w-[90%] lg:pb-14 lg:pt-4">
           <Reveal>
-            <div className="max-w-xl">
+            <div className="max-w-2xl">
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-[2px] w-10" style={{ background: GOLD }} />
                 <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-600">
-                  Our Categories
+                  Our Equipment Categories
                 </span>
               </div>
 
               <h2 className="mt-2 text-2xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl">
-                Project Ready 
-               
-                <span style={{ color: GOLD }}> Equipment</span>
+                Project-Ready
+               <br/>
+                <span style={{ color: GOLD }}>Construction Equipment</span>
               </h2>
 
               <p className="mt-6 mb-4 max-w-md text-sm leading-relaxed text-slate-500">
-                A modern and well-maintained fleet of cranes, lifts and concrete
-                equipment, operated by skilled and dedicated technicians.
+               RV Infrastructural Private Limited provides cranes, truck-mounted boom lifts, and concrete equipment for construction, infrastructure, and industrial projects across India.
               </p>
 
               <div className="mt-3 flex flex-wrap items-center gap-y-2 mb-4">

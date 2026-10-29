@@ -69,13 +69,11 @@ export function WhyChoose() {
             <h2 className="mt-4 text-3xl font-extrabold leading-[1.1] tracking-tight text-navy xl:text-[2.5rem]">
               RV INFRASTRUCTURAL
               <br />
-              <span className="text-brand">PRIVATE LIMITED</span>
+              <span className="text-brand">PRIVATE LIMITED ?</span>
             </h2>
 
             <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
-              Your trusted partner for equipment hire across India since 1999.
-              <br className="hidden sm:block" /> Safe lifting. Stronger
-              projects. A better tomorrow.
+             Your trusted partner for construction equipment rental and lifting solutions across India since 1999. We combine modern machinery, experienced professionals, and safety-focused operations to support projects of every scale.
             </p>
 
             {/* stats */}

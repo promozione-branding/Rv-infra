@@ -86,8 +86,7 @@ function SectionHeader({ controls, compact = false }) {
             Our Most Requested <span style={{ color: GOLD }}>Machines</span>
           </h2>
           <p className="mt-4 max-w-lg text-slate-500">
-            A quick look at the equipment most frequently deployed on major
-            infrastructure and industrial projects across India.
+            Explore our most requested truck-mounted boom lifts, designed for reliable aerial access across infrastructure, industrial, and maintenance projects throughout India.
           </p>
         </div>
         {controls}

@@ -28,7 +28,7 @@ const slides = [
     description:
       "R.V. Infrastructural Pvt. Ltd. provides modern, well-maintained cranes and construction equipment for infrastructure, industrial and plant erection projects across India.",
     cta: { label: "Get a Quote", href: "/contact" },
-    secondary: { label: "View Our Work", href: "/projects" },
+    secondary: { label: "View Our Projects", href: "/projects" },
   },
   {
     image: "/suppliers.png",
@@ -40,17 +40,17 @@ const slides = [
     description:
       "From plant shutdowns to turbine erection, our experienced operators and certified fleet keep your project moving with safety first.",
     cta: { label: "Our Services", href: "/services" },
-    secondary: { label: "View Our Work", href: "/projects" },
+    secondary: { label: "View Our Projects", href: "/projects" },
   },
   {
     image: "/metro_rv.png",
     alt: "Crane fleet on a highway infrastructure site",
-    eyebrow: "Infrastructure across India",
-    titleTop: "A FLEET YOU",
-    titleHighlight: "CAN RELY ON",
-    titleBottom: "PAN-INDIA",
+    eyebrow: "Truck Mounted Boom Lift Solutions",
+    titleTop: "REACH HIGHER",
+    titleHighlight: "WORK SAFER",
+    titleBottom: "DELIVER ON TIME",
     description:
-      "Hydraulic, crawler and tower cranes backed by regular maintenance and 24/7 support, wherever your site is.",
+      "RV Infrastructural Private Limited provides reliable truck mounted boom lifts and aerial access equipment for construction, industrial maintenance, and infrastructure projects across India.",
     cta: { label: "Get a Quote", href: "/contact" },
     secondary: { label: "Our Fleet", href: "/equipment" },
   },
@@ -146,20 +146,20 @@ export default function Hero() {
             exit="exit"
             className="max-w-xl"
           >
-            <motion.p
+            <motion.h1
               variants={item}
               className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-brand"
             >
               {slide.eyebrow}
-            </motion.p>
-            <motion.h1
+            </motion.h1>
+            <motion.h2
               variants={item}
               className="text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl lg:text-5xl mt-8 mb-8"
             >
               {slide.titleTop}{" "}
               <span className="block text-brand">{slide.titleHighlight}</span>{" "}
               {slide.titleBottom}
-            </motion.h1>
+            </motion.h2>
             <motion.p
               variants={item}
               className="mt-3 mb-6 max-w-md text-md leading-relaxed text-slate-200 drop-shadow"

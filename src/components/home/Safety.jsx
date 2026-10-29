@@ -15,29 +15,29 @@ const GOLD_TEXT = "#B7740B"; // darker gold for readable text on light bg
 
 const SAFETY_CARDS = [
   {
-    title: "Regular\nEquipment Inspection",
-    text: "Routine inspection and maintenance to ensure maximum safety and reliability.",
+    title: "Regular Equipment Inspection",
+    text: "Routine equipment inspections and preventive maintenance help ensure reliable performance and safer operations.",
     icon: ClipboardCheck,
     image: "/industries/ind_1.png",
     href: "/safety#inspection",
   },
   {
     title: "Skilled Operators",
-    text: "Certified and experienced operators for efficient and safe operations.",
+    text: "Experienced operators and technicians support safe handling of cranes, boom lifts, and construction equipment.",
     icon: HardHat,
     image: "/images/safety.jpg",
     href: "/safety#operators",
   },
   {
     title: "Site Risk Assessment",
-    text: "Detailed site evaluation to identify and minimize potential risks.",
+    text: "Site evaluations help identify potential hazards and implement appropriate safety measures before operations begin.",
     icon: ShieldCheck,
     image: "/images/rv_hero.png",
     href: "/safety#risk",
   },
   {
-    title: "Compliance with\nIndustry Standards",
-    text: "We adhere to all safety regulations and industry best practices.",
+    title: "Compliance with Industry Standards",
+    text: "We emphasize applicable safety regulations, equipment operating procedures, and industry best practices across project sites.",
     icon: BadgeCheck,
     image: "/industries/ind_3.png",
     href: "/safety#compliance",
@@ -106,15 +106,13 @@ export function Safety() {
             </div>
 
             <h2 className="mt-6 mb-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#0f1a2e] sm:text-5xl lg:text-[2.5rem]">
-              Our Commitment
+             Our Commitment 
               <br />
-              to a Safer <span style={{ color: GOLD_TEXT }}>Tomorrow</span>
+              to Workplace <span style={{ color: GOLD_TEXT }}>Safety</span>
             </h2>
 
             <p className="mt-3 max-w-[440px] text-sm leading-relaxed text-slate-600">
-              We follow stringent safety protocols, regular equipment
-              inspections and skilled operations to ensure a safe working
-              environment on every project.
+              At RV Infrastructural Private Limited, we prioritize safety in every construction and infrastructure project. Through regular equipment inspections, trained operators, and site risk assessments, we support safe and reliable crane and aerial lift operations across India.
             </p>
 
             <Link
@@ -122,7 +120,7 @@ export function Safety() {
               className="group/btn mt-4 inline-flex items-center gap-3 rounded-full border-2 bg-transparent px-5 py-2 text-sm font-semibold transition hover:bg-[#F5A524]/10"
               style={{ borderColor: SAFETY_GOLD, color: GOLD_TEXT }}
             >
-              Our Safety Practices
+              Explore Our Safety Practices
               <ArrowRight
                 size={16}
                 className="transition-transform duration-300 group-hover/btn:translate-x-1"
