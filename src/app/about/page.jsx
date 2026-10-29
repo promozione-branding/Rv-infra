@@ -704,42 +704,46 @@ export default function About() {
           </blockquote>
         </div>
 
-        {/* Spec plate */}
-        <Reveal x={40} y={0}>
-          <aside
-            aria-label="Company at a glance"
-            className="h-fit border-2 border-navy bg-white lg:sticky lg:top-24"
-          >
-            <div className="h-3 bg-brand text-navy" style={hazard} aria-hidden />
-            <h3 className="bg-navy px-6 py-3 text-lg font-bold text-white">
-              Company at a glance
-            </h3>
-            <dl className="px-6 pt-2">
-              {facts.map(([k, v]) => (
-                <div
-                  key={k}
-                  className="grid grid-cols-[1fr_auto] items-baseline gap-4 border-b border-slate-200 py-3 text-sm"
-                >
-                  <dt className="text-slate-600">{k}</dt>
-                  <dd className="text-right font-semibold text-navy">{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="px-6 pb-6 pt-4">
-              <p className="text-sm text-slate-600">Directors</p>
-              <ul className="mt-3 space-y-2">
-                {company.directors.map((d) => (
-                  <li key={d} className="flex items-center gap-3 text-sm font-medium text-navy">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-brand text-xs font-bold text-navy">
-                      {initials(d)}
-                    </span>
-                    {d}
-                  </li>
-                ))}
-              </ul>
+{/* Spec plate: wrapper stretches the full row so the sticky child has room to travel */}
+<div className="lg:self-stretch">
+  <div className="lg:sticky lg:top-24">
+    <Reveal x={40} y={0}>
+      <aside
+        aria-label="Company at a glance"
+        className="h-fit border-2 border-navy bg-white"
+      >
+        <div className="h-3 bg-brand text-navy" style={hazard} aria-hidden />
+        <h3 className="bg-navy px-6 py-3 text-lg font-bold text-white">
+          Company at a glance
+        </h3>
+        <dl className="px-6 pt-2">
+          {facts.map(([k, v]) => (
+            <div
+              key={k}
+              className="grid grid-cols-[1fr_auto] items-baseline gap-4 border-b border-slate-200 py-3 text-sm"
+            >
+              <dt className="text-slate-600">{k}</dt>
+              <dd className="text-right font-semibold text-navy">{v}</dd>
             </div>
-          </aside>
-        </Reveal>
+          ))}
+        </dl>
+        <div className="px-6 pb-6 pt-4">
+          <p className="text-sm text-slate-600">Directors</p>
+          <ul className="mt-3 space-y-2">
+            {company.directors.map((d) => (
+              <li key={d} className="flex items-center gap-3 text-sm font-medium text-navy">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-brand text-xs font-bold text-navy">
+                  {initials(d)}
+                </span>
+                {d}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </Reveal>
+  </div>
+</div>
       </section>
 
       {/* Vision & Mission */}
