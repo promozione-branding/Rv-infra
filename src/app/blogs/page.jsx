@@ -1,8 +1,9 @@
 import Map from "@/components/Map"
 import BlogPage from "@/components/BlogPage"
 import BgHeader from "@/components/BgHeader"
+import { pageSeo, buildMetadata } from "@/data/seo";
 
-export const metadata = { title: "Blogs | R.V. Infrastructural Pvt. Ltd." };
+export const metadata = buildMetadata(pageSeo.blogs);
 
 export const revalidate = 60
 

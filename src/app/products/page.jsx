@@ -1,7 +1,8 @@
 import PageHeader from "@/components/PageHeader";
 import ProductsExplorer from "@/components/products/ProductsExplorer";
+import { pageSeo, buildMetadata } from "@/data/seo";
 
-export const metadata = { title: "Products & Equipment | R.V. Infrastructural Pvt. Ltd." };
+export const metadata = buildMetadata(pageSeo.products);
 
 export default function Products() {
   return (

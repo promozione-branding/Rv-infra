@@ -2,8 +2,9 @@ import BgHeader from "@/components/BgHeader";
 import LocationMap from "@/components/Map";
 import Reveal from "@/components/Reveal";
 import { company } from "@/data/site";
+import { pageSeo, buildMetadata } from "@/data/seo";
 
-export const metadata = { title: "About Us | R.V. Infrastructural Pvt. Ltd." };
+export const metadata = buildMetadata(pageSeo.about);
 
 const facts = [
   ["Incorporated", company.incorporated],

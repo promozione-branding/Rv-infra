@@ -5,8 +5,9 @@ import QuoteForm from "@/components/QuoteForm";
 import { company } from "@/data/site";
 import BgHeader from "@/components/BgHeader";
 import LocationMap from "@/components/Map";
+import { pageSeo, buildMetadata } from "@/data/seo";
 
-export const metadata = { title: "Contact Us | R.V. Infrastructural Pvt. Ltd." };
+export const metadata = buildMetadata(pageSeo.contact);
 
 export default function Contact() {
   const cards = [
