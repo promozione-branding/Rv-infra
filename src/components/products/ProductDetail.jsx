@@ -443,11 +443,11 @@ export default function ProductDetail({ product: p, related }) {
             <span className="mt-3 block h-1 w-14 rounded bg-brand" />
 
             <p className="mt-5 text-[17px] leading-relaxed text-slate-600">{p.description}</p>
-            {p.highlight && p.highlight !== p.description && (
+            {/* {p.highlight && p.highlight !== p.description && (
               <p className="mt-4 rounded-r-lg border-l-4 border-brand bg-brand-light/40 py-2.5 pl-4 pr-3 text-sm font-medium leading-relaxed text-navy/80">
                 {p.highlight}
               </p>
-            )}
+            )} */}
 
             <dl className="mt-7 flex flex-col divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:flex-row sm:divide-x sm:divide-y-0">
               {specs.map(({ icon: Icon, label, value }) => (
