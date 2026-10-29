@@ -31,29 +31,37 @@ const equipment = [
   "Soil Compactors",
 ];
 
+const TRACK_IMG = "/images/construction_card.png"; // boom lift photo for Track record
+
 const projectExperience = [
   {
     client: "Larsen & Toubro (L&T)",
+    logo: "lt",
     work: "Supported pipeline works, the Bullet Train Project, and Delhi Airport runway works.",
   },
   {
     client: "Tata Projects",
+    logo: "tata",
     work: "Contributed to manufacturing plant construction at the Micron site in Sanand.",
   },
   {
     client: "Reliance Infrastructure",
+    logo: "reliance",
     work: "Supported critical refinery projects.",
   },
   {
     client: "KEC International",
+    logo: "kec",
     work: "Collaborated on steel and IOCL plant facilities.",
   },
   {
     client: "Keller Ground Engineering & NCC",
+    logo: "keller",
     work: "Provided specialized equipment support for piling work at Mundra.",
   },
   {
     client: "Dinesh Chandra R. Aggarwal",
+    logo: "dcra",
     work: "Contributed to the Ahmedabad Metro project.",
   },
 ];
@@ -63,7 +71,7 @@ const whyChooseItems = [
     title: "24/7 Pan-India Support",
     text: "Responsive project support backed by trained supervisors and experienced operators.",
     icon: "support",
-    bg: "/images/safety.jpg", 
+    bg: "/images/safety.jpg",
   },
   {
     title: "Modern Equipment",
@@ -82,6 +90,37 @@ const whyChooseItems = [
     text: "Over 25 years of industry experience focused on quality, safety, and successful project execution.",
     icon: "leadership",
     bg: "/safety_.png",
+  },
+];
+
+const trackStrip = [
+  {
+    label: ["Stronger", "Projects"],
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1" />
+      </>
+    ),
+  },
+  {
+    label: ["Greater", "Productivity"],
+    icon: <path d="M4 20V14M10 20V9M16 20V12M22 20V4M3 20h19" />,
+  },
+  {
+    label: ["Safer", "Worksites"],
+    icon: <path d="M3 17h18M5 17a7 7 0 0 1 14 0M12 6v4M9 10h6" />,
+  },
+  {
+    label: ["A Stronger", "India"],
+    icon: (
+      <>
+        <circle cx="12" cy="8" r="2.5" />
+        <circle cx="5.5" cy="10" r="2" />
+        <circle cx="18.5" cy="10" r="2" />
+        <path d="M7.5 19a4.5 4.5 0 0 1 9 0M2 18a3.5 3.5 0 0 1 4-3M22 18a3.5 3.5 0 0 0-4-3" />
+      </>
+    ),
   },
 ];
 
@@ -189,7 +228,6 @@ function initials(name) {
     .toUpperCase();
 }
 
-
 const hazard = {
   backgroundImage:
     "repeating-linear-gradient(-45deg, transparent 0 10px, currentColor 10px 20px)",
@@ -218,6 +256,232 @@ function SectionHeading({ eyebrow, title, align = "left", tone = "dark" }) {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/* Track record                                                        */
+/* ------------------------------------------------------------------ */
+
+/* Simple brand marks. Swap for <img src="/images/clients/xx.png" /> when you have real logos. */
+function ClientLogo({ name }) {
+  switch (name) {
+    case "lt":
+      return (
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#1b3f94" strokeWidth="2.4" aria-hidden>
+          <circle cx="20" cy="20" r="17" />
+          <path d="M11 27l9-15 4 6-5 0 6 9" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "tata":
+      return (
+        <span className="flex flex-col items-center leading-none">
+          <svg width="26" height="18" viewBox="0 0 26 18" aria-hidden>
+            <path
+              d="M13 0C6 0 1 3 0 8c3-2 7-3 13-3s10 1 13 3C25 3 20 0 13 0zM13 7c-2 0-3 1-3 3v8h6v-8c0-2-1-3-3-3z"
+              fill="#1b5fb0"
+            />
+          </svg>
+          <span className="mt-0.5 text-[11px] font-extrabold tracking-wide text-[#1b5fb0]">TATA</span>
+        </span>
+      );
+    case "reliance":
+      return (
+        <span className="flex flex-col items-center leading-none">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#e2231a] text-xs font-black text-white">
+            R
+          </span>
+          <span className="mt-1 text-[10px] font-semibold text-slate-800">Reliance</span>
+        </span>
+      );
+    case "kec":
+      return <span className="text-xl font-black tracking-tight text-[#1b3f94]">KEC</span>;
+    case "keller":
+      return (
+        <span className="flex items-center gap-1 text-[13px] font-black text-slate-900">
+          <span className="h-4 w-1.5 bg-brand" aria-hidden />
+          KELLER
+        </span>
+      );
+    case "dcra":
+      return <span className="text-xl font-black tracking-tight text-[#1b3f94]">DCRA</span>;
+    default:
+      return null;
+  }
+}
+
+function ArrowBtn() {
+  return (
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-brand shadow-[0_2px_8px_rgba(0,0,0,0.12)]">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </span>
+  );
+}
+
+function TrackRecord() {
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-br from-white via-white to-slate-50">
+      {/* Top: content + photo */}
+      <div className="relative">
+        {/* Right photo with slanted left edge */}
+        <div
+          aria-hidden
+          className="absolute inset-y-0 right-0 hidden w-[36%] lg:block"
+          style={{ clipPath: "polygon(4% 0, 100% 0, 100% 100%, 0 100%)" }}
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('${TRACK_IMG}')` }}
+          />
+        </div>
+
+        {/* Yellow diagonal stripe along the photo edge */}
+        <span
+          aria-hidden
+          className="absolute inset-y-0 right-[34.5%] hidden w-[3%] bg-brand/90 lg:block"
+          style={{ clipPath: "polygon(60% 0, 100% 0, 40% 100%, 0 100%)" }}
+        />
+        {/* Top-right yellow blade */}
+        <span
+          aria-hidden
+          className="absolute right-[24%] top-0 hidden h-[24%] w-[6%] bg-brand lg:block"
+          style={{ clipPath: "polygon(45% 0, 100% 0, 55% 100%, 0 100%)" }}
+        />
+        {/* Dotted texture */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute right-[40%] top-6 hidden h-24 w-48 opacity-40 lg:block"
+          style={{
+            backgroundImage: "radial-gradient(#94a3b8 1px, transparent 1.5px)",
+            backgroundSize: "14px 14px",
+          }}
+        />
+
+        <div className="container-x relative py-10 lg:py-12">
+          <div className="lg:max-w-[58%]">
+            <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700">
+              <span className="h-3 w-3 bg-brand" aria-hidden />
+              Track record
+            </span>
+
+            <h2 className="mt-3 text-3xl font-extrabold leading-[1.1] tracking-tight text-navy sm:text-4xl lg:text-[2.6rem]">
+              Building India&apos;s Infrastructure
+              <br />
+              with <span className="text-brand">Trusted Equipment Solutions</span>
+            </h2>
+            <span className="mt-3 block h-[3px] w-14 rounded-full bg-brand" aria-hidden />
+
+            <p className="mt-4 max-w-[60ch] text-sm leading-6 text-slate-600">
+              RV Infrastructural Private Limited is proud to contribute to India&apos;s leading
+              infrastructure, construction, and industrial projects. Since 1999, we have supported
+              major developments by providing reliable heavy equipment rental solutions, including
+              truck mounted boom lifts, cranes, and specialised construction machinery.
+            </p>
+
+            <h3 className="mt-6 text-base font-bold text-navy">Our Project Experience</h3>
+            <span className="mt-1 block h-[3px] w-8 rounded-full bg-brand" aria-hidden />
+
+            <ul className="mt-3 space-y-1.5">
+              {projectExperience.map((item) => (
+                <li
+                  key={item.client}
+                  className="grid grid-cols-[3.5rem_1fr_auto] items-center gap-3 rounded-xl bg-white px-3 py-2 shadow-[0_2px_10px_rgba(15,23,42,0.07)] md:grid-cols-[3.5rem_13rem_1fr_auto] md:gap-4"
+                >
+                  <span className="flex h-11 w-14 items-center justify-center rounded-md bg-white shadow-[0_1px_6px_rgba(15,23,42,0.1)]">
+                    <ClientLogo name={item.logo} />
+                  </span>
+
+                  <h4 className="text-[13.5px] font-bold leading-tight text-navy md:border-r md:border-slate-300 md:pr-4">
+                    {item.client}
+                  </h4>
+
+                  <p className="col-span-2 col-start-2 text-[13px] leading-snug text-slate-700 md:col-span-1 md:col-start-auto md:max-w-[34ch]">
+                    {item.work}
+                  </p>
+
+                  <span className="hidden md:block">
+                    <ArrowBtn />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Mobile photo */}
+        <div
+          aria-hidden
+          className="h-56 w-full bg-cover bg-center lg:hidden"
+          style={{ backgroundImage: `url('${TRACK_IMG}')` }}
+        />
+      </div>
+
+      {/* Bottom navy bar */}
+      <div className="relative overflow-hidden bg-[#0a1f3d] text-white">
+        <span
+          aria-hidden
+          className="absolute bottom-0 right-0 h-full w-24 bg-brand/90"
+          style={{ clipPath: "polygon(100% 0, 100% 100%, 30% 100%)" }}
+        />
+        <div className="container-x relative flex flex-col gap-6 py-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-center gap-4">
+            <span className="h-14 w-1 shrink-0 rounded-full bg-brand" aria-hidden />
+            <p className="text-xl font-extrabold leading-tight sm:text-2xl">
+              Reliable Equipment. Trusted Partnerships.
+              <br />
+              <span className="text-brand">Infrastructure That Moves India Forward.</span>
+            </p>
+          </div>
+
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-4 lg:mr-24 lg:flex-nowrap">
+            {trackStrip.map((s, i) => (
+              <li
+                key={s.label.join(" ")}
+                className={`flex items-center gap-3 ${
+                  i > 0 ? "lg:border-l lg:border-white/20 lg:pl-6" : ""
+                }`}
+              >
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/[0.07] text-brand ring-1 ring-white/10">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    {s.icon}
+                  </svg>
+                </span>
+                <span className="text-xs leading-snug text-slate-200">
+                  {s.label[0]}
+                  <br />
+                  {s.label[1]}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Vision & Mission                                                    */
+/* ------------------------------------------------------------------ */
 
 function VisionMission() {
   return (
@@ -243,7 +507,6 @@ function VisionMission() {
 
       {/* Card */}
       <div className="relative mt-10 lg:mr-8 lg:h-[580px]">
-
         <img
           src="/images/heavy_eng.png"
           alt="Truck mounted boom lift working at a building site"
@@ -336,7 +599,7 @@ function VisionMission() {
                 <div>
                   <h3 className="text-3xl font-extrabold leading-[1.05] text-white">
                     Our
-                   Mission
+                    Mission
                   </h3>
                   <span className="mt-2 block h-[3px] w-10 rounded-full bg-brand" aria-hidden />
                 </div>
@@ -361,6 +624,10 @@ function VisionMission() {
     </section>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* Page                                                                */
+/* ------------------------------------------------------------------ */
 
 export default function About() {
   return (
@@ -388,7 +655,7 @@ export default function About() {
       </section>
 
       {/* Intro + spec plate */}
-      <section className="w-[80%] grid items-start gap-14 py-20 lg:grid-cols-[minmax(0,1fr)_23rem] lg:gap-20 lg:py-24 mx-auto">
+      <section className="mx-auto grid w-[80%] items-start gap-14 py-20 lg:grid-cols-[minmax(0,1fr)_23rem] lg:gap-20 lg:py-24">
         <div className="text-slate-700">
           <SectionHeading
             eyebrow="Who we are"
@@ -437,7 +704,7 @@ export default function About() {
           </blockquote>
         </div>
 
-        {/* Spec plate: the one distinctive element on the page */}
+        {/* Spec plate */}
         <Reveal x={40} y={0}>
           <aside
             aria-label="Company at a glance"
@@ -478,44 +745,16 @@ export default function About() {
       {/* Vision & Mission */}
       <VisionMission />
 
-      {/* Projects: a client ledger instead of a card grid */}
-      <section className="container-x py-20 lg:py-24">
-        <SectionHeading
-          eyebrow="Track record"
-          title="Building India's Infrastructure with Trusted Equipment Solutions"
-        />
-        <p className="mt-8 max-w-[65ch] leading-7 text-slate-700">
-          RV Infrastructural Private Limited is proud to contribute to India&apos;s leading
-          infrastructure, construction, and industrial projects. Since 1999, we have supported
-          major developments by providing reliable heavy equipment rental solutions, including
-          truck mounted boom lifts, cranes, and specialized construction machinery.
-        </p>
+      {/* Track record */}
+      <TrackRecord />
 
-        <h3 className="mb-4 mt-14 text-xl font-semibold text-navy">Our Project Experience</h3>
-        <ul className="border-b border-slate-300">
-          {projectExperience.map((item) => (
-            <li
-              key={item.client}
-              className="grid gap-1 border-t border-slate-300 py-5 md:grid-cols-[minmax(0,18rem)_1fr] md:gap-10"
-            >
-              <h4 className="font-semibold leading-snug text-navy">{item.client}</h4>
-              <p className="max-w-[60ch] leading-7 text-slate-700">{item.work}</p>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-10 max-w-[40ch] text-xl font-semibold leading-snug text-navy">
-          Reliable Equipment. Trusted Partnerships. Infrastructure That Moves India Forward.
-        </p>
-      </section>
-
-      <section className="relative isolate overflow-hidden bg-[#06142b] py-10 text-white lg:py-12 mb-6">
+      {/* Why choose us */}
+      <section className="relative isolate mb-6 overflow-hidden bg-[#06142b] py-10 text-white lg:py-12">
         <div
           aria-hidden
           className="absolute inset-0 -z-10 bg-cover bg-left opacity-10"
           style={{ backgroundImage: "url('/metro_rv.png')" }}
         />
-      
 
         <div
           aria-hidden
@@ -608,8 +847,7 @@ export default function About() {
         </div>
       </section>
 
-
-<LocationMap />
+      <LocationMap />
     </>
   );
 }

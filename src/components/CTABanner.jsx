@@ -38,7 +38,7 @@ export default function CTABanner({ name, onQuote, waHref }) {
       />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-navy/80 via-navy/20 to-transparent" />
 
-      <div className="container-x relative flex items-center py-8 lg:min-h-[300px] lg:py-10">
+      <div className="container-x relative flex items-center py-8 lg:min-h-[500px] lg:py-10">
         <Reveal className="relative w-full lg:w-[66%]">
           <div
             aria-hidden="true"
