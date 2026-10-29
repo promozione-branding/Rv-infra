@@ -14,7 +14,7 @@ import {
 import Reveal from "@/components/Reveal";
 import { contact } from "@/data/site";
 
-const CTA_BG = "/Pd_cta.png";
+const CTA_BG = "/Pd_cta_.png";
 
 const ctaPerks = [
   { icon: HeadphonesIcon, title: "Expert", sub: "Guidance" },

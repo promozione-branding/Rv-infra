@@ -36,14 +36,14 @@ import CTABanner from "../CTABanner";
 const LOTTIE = {
   gear: "/product_detail/Excavator.json",
   drum: "/product_detail/soilcompactor_industrial.json",
-  truck: "/product_detail/truck_mounted_boom_lift_lottie.json",
-  hook: "/product_detail/truck_mounted_boom_lift_lottie.json",
+  truck: "/truck_mounted_boom_lift.json",
+  hook: "/truck_mounted_boom_lift.json",
   site: "/product_detail/",
 };
 
 
 const LIFT_SVG = "/product_detail/boom-lift-v2.svg";
-const APPLICATIONS_IMG = "/images/bg_left_service_box.png"; // override per product with product.applicationsImage
+const APPLICATIONS_IMG = "/images/bg_left_service_box.png"; 
 
 const THUMB_LIMIT = 3; // thumbnails shown before the "+N" tile
 
@@ -247,6 +247,33 @@ function GalleryModal({ items, current, onSelect, onClose, name }) {
   );
 }
 
+function BoomLiftShowcase() {
+  return (
+    <div className="mt-10 hidden min-h-[280px] flex-1 bg-white [container-type:size] lg:block">
+      <div className="flex h-full w-full items-end justify-center">
+        <div
+          className="relative overflow-hidden"
+          style={{
+            width: "min(100cqw, 250cqh)", // wider than before
+            aspectRatio: "1044 / 640",     // exact Lottie ratio
+          }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              width: "102%",   // almost full size – vehicle stays the same size
+              left: "-1%",     // tiny crop of empty left margin only
+              top: "0%",
+            }}
+          >
+            <LottieIcon src={LOTTIE.truck} className="h-full w-full" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Gallery({ product: p, badge }) {
   const isVideo = (src) => /\.(mp4|webm|ogg|mov)$/i.test(src);
 
@@ -429,9 +456,10 @@ export default function ProductDetail({ product: p, related }) {
   return (
     <>
       <section className="relative z-10 bg-white py-14 lg:py-16">
-        <div className="container-x grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
+        <div className="container-x grid items-start gap-12 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+          <Reveal className="lg:flex lg:flex-col">
             <Gallery product={p} badge="gear" />
+            <BoomLiftShowcase />
           </Reveal>
 
           <Reveal delay={0.1} className="relative">
