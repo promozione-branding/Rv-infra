@@ -329,10 +329,8 @@ function ArrowBtn() {
 
 function TrackRecord() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-white via-white to-slate-50">
-      {/* Top: content + photo */}
+    <section className="mb-4 relative overflow-hidden bg-gradient-to-br from-white via-white to-slate-50">
       <div className="relative">
-        {/* Right photo with slanted left edge */}
         <div
           aria-hidden
           className="absolute inset-y-0 right-0 hidden w-[36%] lg:block"
@@ -370,7 +368,7 @@ function TrackRecord() {
           <div className="lg:max-w-[58%]">
             <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700">
               <span className="h-3 w-3 bg-brand" aria-hidden />
-              Track record
+              Our Projects
             </span>
 
             <h2 className="mt-3 text-3xl font-extrabold leading-[1.1] tracking-tight text-navy sm:text-4xl lg:text-[2.6rem]">
@@ -384,7 +382,7 @@ function TrackRecord() {
               RV Infrastructural Private Limited is proud to contribute to India&apos;s leading
               infrastructure, construction, and industrial projects. Since 1999, we have supported
               major developments by providing reliable heavy equipment rental solutions, including
-              truck mounted boom lifts, cranes, and specialised construction machinery.
+              truck mounted boom lifts, cranes, and specialized construction machinery.
             </p>
 
             <h3 className="mt-6 text-base font-bold text-navy">Our Project Experience</h3>
@@ -414,6 +412,11 @@ function TrackRecord() {
                 </li>
               ))}
             </ul>
+
+            <p className="mt-4 max-w-[60ch] text-sm leading-6 text-slate-600">
+              Our project partnerships reflect our commitment to dependable equipment, quality
+              service, and efficient support for complex infrastructure developments across India.
+            </p>
           </div>
         </div>
 
@@ -568,10 +571,9 @@ function VisionMission() {
               </strong>
               , delivering innovative, safe, and cost-effective solutions for construction,
               infrastructure, and industrial projects. Under the leadership of our Managing
-              Director, <strong className="font-bold text-navy">Mr. Suchit Aggarwal</strong>, RV
-              Infrastructural Private Limited is committed to advancing equipment quality,
-              operational efficiency, and customer satisfaction while supporting India&apos;s
-              infrastructure growth.
+              Director, Mr. Suchit Aggarwal, RV Infrastructural Private Limited is committed to
+              advancing equipment quality, operational efficiency, and customer satisfaction while
+              supporting India&apos;s infrastructure growth.
             </p>
 
             <div className="mt-5 border-t border-slate-200 pt-4">
@@ -609,9 +611,9 @@ function VisionMission() {
                 At RV Infrastructural Private Limited, our mission is to deliver{" "}
                 <strong className="font-bold text-brand">
                   reliable truck mounted boom lifts and affordable equipment rental solutions
-                  across India.
-                </strong>{" "}
-                We empower construction, infrastructure, and industrial projects with quality
+                  across India
+                </strong>
+                . We empower construction, infrastructure, and industrial projects with quality
                 machinery, safety-focused operations, and dependable customer support. By
                 combining industry expertise, modern equipment, and tailored rental services, we
                 help businesses improve productivity, reduce downtime, and complete projects with
@@ -664,10 +666,9 @@ export default function About() {
 
           <div className="mt-8 max-w-[65ch] space-y-5 leading-7">
             <p className="text-lg leading-8">
-              <strong className="text-navy">R.V. Infrastructural Private Limited</strong>{" "}
-              ({company.iso} certified) — Established in 1999 in New Delhi, RV Infrastructural
-              Private Limited provides reliable heavy equipment rental solutions for construction,
-              infrastructure, and industrial projects across India. We specialize in{" "}
+              Established in 1999 in New Delhi, RV Infrastructural Private Limited provides
+              reliable heavy equipment rental solutions for construction, infrastructure, and
+              industrial projects across India. We specialize in{" "}
               <strong className="text-navy">truck mounted boom lifts</strong> and offer a diverse
               fleet of over 100 types of equipment to meet varied project requirements.
             </p>
@@ -704,46 +705,46 @@ export default function About() {
           </blockquote>
         </div>
 
-{/* Spec plate: wrapper stretches the full row so the sticky child has room to travel */}
-<div className="lg:self-stretch">
-  <div className="lg:sticky lg:top-24">
-    <Reveal x={40} y={0}>
-      <aside
-        aria-label="Company at a glance"
-        className="h-fit border-2 border-navy bg-white"
-      >
-        <div className="h-3 bg-brand text-navy" style={hazard} aria-hidden />
-        <h3 className="bg-navy px-6 py-3 text-lg font-bold text-white">
-          Company at a glance
-        </h3>
-        <dl className="px-6 pt-2">
-          {facts.map(([k, v]) => (
-            <div
-              key={k}
-              className="grid grid-cols-[1fr_auto] items-baseline gap-4 border-b border-slate-200 py-3 text-sm"
-            >
-              <dt className="text-slate-600">{k}</dt>
-              <dd className="text-right font-semibold text-navy">{v}</dd>
-            </div>
-          ))}
-        </dl>
-        <div className="px-6 pb-6 pt-4">
-          <p className="text-sm text-slate-600">Directors</p>
-          <ul className="mt-3 space-y-2">
-            {company.directors.map((d) => (
-              <li key={d} className="flex items-center gap-3 text-sm font-medium text-navy">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-brand text-xs font-bold text-navy">
-                  {initials(d)}
-                </span>
-                {d}
-              </li>
-            ))}
-          </ul>
+        {/* Spec plate: wrapper stretches the full row so the sticky child has room to travel */}
+        <div className="lg:self-stretch">
+          <div className="lg:sticky lg:top-24">
+            <Reveal x={40} y={0}>
+              <aside
+                aria-label="Company at a glance"
+                className="h-fit border-2 border-navy bg-white"
+              >
+                <div className="h-3 bg-brand text-navy" style={hazard} aria-hidden />
+                <h3 className="bg-navy px-6 py-3 text-lg font-bold text-white">
+                  Company at a glance
+                </h3>
+                <dl className="px-6 pt-2">
+                  {facts.map(([k, v]) => (
+                    <div
+                      key={k}
+                      className="grid grid-cols-[1fr_auto] items-baseline gap-4 border-b border-slate-200 py-3 text-sm"
+                    >
+                      <dt className="text-slate-600">{k}</dt>
+                      <dd className="text-right font-semibold text-navy">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="px-6 pb-6 pt-4">
+                  <p className="text-sm text-slate-600">Directors</p>
+                  <ul className="mt-3 space-y-2">
+                    {company.directors.map((d) => (
+                      <li key={d} className="flex items-center gap-3 text-sm font-medium text-navy">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-brand text-xs font-bold text-navy">
+                          {initials(d)}
+                        </span>
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </aside>
+            </Reveal>
+          </div>
         </div>
-      </aside>
-    </Reveal>
-  </div>
-</div>
       </section>
 
       {/* Vision & Mission */}
@@ -793,7 +794,7 @@ export default function About() {
           {/* Eyebrow */}
           <span className="inline-flex items-center gap-3 text-sm font-semibold text-brand">
             <span className="h-3.5 w-3.5 bg-brand" aria-hidden />
-            Why choose us
+            Why Choose Us
           </span>
 
           {/* Heading */}
