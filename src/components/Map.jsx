@@ -2,12 +2,14 @@
 
 import { useCallback, useState } from "react"
 import CTABanner from "./CTABanner"
+import QuoteModal from "./products/QuoteModal" 
 
 export default function LocationMap({
   address = "GALI NO-1, 41-B, BHAGAT VIHAR, KARAWAL NAGAR, New Delhi, Delhi, 110094",
   title = "Rackwell Steel location",
   zoom = 15,
   height = 450,
+  showCta = true,
 }) {
   const query = encodeURIComponent(address)
   const src = `https://maps.google.com/maps?q=${query}&z=${zoom}&output=embed`
@@ -18,11 +20,14 @@ export default function LocationMap({
     const closeQuote = useCallback(() => setQuote((s) => ({ ...s, open: false })), []);
   return (
     <>
-    <CTABanner
+    {showCta && (
+      <CTABanner
             name="construction equipment"
             onQuote={() => openQuote("")}
             waHref="https://wa.me/919811017313"
           />
+    )}
+    <QuoteModal open={quote.open} onClose={closeQuote} product={quote.product} /> 
     <section className="mx-auto w-[90%] py-12">
       <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
         <div>

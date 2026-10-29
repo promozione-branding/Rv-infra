@@ -39,7 +39,7 @@ export default function Contact() {
         </div>
         <Reveal x={40} y={0}><div className="rounded-2xl border border-slate-100 p-6 shadow-xl"><QuoteForm /></div></Reveal>
       </section>
-       <LocationMap/>
+       <LocationMap showCta={false} />
     </>
   );
 }

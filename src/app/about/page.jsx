@@ -349,13 +349,7 @@ function TrackRecord() {
           className="absolute inset-y-0 right-[34.5%] hidden w-[3%] bg-brand/90 lg:block"
           style={{ clipPath: "polygon(60% 0, 100% 0, 40% 100%, 0 100%)" }}
         />
-        {/* Top-right yellow blade */}
-        <span
-          aria-hidden
-          className="absolute right-[24%] top-0 hidden h-[24%] w-[6%] bg-brand lg:block"
-          style={{ clipPath: "polygon(45% 0, 100% 0, 55% 100%, 0 100%)" }}
-        />
-        {/* Dotted texture */}
+      
         <span
           aria-hidden
           className="pointer-events-none absolute right-[40%] top-6 hidden h-24 w-48 opacity-40 lg:block"
@@ -365,7 +359,7 @@ function TrackRecord() {
           }}
         />
 
-        <div className="container-x relative py-10 lg:py-12">
+        <div className="w-full relative py-10 lg:py-12 lg:px-12">
           <div className="lg:max-w-[58%]">
             <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700">
               <span className="h-3 w-3 bg-brand" aria-hidden />
@@ -483,9 +477,6 @@ function TrackRecord() {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Vision & Mission                                                    */
-/* ------------------------------------------------------------------ */
 
 function VisionMission() {
   return (
@@ -510,7 +501,7 @@ function VisionMission() {
       </div>
 
       {/* Card */}
-      <div className="relative mt-10 lg:mr-8 lg:h-[580px]">
+      <div className="relative mt-10 lg:h-[580px]">
         <img
           src="/images/heavy_eng.png"
           alt="Truck mounted boom lift working at a building site"
@@ -640,7 +631,7 @@ export default function About() {
         eyebrow="Get to know us"
         accent="#f9c32f"
         text="Your Trusted Partner for Truck Mounted Boom Lifts in India"
-        backgroundImage="/about_hero.png"
+        backgroundImage="/about_hero_org.png"
       />
 
       {/* Key figures: one ruled sheet overlapping the hero */}
