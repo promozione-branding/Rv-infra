@@ -189,7 +189,7 @@ function ScrollScene() {
       style={{ height: `${(N + 1) * VH_PER_CARD}vh` }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden pt-16 pb-16">
-        <div className="mx-auto w-[90%] max-w-[1400px]">
+        <div className="mx-auto w-[90%] max-w-[1400px] mb-12">
           <SectionHeader compact />
 
          <div

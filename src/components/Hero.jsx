@@ -28,7 +28,7 @@ const slides = [
     description:
       "R.V. Infrastructural Pvt. Ltd. provides modern, well-maintained cranes and construction equipment for infrastructure, industrial and plant erection projects across India.",
     cta: { label: "Get a Quote", href: "/contact" },
-    secondary: { label: "View Our Projects", href: "/projects" },
+    secondary: { label: "", href: "" },
   },
   {
     image: "/suppliers.png",
@@ -40,7 +40,7 @@ const slides = [
     description:
       "From plant shutdowns to turbine erection, our experienced operators and certified fleet keep your project moving with safety first.",
     cta: { label: "Our Services", href: "/services" },
-    secondary: { label: "View Our Projects", href: "/projects" },
+    secondary: { label: "", href: "" },
   },
   {
     image: "/metro_rv.png",
@@ -177,10 +177,10 @@ export default function Hero() {
                 href={slide.secondary.href}
                 className="group flex items-center gap-3 text-sm font-medium text-white"
               >
-                <span className="relative flex h-11 w-11 items-center justify-center rounded-full border border-brand text-brand">
+                {/* <span className="relative flex h-11 w-11 items-center justify-center rounded-full border border-brand text-brand">
                   <span className="absolute inset-0 animate-pulseRing rounded-full border border-brand" />
                   <Play size={14} fill="currentColor" />
-                </span>
+                </span> */}
                 {slide.secondary.label}
               </Link>
             </motion.div>
