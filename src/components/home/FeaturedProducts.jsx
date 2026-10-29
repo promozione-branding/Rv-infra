@@ -111,7 +111,7 @@ function CardBody({ p, imgClass = "h-64" }) {
           className="absolute left-4 top-4 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-navy"
           style={{ background: GOLD }}
         >
-          {p.units} Units
+          {p.units}
         </span>
       </div>
       <div className="shrink-0 p-5">

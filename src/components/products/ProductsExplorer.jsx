@@ -85,7 +85,7 @@ function ProductCard({ p, index, onQuote }) {
 
           {units && (
             <span className="pointer-events-none absolute bottom-3 left-3 z-[2] rounded-md bg-brand px-2.5 py-1 text-xs font-bold text-navy shadow-lg">
-              {units} units
+              {units}
             </span>
           )}
           {/* light sweep on hover */}
