@@ -43,7 +43,7 @@ const LOTTIE = {
 
 
 const LIFT_SVG = "/product_detail/boom-lift-v2.svg";
-const APPLICATIONS_IMG = "/industries/ind_2.png"; // override per product with product.applicationsImage
+const APPLICATIONS_IMG = "/images/bg_left_service_box.png"; // override per product with product.applicationsImage
 
 const THUMB_LIMIT = 3; // thumbnails shown before the "+N" tile
 
@@ -477,10 +477,9 @@ export default function ProductDetail({ product: p, related }) {
         </div>
       </section>
 
-      {/* ===== features + applications ===== */}
       {(p.features.length > 0 || p.applications.length > 0) && (
         <section className="bg-slate-50 py-10">
-          <div className="container-x grid gap-6 lg:grid-cols-2">
+          <div className="w-[90%] grid gap-6 lg:grid-cols-2 mx-auto">
             {p.features.length > 0 && (
               <Reveal>
                 <FeaturesCard items={p.features} />
