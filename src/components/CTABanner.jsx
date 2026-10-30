@@ -63,7 +63,7 @@ export default function CTABanner({ name, onQuote, waHref }) {
               <button
                 type="button"
                 onClick={onQuote}
-                className="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-2.5 text-sm font-bold text-navy shadow-sm transition hover:bg-brand-dark"
+                className="inline-flex items-center gap-2 rounded-md bg-[#7f0b18] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-brand-dark"
               >
                 Request a Quote <ArrowUpRight className="h-4 w-4" />
               </button>

@@ -421,7 +421,7 @@ export default function ProductDetail({ product: p, related }) {
 
   const renderActions = (className = "") => (
     <div className={`flex flex-wrap items-center gap-3 ${className}`}>
-      <button type="button" onClick={() => setOpen(true)} className="btn-primary !px-7 !py-3.5">
+      <button type="button" onClick={() => setOpen(true)} className="btn-primary !px-7 !py-3.5 bg-[#7f0b18] text-white">
         Request a Quote <ArrowUpRight className="h-4 w-4" />
       </button>
       <a href={`tel:${contact.phoneHref}`} className="btn-outline !rounded-md !px-6 !py-3.5 !border-brand bg-white">

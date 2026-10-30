@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 import { pageSeo, buildMetadata } from "@/data/seo";
+import FloatingContact from "@/components/FloatingContact"
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: "--font-poppins" });
 
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.variable} font-sans`}>
         <SiteChrome>{children}</SiteChrome>
+        <FloatingContact />
       </body>
     </html>
   );
