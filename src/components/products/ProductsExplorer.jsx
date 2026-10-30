@@ -131,7 +131,7 @@ function ProductCard({ p, index, onQuote }) {
           <div className="relative mt-5 grid grid-cols-[1fr_auto] gap-2">
             <Link
               href={productHref(p)}
-              className="inline-flex items-center justify-between rounded-lg bg-navy px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand hover:text-navy"
+              className="inline-flex items-center justify-between rounded-lg bg-[#7f0b18] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand hover:text-navy"
             >
               View Details
               <ArrowRight className="h-4 w-4" />

@@ -199,7 +199,7 @@ export default function PageHeader({
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
               href={ctaHref}
-              className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-md bg-[#f2b01c] px-5 py-2.5 text-sm font-bold text-[#0f1f3d] transition-colors hover:bg-[#e0a010] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0f1f3d]"
+              className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-md bg-[#7f0b18] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#e0a010] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0f1f3d]"
             >
               <span className="relative z-10">{ctaLabel}</span>
               <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />

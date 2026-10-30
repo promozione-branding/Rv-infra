@@ -98,7 +98,7 @@ export function WhyChoose() {
             <div className="mt-7 flex flex-wrap items-center gap-5">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2.5 rounded-lg bg-gradient-to-b from-[#f9b934] to-[#f0a50e] px-7 py-3 text-sm font-semibold text-navy shadow-[0_8px_18px_-8px_rgba(240,165,14,0.8)] transition hover:brightness-105"
+                className="inline-flex items-center gap-2.5 rounded-lg bg-navy px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_18px_-8px_rgba(240,165,14,0.8)] transition hover:brightness-105"
               >
                 Learn More <ArrowRight size={15} />
               </Link>

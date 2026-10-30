@@ -90,7 +90,7 @@ export function Safety() {
         <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#f4f6fa]/60 to-transparent" />
       </div>
 
-      <div className="relative z-10 mx-auto w-[84%] max-w-[1500px] pb-6 pt-6 lg:pb-6 lg:pt-8">
+      <div className="relative z-10 mx-auto w-[84%] max-w-[1500px] pb-10 pt-6 lg:pb-8 lg:pt-12">
         <Reveal>
           <div className="max-w-[640px]">
             <div

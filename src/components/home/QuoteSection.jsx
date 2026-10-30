@@ -105,7 +105,7 @@ export function QuoteSection() {
 
       <div className="relative grid gap-10 px-[4.8%] lg:grid-cols-[39.6%_minmax(0,1fr)] lg:items-center lg:gap-[3.9%] lg:pr-0">
         <Reveal>
-          <div className="rounded-2xl bg-[#FBFBFC] px-8 py-6 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:px-8 lg:px-[4.3%] lg:py-[1.8%]">
+          <div className="rounded-2xl bg-[#FBFBFC] px-12 py-12 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:px-8 lg:px-[5.3%] lg:py-[3.8%]">
             <span
               className="block h-[4px] w-[52px] rounded-full"
               style={{ background: Q_GOLD }}
@@ -205,8 +205,8 @@ export function QuoteSection() {
               <div className="sm:col-span-2">
                 <button
                   type="submit"
-                  className="group/btn inline-flex items-center gap-3 rounded-lg px-8 py-3 text-[15px] font-bold text-[#0F1B2B] transition hover:-translate-y-0.5 hover:brightness-105"
-                  style={{ background: Q_GOLD }}
+                  className="group/btn inline-flex items-center gap-3 rounded-lg px-8 py-3 text-[15px] font-bold text-white transition hover:-translate-y-0.5 hover:brightness-105"
+                  style={{ background: "#7f0b18" }}
                 >
                   Submit Request
                   <ArrowRight

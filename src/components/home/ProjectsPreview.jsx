@@ -9,7 +9,7 @@ export function ProjectsPreview() {
     <section className="py-20">
       <div className="container-x">
         <SectionHeading eyebrow="Our Projects" title="Lifting Success Across India">
-          <Link href="/products" className="btn-outline w-48">
+          <Link href="/products" className="btn-outline w-48 bg-[#7f0b18] text-white">
             View All Fleets <ArrowRight size={14} />
           </Link>
         </SectionHeading>
