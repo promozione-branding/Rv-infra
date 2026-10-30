@@ -49,7 +49,7 @@ export const services = [
 export const industries = [
   { icon: "Building2", title: "Construction", image: "/images/construction_card.png" },
   { icon: "Route", title: "Infrastructure", image: "/images/infra_card.png" },
-  { icon: "Fuel", title: "Oil & Gas", image: "/images/oil_gas.png" },
+  { icon: "Fuel", title: "Oil & Gas", image: "/industries/industry_2.png" },
   { icon: "Zap", title: "Power & Energy", image: "/images/power_card.png" },
   { icon: "Factory", title: "Heavy Engineering", image: "/images/heavy_eng.png" },
 ];
