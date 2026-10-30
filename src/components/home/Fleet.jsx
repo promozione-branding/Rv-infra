@@ -175,7 +175,7 @@ export function Fleet() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-10 pt-4 lg:pb-14">
+        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-10 pt-12 lg:pb-14">
           <Reveal>
             <div className="max-w-2xl">
               <div className="mb-4 flex items-center gap-3 sm:mb-6">
@@ -272,7 +272,7 @@ export function Fleet() {
             <ArrowRight size={18} />
           </button>
 
-          <div className="overflow-hidden pb-4 pt-4">
+          <div className="overflow-hidden pb-12 pt-12">
             <motion.div
               className="flex"
               initial={false}

@@ -267,7 +267,7 @@ export function EquipmentSuppliers() {
           </div>
 
           <p
-            className={`mt-1 max-w-xl text-sm leading-relaxed text-white/65 transition-all delay-100 duration-700 sm:text-[15px] xl:-mt-2 ${
+            className={`mt-6 max-w-xl text-sm leading-relaxed text-white/65 transition-all delay-100 duration-700 sm:text-[15px] xl:mt-6 ${
               seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
             }`}
           >
