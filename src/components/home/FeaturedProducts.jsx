@@ -298,39 +298,30 @@ return (
   <section
     ref={sectionRef}
     className="relative bg-slate-50 lg:hidden"
-    style={{ height: `${N * 45 + 100}vh` }}
+    style={{ height: `${N * 40 + 100}vh` }}
   >
     <div
-      className="sticky flex flex-col overflow-hidden"
-      style={{ top: NAV_H, height: `calc(120svh - ${NAV_H}px)` }}
+      className="sticky flex flex-col justify-center overflow-hidden"
+      style={{ top: NAV_H, height: `calc(100svh - ${NAV_H}px)` }}
     >
       <MobileHeader />
 
-<div ref={viewportRef} className="flex min-h-0 w-full flex-1 items-center overflow-hidden py-2">
-  <motion.div
-    ref={trackRef}
-    className="flex w-max items-center gap-4 px-[4vw]"
-    style={{ x }}
-  >
-    {products.map((p) => (
-      <article
-        key={p.name}
-        className="group relative flex w-[74vw] max-w-[320px] shrink-0 flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100"
-      >
-        <CardBody p={p} compact imgClass="h-[clamp(110px,76svh,220px)]" />
-      </article>
-    ))}
-  </motion.div>
-</div>
-
-      {/* <div className="mx-auto w-[92%] shrink-0 py-4">
-        <div className="h-[3px] w-full rounded-full bg-slate-200">
-          <motion.div
-            className="h-full rounded-full"
-            style={{ background: GOLD, width: barWidth }}
-          />
-        </div>
-      </div> */}
+      <div ref={viewportRef} className="w-full overflow-hidden py-3">
+        <motion.div
+          ref={trackRef}
+          className="flex w-max items-stretch gap-4 px-[4vw]"
+          style={{ x }}
+        >
+          {products.map((p) => (
+            <article
+              key={p.name}
+              className="group relative flex w-[74vw] max-w-[320px] shrink-0 flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100"
+            >
+              <CardBody p={p} compact imgClass="h-[clamp(150px,28svh,250px)]" />
+            </article>
+          ))}
+        </motion.div>
+      </div>
     </div>
   </section>
 );
