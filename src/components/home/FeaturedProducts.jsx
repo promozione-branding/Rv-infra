@@ -238,7 +238,7 @@ function ScrollScene() {
   );
 }
 
-const NAV_H = 72; // px - set this to your navbar's real height
+const NAV_H = 0; 
 
 function MobileHeader() {
   return (
@@ -298,11 +298,11 @@ return (
   <section
     ref={sectionRef}
     className="relative bg-slate-50 lg:hidden"
-    style={{ height: `${175}vh` }}
+    style={{ height: `${65}vh` }}
   >
     <div
       className="sticky flex flex-col overflow-hidden"
-      style={{ top: NAV_H, height: `calc(120svh - ${NAV_H}px)` }}
+      style={{ top: NAV_H, height: `calc(60svh - ${NAV_H}px)` }}
     >
       <MobileHeader />
 
