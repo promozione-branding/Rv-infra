@@ -49,9 +49,9 @@ export const services = [
 export const industries = [
   { icon: "Building2", title: "Construction", image: "/images/construction_card.png" },
   { icon: "Route", title: "Infrastructure", image: "/images/infra_card.png" },
-  { icon: "Fuel", title: "Oil & Gas", image: "/industries/industry_2.png" },
-  { icon: "Zap", title: "Power & Energy", image: "/images/power_card.png" },
-  { icon: "Factory", title: "Heavy Engineering", image: "/images/heavy_eng.png" },
+  { icon: "Fuel", title: "Industrial", image: "/images/industrial.png" },
+  { icon: "Zap", title: "Commercial", image: "/images/equipment.png" },
+  { icon: "Factory", title: "Utilities", image: "/images/utilities.png" },
 ];
 
 export const whyChoose = [
