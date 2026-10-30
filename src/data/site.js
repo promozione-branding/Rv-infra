@@ -66,7 +66,7 @@ export const whyChoose = [
 export const projects = [
   { title: "Highway & Road Works", image: "/industries/industry_1.png", place: "Pan India", icon: "Route", text: "Motor graders, soil compactors and tandem rollers supplied for road and earthwork packages." },
   { title: "Bridge & Metro Construction", image: "/industries/industry_2.png", place: "Pan India", icon: "Construction", text: "Crawler cranes and boom lifts supporting heavy girder and structural erection." },
-  { title: "Industrial Plant Erection", image: "/industries/ind_3.png", place: "Pan India", icon: "Factory", text: "Plant erection with experienced staff and 20 to 150 Ton cranes for refineries and plants." },
+  { title: "Industrial Plant Erection", image: "/images/industrial.png", place: "Pan India", icon: "Factory", text: "Plant erection with experienced staff and 20 to 150 Ton cranes for refineries and plants." },
   { title: "Piling & Ground Engineering", image: "/industries/ind_4.png", place: "Pan India", icon: "Layers", text: "SANY rigs and hydraulic grabs working on foundation and diaphragm wall projects." },
 ];
 
