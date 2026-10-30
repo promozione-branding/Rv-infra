@@ -38,7 +38,7 @@ export default function Home() {
       {animationData && (
         <RVVideoReveal
           animationData={animationData}
-          videoSrc="/Cranes_lifting_bridge_girder_.mp4"
+          videoSrc="/Boom_lift_operating_on_construct…_631a485e.mp4"
         />
       )}
 
