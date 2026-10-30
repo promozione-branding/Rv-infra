@@ -172,13 +172,13 @@ export default function Hero() {
                   variants={item}
                   className="mt-5 flex flex-wrap items-center gap-5"
                 >
-                  <Link
-                    href={s.cta.href}
-                    className="btn-primary"
-                    tabIndex={active ? 0 : -1}
-                  >
-                    {s.cta.label} <ArrowRight size={14} />
-                  </Link>
+                <Link
+  href={s.cta.href}
+  className="btn-primary bg-[#7f0b18] text-white"
+  tabIndex={active ? 0 : -1}
+>
+  {s.cta.label} <ArrowRight size={14} />
+</Link>
                   {s.secondary.label && (
                     <Link
                       href={s.secondary.href}

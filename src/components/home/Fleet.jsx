@@ -216,15 +216,14 @@ export function Fleet() {
                 ))}
               </div>
 
-              <Link
-                href="/projects#fleet-table"
-                className="mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 bg-navy px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 sm:w-auto sm:justify-start sm:py-2"
-                style={{ borderColor: GOLD }}
-              >
-                View Full Fleet <ArrowRight size={16} style={{ color: GOLD }} />
-              </Link>
+      <Link
+  href="/projects#fleet-table"
+  className="mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 bg-[#7f0b18] px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 sm:w-auto sm:justify-start sm:py-2"
+  style={{ borderColor: GOLD }}
+>
+  View Full Fleet <ArrowRight size={16} style={{ color: GOLD }} />
+</Link>
 
-              {/* mobile / tablet image banner */}
               <div className="relative mt-8 overflow-hidden rounded-2xl shadow-lg lg:hidden">
                 <ImageSlot
                   src="/images/equipment_.png"

@@ -104,7 +104,7 @@ export function WhyChoose() {
               </Link>
               <span className="hidden h-8 w-px bg-slate-300 sm:block" />
               <Link
-                href="/fleet"
+                href="/products"
                 className="inline-flex items-center gap-2 text-sm font-medium text-navy transition hover:text-brand"
               >
                 Explore Our Fleet{" "}

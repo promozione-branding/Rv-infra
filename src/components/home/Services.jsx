@@ -114,16 +114,16 @@ export function Services() {
             Discover dependable truck mounted boom lifts and expert equipment solutions for demanding industrial and infrastructure projects across India.
           </p>
 
-          <Link
-            href="/contact"
-            className="group/cta mt-7 inline-flex items-center gap-3 rounded-lg border border-amber-200/40 bg-gradient-to-r from-[#FFD45A] to-[#F5AA12] px-6 py-4 font-bold text-[#101D2A] shadow-[0_8px_28px_rgba(246,178,27,0.18)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_12px_34px_rgba(246,178,27,0.3)]"
-          >
-            Enquire Now
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover/cta:translate-x-1"
-            />
-          </Link>
+<Link
+  href="/contact"
+  className="group/cta mt-7 inline-flex items-center gap-3 rounded-lg border border-[#7f0b18] bg-[#7f0b18] px-6 py-4 font-bold text-white shadow-[0_8px_28px_rgba(127,11,24,0.25)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_12px_34px_rgba(127,11,24,0.4)]"
+>
+  Enquire Now
+  <ArrowRight
+    size={18}
+    className="transition-transform duration-300 group-hover/cta:translate-x-1"
+  />
+</Link>
         </Reveal>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
