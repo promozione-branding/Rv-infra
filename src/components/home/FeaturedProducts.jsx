@@ -298,7 +298,7 @@ return (
   <section
     ref={sectionRef}
     className="relative bg-slate-50 lg:hidden"
-    style={{ height: `${N * 45 + 100}vh` }}
+    style={{ height: `${175}vh` }}
   >
     <div
       className="sticky flex flex-col overflow-hidden"

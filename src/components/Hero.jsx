@@ -52,7 +52,7 @@ const slides = [
     description:
       "RV Infrastructural Private Limited provides reliable truck mounted boom lifts and aerial access equipment for construction, industrial maintenance, and infrastructure projects across India.",
     cta: { label: "Get a Quote", href: "/contact" },
-    secondary: { label: "Our Fleet", href: "/equipment" },
+    secondary: { label: "Our Fleet", href: "/products" },
   },
 ];
 
