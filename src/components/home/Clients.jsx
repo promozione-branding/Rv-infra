@@ -29,7 +29,7 @@ export function Clients() {
   const row = [...clients, ...clients];
   return (
     <section className="overflow-hidden py-20">
-      <div className="px-20">
+      <div className="mx-auto flex w-[90%] max-w-[1400px] flex-col items-start justify-between gap-5 transition-all duration-700 md:flex-row md:items-center">
         <SectionHeading
           eyebrow="Our Clients"
           title="Trusted by India's Leading Companies"

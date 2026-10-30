@@ -359,7 +359,7 @@ function TrackRecord() {
           }}
         />
 
-        <div className="w-full relative py-10 lg:py-12 lg:px-12">
+        <div className="w-full relative py-10 px-10 lg:py-12 lg:px-12 md:px-10">
           <div className="lg:max-w-[58%]">
             <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700">
               <span className="h-3 w-3 bg-brand" aria-hidden />
@@ -536,7 +536,7 @@ function VisionMission() {
 
         <div className="relative grid lg:h-full lg:grid-cols-[20%_32%_45%]">
           <img
-            src="/vision_truck.png"
+            src="/about_hero_org.png"
             alt=""
             className="h-64 w-full object-cover object-left lg:hidden"
           />

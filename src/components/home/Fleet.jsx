@@ -22,8 +22,8 @@ const GOLD = "#E8A317";
 const SKEW = "-6deg";
 const ROT = "-2deg";
 const UNTILT = "rotate(2deg) skewX(6deg)";
-const PER_PAGE = 3;
 const DURATION = 0.7;
+const SWIPE_MIN = 50;
 
 const badges = [
   { icon: Settings, label: "Latest\nMachinery" },
@@ -31,15 +31,34 @@ const badges = [
   { icon: ShieldCheck, label: "Safety\nFirst" },
 ];
 
+// 1 card on mobile, 2 on tablet, 3 on desktop
+function usePerPage() {
+  const [n, setN] = useState(3);
+  useEffect(() => {
+    const lg = window.matchMedia("(min-width: 1024px)");
+    const sm = window.matchMedia("(min-width: 640px)");
+    const update = () => setN(lg.matches ? 3 : sm.matches ? 2 : 1);
+    update();
+    lg.addEventListener("change", update);
+    sm.addEventListener("change", update);
+    return () => {
+      lg.removeEventListener("change", update);
+      sm.removeEventListener("change", update);
+    };
+  }, []);
+  return n;
+}
+
 export function Fleet() {
-  const pages = Math.max(1, Math.ceil(fleetGroups.length / PER_PAGE));
+  const perPage = usePerPage();
+  const pages = Math.max(1, Math.ceil(fleetGroups.length / perPage));
 
   const chunks = useMemo(
     () =>
       Array.from({ length: pages }, (_, p) =>
-        fleetGroups.slice(p * PER_PAGE, p * PER_PAGE + PER_PAGE)
+        fleetGroups.slice(p * perPage, p * perPage + perPage)
       ),
-    [pages]
+    [pages, perPage]
   );
 
   const slides = pages > 1 ? [...chunks, chunks[0]] : chunks;
@@ -49,8 +68,17 @@ export function Fleet() {
   const [paused, setPaused] = useState(false);
   const busy = useRef(false);
   const pending = useRef(null);
+  const touch = useRef(null);
 
   const page = index % pages;
+
+  // reset when the layout changes (rotate phone, resize)
+  useEffect(() => {
+    busy.current = false;
+    pending.current = null;
+    setInstant(true);
+    setIndex(0);
+  }, [perPage]);
 
   const next = useCallback(() => {
     if (busy.current || pages < 2) return;
@@ -103,9 +131,29 @@ export function Fleet() {
     return () => clearInterval(id);
   }, [paused, pages, next]);
 
+  const onTouchStart = (e) => {
+    setPaused(true);
+    const t = e.touches[0];
+    touch.current = { x: t.clientX, y: t.clientY };
+  };
+
+  const onTouchEnd = (e) => {
+    setPaused(false);
+    if (!touch.current) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touch.current.x;
+    const dy = t.clientY - touch.current.y;
+    touch.current = null;
+    // horizontal swipes only, so vertical page scroll is untouched
+    if (Math.abs(dx) > SWIPE_MIN && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      dx < 0 ? next() : prev();
+    }
+  };
+
   return (
     <section id="fleet" className="relative scroll-mt-20 overflow-hidden bg-white">
       <div className="relative">
+        {/* desktop image */}
         <div
           className="absolute inset-y-0 right-0 hidden w-[52%] lg:block"
           style={{ clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0 100%)" }}
@@ -118,6 +166,7 @@ export function Fleet() {
           />
         </div>
 
+        {/* desktop badge */}
         <div className="absolute right-0 top-[30%] z-10 hidden items-center gap-3 rounded-l-3xl bg-white/95 py-3 pl-6 pr-10 shadow-xl backdrop-blur lg:flex">
           <HardHat size={32} strokeWidth={1.5} className="text-navy" />
           <div>
@@ -126,41 +175,41 @@ export function Fleet() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-12 pt-4 lg:w-[90%] lg:pb-14 lg:pt-4">
+        <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-10 pt-4 lg:pb-14">
           <Reveal>
             <div className="max-w-2xl">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-[2px] w-10" style={{ background: GOLD }} />
-                <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-600">
+              <div className="mb-4 flex items-center gap-3 sm:mb-6">
+                <span className="h-[2px] w-8 shrink-0 sm:w-10" style={{ background: GOLD }} />
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 sm:text-sm sm:tracking-[0.3em]">
                   Our Equipment Categories
                 </span>
               </div>
 
-              <h2 className="mt-2 text-2xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl">
+              <h2 className="mt-2 text-[1.75rem] font-extrabold leading-[1.1] tracking-tight text-navy sm:text-4xl lg:text-5xl lg:leading-[1.05]">
                 Project-Ready
-               <br/>
+                <br />
                 <span style={{ color: GOLD }}>Construction Equipment</span>
               </h2>
 
-              <p className="mt-6 mb-4 max-w-md text-sm leading-relaxed text-slate-500">
-               RV Infrastructural Private Limited provides cranes, truck-mounted boom lifts, and concrete equipment for construction, infrastructure, and industrial projects across India.
+              <p className="mb-4 mt-4 max-w-md text-sm leading-relaxed text-slate-500 sm:mt-6">
+                RV Infrastructural Private Limited provides cranes, truck-mounted boom lifts, and concrete equipment for construction, infrastructure, and industrial projects across India.
               </p>
 
-              <div className="mt-3 flex flex-wrap items-center gap-y-2 mb-4">
+              <div className="mb-4 mt-3 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-y-2">
                 {badges.map((b, i) => (
                   <div
                     key={b.label}
-                    className={`flex items-center gap-3 pr-5 ${
-                      i !== 0 ? "border-l border-slate-200 pl-5" : ""
+                    className={`flex flex-col items-center gap-2 text-center sm:flex-row sm:gap-3 sm:pr-5 sm:text-left ${
+                      i !== 0 ? "sm:border-l sm:border-slate-200 sm:pl-5" : ""
                     }`}
                   >
                     <span
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
                       style={{ background: "#FDF3DC", color: GOLD }}
                     >
-                      <b.icon size={16} />
+                      <b.icon size={18} />
                     </span>
-                    <span className="whitespace-pre-line text-sm font-medium leading-tight text-slate-700">
+                    <span className="whitespace-pre-line text-xs font-medium leading-tight text-slate-700 sm:text-sm">
                       {b.label}
                     </span>
                   </div>
@@ -169,25 +218,43 @@ export function Fleet() {
 
               <Link
                 href="/projects#fleet-table"
-                className="mt-4 inline-flex items-center gap-3 rounded-full border-2 bg-navy px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5"
+                className="mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 bg-navy px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 sm:w-auto sm:justify-start sm:py-2"
                 style={{ borderColor: GOLD }}
               >
                 View Full Fleet <ArrowRight size={16} style={{ color: GOLD }} />
               </Link>
+
+              {/* mobile / tablet image banner */}
+              <div className="relative mt-8 overflow-hidden rounded-2xl shadow-lg lg:hidden">
+                <ImageSlot
+                  src="/images/oil_gas.png"
+                  alt="Crane lifting at a construction site"
+                  icon="Construction"
+                  className="h-48 w-full object-cover sm:h-64"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
+                <div className="absolute bottom-3 left-3 flex items-center gap-3 rounded-xl bg-white/95 px-4 py-2.5 shadow-lg backdrop-blur">
+                  <HardHat size={26} strokeWidth={1.5} className="text-navy" />
+                  <div>
+                    <p className="text-xl font-extrabold leading-none text-navy">100+</p>
+                    <p className="mt-0.5 text-xs text-slate-600">Projects Supported</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>
       </div>
 
       <div className="relative flow-root pb-3">
-        <div className="absolute inset-0 bg-navy mt-1" />
+        <div className="absolute inset-0 mt-1 bg-navy" />
 
         <div
-          className="relative z-20 mx-auto -mt-6 w-[90%] max-w-[1800px] pt-4 lg:-mt-8 lg:w-[90%] lg:pt-6"
+          className="relative z-20 mx-auto -mt-2 w-[90%] max-w-[1800px] touch-pan-y pt-4 lg:-mt-8 lg:pt-6"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => setPaused(false)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           <button
             aria-label="Previous"
@@ -221,10 +288,16 @@ export function Fleet() {
               {slides.map((group, s) => (
                 <div
                   key={s}
-                  className="grid w-full shrink-0 content-start gap-8 px-12 sm:grid-cols-2 lg:grid-cols-3 mt-6"
+                  className="mt-6 grid w-full shrink-0 content-start gap-8 px-8 sm:px-10 lg:px-12"
+                  style={{ gridTemplateColumns: `repeat(${perPage}, minmax(0, 1fr))` }}
                 >
                   {group.map((f) => (
-                    <Link key={f.name} href={`/products/${slugify(f.name)}`} aria-label={`View ${f.name}`} className="group relative block h-[320px]">
+                    <Link
+                      key={f.name}
+                      href={`/products/${slugify(f.name)}`}
+                      aria-label={`View ${f.name}`}
+                      className="group relative block h-[300px] sm:h-[320px]"
+                    >
                       <div
                         aria-hidden
                         className="absolute inset-0 rounded-[28px]"
@@ -248,24 +321,22 @@ export function Fleet() {
                           <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-navy/20 to-transparent" />
                         </div>
 
-                     
-
                         <div
-                          className="absolute bottom-[28%] left-6 right-6 text-white"
+                          className="absolute bottom-[28%] left-5 right-5 text-white sm:left-6 sm:right-6"
                           style={{ transform: UNTILT }}
                         >
                           <span
                             className="mb-1.5 block h-[3px] w-9"
                             style={{ background: GOLD }}
                           />
-                          <h3 className="text-lg font-extrabold leading-tight tracking-tight drop-shadow-sm">
+                          <h3 className="text-base font-extrabold leading-tight tracking-tight drop-shadow-sm sm:text-lg">
                             {f.name}
                           </h3>
                         </div>
 
-                        <div className="absolute inset-x-5 bottom-3 grid h-[21%] grid-cols-2 divide-x divide-slate-200 rounded-[20px] bg-white">
+                        <div className="absolute inset-x-4 bottom-3 grid h-[21%] grid-cols-2 divide-x divide-slate-200 rounded-[20px] bg-white sm:inset-x-5">
                           <div
-                            className="flex min-w-0 items-center gap-2.5 pl-3.5 pr-2"
+                            className="flex min-w-0 items-center gap-2 pl-3 pr-2 sm:gap-2.5 sm:pl-3.5"
                             style={{ transform: UNTILT }}
                           >
                             <Factory
@@ -278,14 +349,14 @@ export function Fleet() {
                               <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">
                                 Make
                               </p>
-                              <p className="truncate whitespace-nowrap text-[13px] font-bold leading-tight tracking-tight text-navy">
+                              <p className="truncate whitespace-nowrap text-xs font-bold leading-tight tracking-tight text-navy sm:text-[13px]">
                                 {f.make}
                               </p>
                             </div>
                           </div>
 
                           <div
-                            className="flex min-w-0 items-center gap-2.5 pl-3.5 pr-2"
+                            className="flex min-w-0 items-center gap-2 pl-3 pr-2 sm:gap-2.5 sm:pl-3.5"
                             style={{ transform: UNTILT }}
                           >
                             <Gauge
@@ -298,7 +369,7 @@ export function Fleet() {
                               <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">
                                 Capacity
                               </p>
-                              <p className="truncate whitespace-nowrap text-[13px] font-bold leading-tight tracking-tight text-navy">
+                              <p className="truncate whitespace-nowrap text-xs font-bold leading-tight tracking-tight text-navy sm:text-[13px]">
                                 {f.capacity}
                               </p>
                             </div>
@@ -312,13 +383,14 @@ export function Fleet() {
             </motion.div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-3">
+          {/* pagination dots */}
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2 pb-2 sm:mt-6 sm:gap-3">
             {Array.from({ length: pages }).map((_, p) => (
               <button
                 key={p}
                 aria-label={`Go to page ${p + 1}`}
                 onClick={() => goTo(p)}
-                className="h-1 w-16 rounded-full transition-colors"
+                className="h-1.5 w-5 rounded-full transition-colors sm:h-1 sm:w-10 lg:w-16"
                 style={{
                   background: p === page ? GOLD : "rgba(255,255,255,0.3)",
                 }}

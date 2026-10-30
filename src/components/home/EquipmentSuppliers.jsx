@@ -65,7 +65,7 @@ function SupplierCard({ name, index }) {
   return (
     <div
       onMouseMove={onMove}
-      className="eq-card relative mr-3 flex h-16 w-60 shrink-0 items-center gap-3 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-4 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-brand/60"
+      className="eq-card relative mr-3 flex h-16 w-52 shrink-0 items-center gap-3 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-3 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-brand/60 sm:w-60 sm:px-4"
     >
       <span className="eq-spot absolute inset-0" />
       <span className="eq-line absolute bottom-0 left-0 h-0.5 w-full bg-brand" />
@@ -112,83 +112,91 @@ function MarqueeRow({ items, reverse = false, duration = 60 }) {
 export function EquipmentSuppliers() {
   const [ref, seen] = useInView();
 
-  return (
-    <section className="relative isolate overflow-hidden bg-[#071626] py-12 md:py-14">
-      <div
-        className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/suppliers.png')",
-        }}
-        aria-hidden="true"
-      />
+return (
+  <section className="relative isolate overflow-hidden bg-[#071626] py-10 sm:py-12 md:py-14">
+    <div
+      className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/suppliers.png')" }}
+      aria-hidden="true"
+    />
 
-      <div
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(4,18,33,0.94) 0%, rgba(5,20,36,0.78) 48%, rgba(5,17,29,0.50) 100%)",
-        }}
-        aria-hidden="true"
-      />
+    {/* mobile overlay: even, so text stays readable across the full width */}
+    <div
+      className="pointer-events-none absolute inset-0 -z-10 md:hidden"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(4,18,33,0.92) 0%, rgba(5,20,36,0.82) 100%)",
+      }}
+      aria-hidden="true"
+    />
+    {/* tablet/desktop overlay: your original left-to-right fade */}
+    <div
+      className="pointer-events-none absolute inset-0 -z-10 hidden md:block"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(4,18,33,0.94) 0%, rgba(5,20,36,0.78) 48%, rgba(5,17,29,0.50) 100%)",
+      }}
+      aria-hidden="true"
+    />
 
-      <div
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-          maskImage: "linear-gradient(to bottom, black, transparent 95%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black, transparent 95%)",
-        }}
-        aria-hidden="true"
-      />
+    <div
+      className="pointer-events-none absolute inset-0 opacity-40"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+        maskImage: "linear-gradient(to bottom, black, transparent 95%)",
+        WebkitMaskImage: "linear-gradient(to bottom, black, transparent 95%)",
+      }}
+      aria-hidden="true"
+    />
 
-      <div
-        className="pointer-events-none absolute -left-24 top-0 h-64 w-64 rounded-full bg-brand/10 blur-3xl"
-        aria-hidden="true"
-      />
+    <div
+      className="pointer-events-none absolute -left-24 top-0 h-48 w-48 rounded-full bg-brand/10 blur-3xl sm:h-64 sm:w-64"
+      aria-hidden="true"
+    />
 
-      <div className="relative z-10">
-        <div
-          ref={ref}
-          className={`flex flex-col items-start justify-between gap-5 transition-all duration-700 md:flex-row md:items-center px-20 ${
-            seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
-        >
-          <div className="ml-5 max-w-xl md:ml-8">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-              </span>
-              Our Equipment Partners
+    <div className="relative z-10">
+      <div
+        ref={ref}
+        className={`mx-auto flex w-[90%] max-w-[1400px] flex-col items-start justify-between gap-5 transition-all duration-700 md:flex-row md:items-center ${
+          seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+        }`}
+      >
+        <div className="max-w-xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80 backdrop-blur-md sm:text-xs sm:tracking-[0.18em]">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
             </span>
+            Our Equipment Partners
+          </span>
 
-            <h2 className="mt-4 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-5xl">
-              Equipment sourced from{" "}
-              <span className="bg-gradient-to-r from-brand via-amber-300 to-white bg-clip-text text-transparent">
-                trusted suppliers
-              </span>
-            </h2>
-          </div>
-
-          <div className="mr-5 rounded-2xl border border-white/15 bg-white/[0.08] px-6 py-3 backdrop-blur-lg md:mr-8">
-            <p className="text-3xl font-extrabold leading-none text-white md:text-4xl">
-              <CountUp to={eqsupplier.length} />
-              <span className="text-brand">+</span>
-            </p>
-
-            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/65">
-              Supplier partners
-            </p>
-          </div>
+          <h2 className="mt-4 text-[1.65rem] font-bold leading-tight text-white sm:text-3xl md:text-5xl">
+            Equipment sourced from{" "}
+            <span className="bg-gradient-to-r from-brand via-amber-300 to-white bg-clip-text text-transparent">
+              trusted suppliers
+            </span>
+          </h2>
         </div>
 
-        <div className="relative mt-8 space-y-3 md:mt-10">
-          <MarqueeRow items={rows[0]} duration={70} />
-          <MarqueeRow items={rows[1]} duration={85} reverse />
+        {/* counter: side-by-side on mobile, stacked from md up */}
+        <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.08] px-5 py-3 backdrop-blur-lg md:block md:px-6">
+          <p className="text-3xl font-extrabold leading-none text-white md:text-4xl">
+            <CountUp to={eqsupplier.length} />
+            <span className="text-brand">+</span>
+          </p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/65 md:mt-2">
+            Supplier partners
+          </p>
         </div>
       </div>
-    </section>
-  );
+
+      <div className="relative mt-6 space-y-3 sm:mt-8 md:mt-10">
+        <MarqueeRow items={rows[0]} duration={70} />
+        <MarqueeRow items={rows[1]} duration={85} reverse />
+      </div>
+    </div>
+  </section>
+);
 }

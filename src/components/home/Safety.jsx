@@ -83,7 +83,7 @@ export function Safety() {
 
       <div className="relative h-56 lg:hidden">
         <img
-          src="/images/safety/hero.jpg"
+          src="/safety_.png"
           alt="RV safety officer supervising a crane lift"
           className="h-full w-full object-cover object-top"
         />
