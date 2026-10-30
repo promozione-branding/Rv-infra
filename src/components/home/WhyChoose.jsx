@@ -103,13 +103,13 @@ export function WhyChoose() {
                 Learn More <ArrowRight size={15} />
               </Link>
               <span className="hidden h-8 w-px bg-slate-300 sm:block" />
-              <Link
-                href="/products"
-                className="inline-flex items-center gap-2 text-sm font-medium text-navy transition hover:text-brand"
-              >
-                Explore Our Fleet{" "}
-                <ArrowRight size={15} className="text-brand" />
-              </Link>
+             <Link
+  href="/products"
+  className="inline-flex items-center gap-2 rounded-lg bg-[#7f0b18] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#9a0e1d]"
+>
+  Explore Our Fleet{" "}
+  <ArrowRight size={15} className="text-white" />
+</Link>
             </div>
           </div>
         </Reveal>
