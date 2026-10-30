@@ -13,7 +13,7 @@ export default function Products() {
         title="Best Products all over India"
         highlight="Products"
         text="Cranes, piling rigs, concrete equipment and earthmovers, supplied with skilled operators to leading infrastructure and industrial companies."
-        lottieSrc="/Building_Construction.json"
+        lottieSrc="/Building_Construction_BoomLift.json"
       />
       <ProductsExplorer />
     </>

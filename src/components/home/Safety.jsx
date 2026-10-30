@@ -18,7 +18,7 @@ const SAFETY_CARDS = [
     title: "Regular Equipment Inspection",
     text: "Routine equipment inspections and preventive maintenance help ensure reliable performance and safer operations.",
     icon: ClipboardCheck,
-    image: "/industries/industry_1.png",
+    image: "/industries/ind_1.png",
     href: "/safety#inspection",
   },
   {
