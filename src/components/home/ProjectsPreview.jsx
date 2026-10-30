@@ -9,8 +9,8 @@ export function ProjectsPreview() {
     <section className="py-20">
       <div className="container-x">
         <SectionHeading eyebrow="Our Projects" title="Lifting Success Across India">
-          <Link href="/projects" className="btn-outline w-48">
-            View All Projects <ArrowRight size={14} />
+          <Link href="/products" className="btn-outline w-48">
+            View All Fleets <ArrowRight size={14} />
           </Link>
         </SectionHeading>
         <ProjectCards limit={4} />
