@@ -1,6 +1,22 @@
 "use client";
 import { eqsupplier } from "@/data/site";
 import { useEffect, useRef, useState } from "react";
+import { Users, ExternalLink } from "lucide-react";
+
+const GOLD = "#E8A317";
+const GOLD_LIGHT = "#FFC72C";
+
+const PAGE_DESKTOP = 12; // 4 rows x 3 columns
+const PAGE_MOBILE = 6; 
+const AUTO_MS = 2500; // time each set stays on screen
+
+const allSuppliers = eqsupplier.map((name, i) => ({ name, i }));
+
+const chunk = (arr, size) => {
+  const out = [];
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+  return out;
+};
 
 const initials = (name) =>
   name
@@ -10,11 +26,6 @@ const initials = (name) =>
     .slice(0, 2)
     .map((w) => w[0].toUpperCase())
     .join("");
-
-// split into 3 rows, keeping the original index for the number badge
-const rows = [0, 1, 2].map((r) =>
-  eqsupplier.map((name, i) => ({ name, i })).filter((x) => x.i % 3 === r)
-);
 
 function useInView() {
   const ref = useRef(null);
@@ -57,54 +68,110 @@ function CountUp({ to }) {
 }
 
 function SupplierCard({ name, index }) {
-  const onMove = (e) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
   return (
-    <div
-      onMouseMove={onMove}
-      className="eq-card relative mr-3 flex h-16 w-52 shrink-0 items-center gap-3 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-3 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-brand/60 sm:w-60 sm:px-4"
-    >
-      <span className="eq-spot absolute inset-0" />
-      <span className="eq-line absolute bottom-0 left-0 h-0.5 w-full bg-brand" />
-
-      <div className="relative grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand to-brand/50 text-xs font-bold text-white shadow-lg shadow-brand/20">
+    <div className="group flex h-[72px] items-center gap-3 rounded-xl border border-white/15 bg-[#0b1b2e]/70 px-3 shadow-lg shadow-black/20 backdrop-blur-md transition duration-300 hover:border-[#E8A317]/60 hover:bg-[#0b1b2e]/90 sm:px-4">
+      <div
+        className="grid h-10 w-10 shrink-0 place-items-center rounded-lg text-xs font-extrabold text-[#071626] shadow-md"
+        style={{
+          background: `linear-gradient(135deg, ${GOLD_LIGHT}, ${GOLD})`,
+        }}
+      >
         {initials(name)}
       </div>
-      <div className="relative min-w-0">
-        <p className="text-[9px] font-semibold tracking-[0.2em] text-white/40">
+
+      <div className="min-w-0 flex-1">
+        <p className="text-[10px] font-semibold tracking-[0.2em] text-white/50">
           {String(index + 1).padStart(2, "0")}
         </p>
-        <p className="line-clamp-1 text-[13px] font-semibold leading-snug text-white">
+        <p className="truncate text-[13px] font-bold leading-snug text-white sm:text-sm">
           {name}
         </p>
       </div>
+
+      <ExternalLink
+        className="h-4 w-4 shrink-0 text-white/50 transition group-hover:text-[#FFC72C]"
+        aria-hidden="true"
+      />
     </div>
   );
 }
 
-function MarqueeRow({ items, reverse = false, duration = 60 }) {
-  const doubled = [...items, ...items];
+function SupplierSlider({ seen }) {
+  const [pageSize, setPageSize] = useState(PAGE_DESKTOP);
+  const [page, setPage] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  // fewer cards per slide on phones
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const apply = () => {
+      setPageSize(mq.matches ? PAGE_MOBILE : PAGE_DESKTOP);
+      setPage(0);
+    };
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  const pages = chunk(allSuppliers, pageSize);
+  const total = pages.length;
+
+  // auto-advance, looping back to the first set after the last one
+  useEffect(() => {
+    if (!seen || paused || total < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setPage((p) => (p + 1) % total), AUTO_MS);
+    return () => clearInterval(id);
+  }, [seen, paused, total]);
+
   return (
     <div
-      className="eq-row overflow-hidden py-1"
-      style={{
-        maskImage:
-          "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
-      }}
+      className={`mt-8 transition-all duration-700 ${
+        seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+      }`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
     >
-      <div
-        className={`eq-track flex w-max ${reverse ? "rev" : ""}`}
-        style={{ "--d": `${duration}s` }}
-      >
-        {doubled.map((it, k) => (
-          <SupplierCard key={k} name={it.name} index={it.i} />
-        ))}
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${page * 100}%)` }}
+        >
+          {pages.map((group, pi) => (
+            <div
+              key={pi}
+              className="grid w-full shrink-0 grid-cols-1 content-start gap-3 sm:grid-cols-2 lg:grid-cols-3"
+              aria-hidden={pi !== page}
+            >
+              {group.map((s) => (
+                <SupplierCard key={s.i} name={s.name} index={s.i} />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* pagination dots */}
+      {total > 1 && (
+        <div className="mt-5 flex items-center gap-2">
+          {pages.map((_, pi) => (
+            <button
+              key={pi}
+              type="button"
+              onClick={() => setPage(pi)}
+              aria-label={`Show suppliers set ${pi + 1}`}
+              aria-current={pi === page}
+              className="h-2 rounded-full transition-all duration-300"
+              style={{
+                width: pi === page ? 28 : 8,
+                background: pi === page ? GOLD : "rgba(255,255,255,0.3)",
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -112,91 +179,105 @@ function MarqueeRow({ items, reverse = false, duration = 60 }) {
 export function EquipmentSuppliers() {
   const [ref, seen] = useInView();
 
-return (
-  <section className="relative isolate overflow-hidden bg-[#071626] py-10 sm:py-12 md:py-14">
-    <div
-      className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/suppliers.png')" }}
-      aria-hidden="true"
-    />
-
-    {/* mobile overlay: even, so text stays readable across the full width */}
-    <div
-      className="pointer-events-none absolute inset-0 -z-10 md:hidden"
-      style={{
-        background:
-          "linear-gradient(180deg, rgba(4,18,33,0.92) 0%, rgba(5,20,36,0.82) 100%)",
-      }}
-      aria-hidden="true"
-    />
-    {/* tablet/desktop overlay: your original left-to-right fade */}
-    <div
-      className="pointer-events-none absolute inset-0 -z-10 hidden md:block"
-      style={{
-        background:
-          "linear-gradient(90deg, rgba(4,18,33,0.94) 0%, rgba(5,20,36,0.78) 48%, rgba(5,17,29,0.50) 100%)",
-      }}
-      aria-hidden="true"
-    />
-
-    <div
-      className="pointer-events-none absolute inset-0 opacity-40"
-      style={{
-        backgroundImage:
-          "linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px)",
-        backgroundSize: "48px 48px",
-        maskImage: "linear-gradient(to bottom, black, transparent 95%)",
-        WebkitMaskImage: "linear-gradient(to bottom, black, transparent 95%)",
-      }}
-      aria-hidden="true"
-    />
-
-    <div
-      className="pointer-events-none absolute -left-24 top-0 h-48 w-48 rounded-full bg-brand/10 blur-3xl sm:h-64 sm:w-64"
-      aria-hidden="true"
-    />
-
-    <div className="relative z-10">
+  return (
+    <section className="relative isolate overflow-hidden bg-[#071626] py-12 sm:py-14 md:py-16">
+      {/* background photo */}
       <div
-        ref={ref}
-        className={`mx-auto flex w-[90%] max-w-[1400px] flex-col items-start justify-between gap-5 transition-all duration-700 md:flex-row md:items-center ${
-          seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-        }`}
-      >
-        <div className="max-w-xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80 backdrop-blur-md sm:text-xs sm:tracking-[0.18em]">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-            </span>
-            Our Equipment Partners
-          </span>
+        className="pointer-events-none absolute inset-0 -z-30 bg-cover bg-right bg-no-repeat"
+        style={{ backgroundImage: "url('/suppliers.png')" }}
+        aria-hidden="true"
+      />
 
-          <h2 className="mt-4 text-[1.65rem] font-bold leading-tight text-white sm:text-3xl md:text-5xl">
-            Equipment sourced from{" "}
-            <span className="bg-gradient-to-r from-brand via-amber-300 to-white bg-clip-text text-transparent">
-              trusted suppliers
-            </span>
-          </h2>
-        </div>
+      {/* mobile overlay: even, so text stays readable across the full width */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-20 md:hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(4,18,33,0.94) 0%, rgba(5,20,36,0.86) 100%)",
+        }}
+        aria-hidden="true"
+      />
+      {/* desktop overlay: solid navy on the left, photo shows through on the right */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-20 hidden md:block"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(4,16,30,1) 0%, rgba(4,18,33,0.96) 32%, rgba(5,20,36,0.6) 55%, rgba(5,17,29,0) 80%)",
+        }}
+        aria-hidden="true"
+      />
 
-        {/* counter: side-by-side on mobile, stacked from md up */}
-        <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.08] px-5 py-3 backdrop-blur-lg md:block md:px-6">
-          <p className="text-3xl font-extrabold leading-none text-white md:text-4xl">
-            <CountUp to={eqsupplier.length} />
-            <span className="text-brand">+</span>
+      {/* warm glow, bottom-left */}
+      <div
+        className="pointer-events-none absolute -bottom-24 -left-24 -z-10 h-72 w-72 rounded-full opacity-30 blur-3xl"
+        style={{ background: GOLD }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 mx-auto w-[90%] max-w-[1400px]">
+        <div ref={ref} className="w-full lg:w-[62%]">
+          {/* header row */}
+          <div
+            className={`flex flex-col items-start justify-between gap-6 transition-all duration-700 xl:flex-row xl:items-start ${
+              seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+            }`}
+          >
+            <div className="max-w-xl">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur-md sm:text-xs">
+                <span
+                  className="h-2.5 w-2.5 rounded-full"
+                  style={{ background: GOLD }}
+                />
+                Our Equipment Partners
+              </span>
+
+              <h2 className="mt-5 text-[1.9rem] font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl">
+                Equipment sourced
+                <br />
+                from{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: `linear-gradient(90deg, ${GOLD_LIGHT}, ${GOLD})`,
+                  }}
+                >
+                  trusted suppliers
+                </span>
+              </h2>
+            </div>
+
+            {/* counter card */}
+            <div
+              className="flex shrink-0 items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.08] py-4 pl-5 pr-7 backdrop-blur-lg"
+              style={{ borderLeft: `4px solid ${GOLD}` }}
+            >
+              <div className="grid h-14 w-14 place-items-center rounded-xl border border-white/10 bg-white/10">
+                <Users className="h-6 w-6 text-white/80" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-4xl font-extrabold leading-none text-white">
+                  <CountUp to={eqsupplier.length} />
+                  <span style={{ color: GOLD_LIGHT }}>+</span>
+                </p>
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60">
+                  Supplier partners
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p
+            className={`mt-1 max-w-xl text-sm leading-relaxed text-white/65 transition-all delay-100 duration-700 sm:text-[15px] xl:-mt-2 ${
+              seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+            }`}
+          >
+            We partner with leading industry suppliers to bring you reliable,
+            high-performance equipment for every project.
           </p>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/65 md:mt-2">
-            Supplier partners
-          </p>
+
+          <SupplierSlider seen={seen} />
         </div>
       </div>
-
-      <div className="relative mt-6 space-y-3 sm:mt-8 md:mt-10">
-        <MarqueeRow items={rows[0]} duration={70} />
-        <MarqueeRow items={rows[1]} duration={85} reverse />
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }

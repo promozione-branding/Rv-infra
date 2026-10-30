@@ -1,13 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
-import {
-  motion,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import Link from "next/link";
@@ -17,78 +9,31 @@ import { slugify } from "@/data/product";
 const IMAGE_BASE = "/fleets";
 const GOLD = "#E8A317";
 
-const VISIBLE = 3;
-const GAP = 24;
-const CRANE_FROM = -0.15;
-const CRANE_TO = 3.15;
-const REVEAL_AT = 0.5;
-const REVEAL_SPAN = 0.5;
-const VH_PER_CARD = 120;
-
 // Only show 2 sets of 3 cards (total 6)
 const products = featuredProducts.slice(0, 6);
 
-const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+// Replays every time the element re-enters the viewport
+// Animation starts only once 30% of the card is visible
+const VIEWPORT = { once: false, amount: 0.3 };
 
-function craneAt(c, N) {
-  const cc = clamp(c, 0, N - 0.0001);
-  const phase1 = Math.min(N, VISIBLE);
-  if (cc < phase1) {
-    const cx = CRANE_FROM + (cc / phase1) * (CRANE_TO - CRANE_FROM);
-    return { cx, opacity: clamp((CRANE_TO - cx) / 0.25), k: -1, f: 0 };
-  }
-  const k = Math.floor(cc);
-  const f = cc - k;
-  const cx = CRANE_FROM + (CRANE_TO - CRANE_FROM) * clamp(f / 0.9);
-  const fadeIn = clamp((cx - CRANE_FROM) / 0.2);
-  const fadeOut = clamp((CRANE_TO - cx) / 0.25);
-  return { cx, opacity: Math.min(fadeIn, fadeOut), k, f };
-}
-
-function shiftAt(c, N) {
-  const cc = clamp(c, 0, N - 0.0001);
-  let w = 0;
-  for (let j = VISIBLE; j < N; j++) {
-    w += ease(clamp((cc - j) / 0.25));
-  }
-  return w;
-}
-
-function revealAt(k, c, N) {
-  const cc = clamp(c, 0, N - 0.0001);
-  const phase1 = Math.min(N, VISIBLE);
-  if (k < VISIBLE) {
-    if (cc >= phase1) return 1;
-    const { cx } = craneAt(cc, N);
-    return ease(clamp((cx - (k + REVEAL_AT)) / REVEAL_SPAN));
-  }
-  if (cc < k) return 0;
-  if (cc >= k + 1) return 1;
-  const { cx } = craneAt(cc, N);
-  return ease(clamp((cx - (VISIBLE - 1 + REVEAL_AT)) / REVEAL_SPAN));
-}
-
-
-function SectionHeader({ controls, compact = false }) {
+function SectionHeader() {
   return (
     <Reveal>
-      <div className={`${compact ? "mb-6" : "mb-10"} flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end mt-8`}>
+      <div className="mb-10 mt-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <div className="flex items-center gap-3 mt-6">
+          <div className="mt-6 flex items-center gap-3">
             <span className="h-[2px] w-10" style={{ background: GOLD }} />
             <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
               Featured Equipments
             </span>
           </div>
-          <h2 className="mt-4 mb-6 text-3xl font-extrabold tracking-tight text-navy sm:text-5xl">
+          <h2 className="mb-6 mt-4 text-3xl font-extrabold tracking-tight text-navy sm:text-5xl">
             Our Most Requested <span style={{ color: GOLD }}>Machines</span>
           </h2>
           <p className="mt-4 max-w-lg text-slate-500">
             Explore our most requested truck-mounted boom lifts, designed for reliable aerial access across infrastructure, industrial, and maintenance projects throughout India.
           </p>
         </div>
-        {controls}
       </div>
     </Reveal>
   );
@@ -143,195 +88,66 @@ function CardBody({ p, imgClass = "h-64", compact = false }) {
   );
 }
 
-function ScrollCard({ p, k, progress, N }) {
-  const slot = useTransform(progress, (v) => k - shiftAt(v * N, N));
-  const reveal = useTransform(progress, (v) => revealAt(k, v * N, N));
-
-  const x = useTransform(slot, (s) => `calc(${s * 100}% + ${s * GAP}px)`);
-  const opacity = useTransform([slot, reveal], ([s, r]) =>
-    r * (s < 0 ? clamp(1 + s) : 1)
-  );
-  const y = useTransform(reveal, (r) => (1 - r) * 90);
-  const scale = useTransform(reveal, (r) => 0.82 + 0.18 * r);
-
+function SlideCard({ p, index, className = "", ...bodyProps }) {
   return (
-    <motion.article
-      className="group absolute bottom-0 left-0 top-0 flex flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100"
-      style={{
-        width: `calc((100% - ${GAP * (VISIBLE - 1)}px) / ${VISIBLE})`,
-        x,
-        y,
-        scale,
-        opacity,
-        transformOrigin: "bottom center",
-      }}
+    // The wrapper is never transformed, so it is what the viewport observer
+    // measures. Observing the animated card itself caused a flicker loop:
+    // sliding it down moved it out of view, which reset it, which moved it
+    // back into view, and so on.
+    <motion.div
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={VIEWPORT}
     >
-      <CardBody p={p} imgClass="min-h-0 flex-1" />
-    </motion.article>
+      <motion.article
+        className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100"
+        variants={{
+          hidden: { opacity: 0, y: 80 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1],
+              delay: (index % 3) * 0.12, // stagger within each row of 3
+            },
+          },
+        }}
+      >
+        <CardBody p={p} {...bodyProps} />
+      </motion.article>
+    </motion.div>
   );
-}
-
-function ScrollScene() {
-  const N = products.length;
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 30,
-    mass: 0.8,
-  });
-
-  const craneLeft = useTransform(
-    progress,
-    (v) => `${(craneAt(v * N, N).cx * 100) / VISIBLE}%`
-  );
-  const craneOpacity = useTransform(progress, (v) => craneAt(v * N, N).opacity);
-  const barWidth = useTransform(progress, (v) => `${v * 100}%`);
-  // wheels turn in proportion to how far the crane has driven
-  const wheelSpin = useTransform(progress, (v) => craneAt(v * N, N).cx * 1260);
-  const craneCx = useTransform(progress, (v) => craneAt(v * N, N).cx);
-
-  return (
-    <section
-      ref={sectionRef}
-      className="relative hidden bg-slate-50 lg:block"
-      style={{ height: `${(N + 1) * VH_PER_CARD}vh` }}
-    >
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden pt-16 pb-16">
-        <div className="mx-auto w-[90%] max-w-[1400px] mb-12">
-          <SectionHeader compact />
-
-         <div
-  className="relative"
-  style={{ height: "clamp(440px, calc(100vh - 240px), 720px)" }}
->
-            {products.map((p, k) => (
-              <ScrollCard key={p.name} p={p} k={k} progress={progress} N={N} />
-            ))}
-          </div>
-
-          <div className="relative mt-2 h-[3px] w-full rounded-full bg-slate-200">
-            <motion.div
-              className="h-full rounded-full"
-              style={{ background: GOLD, width: barWidth }}
-            />
-            <motion.div
-              className="pointer-events-none absolute z-20"
-              style={{
-                left: craneLeft,
-                bottom: 2, // wheels rest on the line
-                x: "-50%",
-                opacity: craneOpacity,
-                width: 270,
-                height: 135,
-              }}
-            >
-             
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const NAV_H = 72; // px - set this to your navbar's real height
-
-function MobileHeader() {
-  return (
-    <div className="mx-auto w-[92%] shrink-0 pb-3 pt-4">
-      <div className="flex items-center gap-3">
-        <span className="h-[2px] w-8" style={{ background: GOLD }} />
-        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
-          Featured Equipments
-        </span>
-      </div>
-      <h2 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-navy">
-        Our Most Requested <span style={{ color: GOLD }}>Machines</span>
-      </h2>
-    </div>
-  );
-}
-
-function MobileScrollScene() {
-  const N = products.length;
-  const sectionRef = useRef(null);
-  const viewportRef = useRef(null);
-  const trackRef = useRef(null);
-  const maxShift = useMotionValue(0);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 30,
-    mass: 0.8,
-  });
-
-  // measure how far the track needs to travel (re-measure on resize/rotate)
-  useEffect(() => {
-    const measure = () => {
-      if (!viewportRef.current || !trackRef.current) return;
-      maxShift.set(
-        Math.max(0, trackRef.current.scrollWidth - viewportRef.current.clientWidth)
-      );
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    window.addEventListener("orientationchange", measure);
-    return () => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("orientationchange", measure);
-    };
-  }, [maxShift]);
-
-  // vertical scroll progress -> horizontal translation
-  const x = useTransform([progress, maxShift], ([p, m]) => -p * m);
-  const barWidth = useTransform(progress, (v) => `${v * 100}%`);
-
-return (
-  <section
-    ref={sectionRef}
-    className="relative bg-slate-50 lg:hidden"
-    style={{ height: `${N * 40 + 100}vh` }}
-  >
-    <div
-      className="sticky flex flex-col justify-center overflow-hidden"
-      style={{ top: NAV_H, height: `calc(100svh - ${NAV_H}px)` }}
-    >
-      <MobileHeader />
-
-      <div ref={viewportRef} className="w-full overflow-hidden py-3">
-        <motion.div
-          ref={trackRef}
-          className="flex w-max items-stretch gap-4 px-[4vw]"
-          style={{ x }}
-        >
-          {products.map((p) => (
-            <article
-              key={p.name}
-              className="group relative flex w-[74vw] max-w-[320px] shrink-0 flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100"
-            >
-              <CardBody p={p} compact imgClass="h-[clamp(150px,28svh,250px)]" />
-            </article>
-          ))}
-        </motion.div>
-      </div>
-    </div>
-  </section>
-);
 }
 
 export function FeaturedProducts() {
   return (
-    <div id="featured" className="scroll-mt-20 pb-8 lg:pb-12">
-      <ScrollScene />
-      <MobileScrollScene />
-    </div>
+    <section id="featured" className="scroll-mt-20 bg-slate-50 pb-8 lg:pb-12">
+      <div className="mx-auto w-[92%] max-w-[1400px] py-8 lg:w-[90%]">
+        <SectionHeader />
+
+        {/* Desktop / tablet: grid */}
+        <div className="hidden gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+          {products.map((p, i) => (
+            <SlideCard key={p.name} p={p} index={i} />
+          ))}
+        </div>
+
+        {/* Mobile: swipeable row */}
+        <div className="-mx-[4vw] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[4vw] pb-4 sm:hidden">
+          {products.map((p, i) => (
+            <SlideCard
+              key={p.name}
+              p={p}
+              index={i}
+              compact
+              imgClass="h-44"
+              className="w-[74vw] max-w-[320px] shrink-0 snap-start"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

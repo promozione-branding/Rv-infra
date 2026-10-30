@@ -4,9 +4,6 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Play,
   Calendar,
   Boxes,
   Users,
@@ -31,7 +28,7 @@ const slides = [
     secondary: { label: "", href: "" },
   },
   {
-    image: "/suppliers.png",
+    image: "/rv_hero2.png",
     alt: "Heavy-duty crane at an industrial plant site",
     eyebrow: "Plant erection & industrial projects",
     titleTop: "HEAVY LIFTING",
@@ -77,10 +74,6 @@ export default function Hero() {
 
   const next = useCallback(
     () => setIndex((i) => (i + 1) % slides.length),
-    []
-  );
-  const prev = useCallback(
-    () => setIndex((i) => (i - 1 + slides.length) % slides.length),
     []
   );
 
@@ -137,55 +130,69 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[468px] w-[92%] max-w-[1400px] items-center pb-16 pt-16 lg:min-h-[500px] lg:pb-20 lg:w-[90%]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            variants={container}
-            initial="hidden"
-            animate="show"
-            exit="exit"
-            className="max-w-xl"
-          >
-            <motion.h1
-              variants={item}
-              className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-brand"
-            >
-              {slide.eyebrow}
-            </motion.h1>
-            <motion.h2
-              variants={item}
-              className="text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl lg:text-5xl mt-8 mb-8"
-            >
-              {slide.titleTop}{" "}
-              <span className="block text-brand">{slide.titleHighlight}</span>{" "}
-              {slide.titleBottom}
-            </motion.h2>
-            <motion.p
-              variants={item}
-              className="mt-3 mb-6 max-w-md text-md leading-relaxed text-slate-200 drop-shadow"
-            >
-              {slide.description}
-            </motion.p>
-            <motion.div
-              variants={item}
-              className="mt-5 flex flex-wrap items-center gap-5"
-            >
-              <Link href={slide.cta.href} className="btn-primary">
-                {slide.cta.label} <ArrowRight size={14} />
-              </Link>
-              <Link
-                href={slide.secondary.href}
-                className="group flex items-center gap-3 text-sm font-medium text-white"
+        {/*
+          All slides' text sits in the same grid cell, so the cell is always as
+          tall as the tallest slide. Only the active one is visible, which means
+          the hero height can never change when the slide changes.
+        */}
+        <div className="grid max-w-xl">
+          {slides.map((s, i) => {
+            const active = i === index;
+            return (
+              <motion.div
+                key={i}
+                variants={container}
+                initial="hidden"
+                animate={active ? "show" : "exit"}
+                aria-hidden={!active}
+                className="col-start-1 row-start-1"
+                style={{ pointerEvents: active ? "auto" : "none" }}
               >
-                {/* <span className="relative flex h-11 w-11 items-center justify-center rounded-full border border-brand text-brand">
-                  <span className="absolute inset-0 animate-pulseRing rounded-full border border-brand" />
-                  <Play size={14} fill="currentColor" />
-                </span> */}
-                {slide.secondary.label}
-              </Link>
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
+                <motion.h1
+                  variants={item}
+                  className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-brand"
+                >
+                  {s.eyebrow}
+                </motion.h1>
+                <motion.h2
+                  variants={item}
+                  className="mb-8 mt-8 text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl lg:text-5xl"
+                >
+                  {s.titleTop}{" "}
+                  <span className="block text-brand">{s.titleHighlight}</span>{" "}
+                  {s.titleBottom}
+                </motion.h2>
+                <motion.p
+                  variants={item}
+                  className="text-md mb-6 mt-3 max-w-md leading-relaxed text-slate-200 drop-shadow"
+                >
+                  {s.description}
+                </motion.p>
+                <motion.div
+                  variants={item}
+                  className="mt-5 flex flex-wrap items-center gap-5"
+                >
+                  <Link
+                    href={s.cta.href}
+                    className="btn-primary"
+                    tabIndex={active ? 0 : -1}
+                  >
+                    {s.cta.label} <ArrowRight size={14} />
+                  </Link>
+                  {s.secondary.label && (
+                    <Link
+                      href={s.secondary.href}
+                      className="group flex items-center gap-3 text-sm font-medium text-white"
+                      tabIndex={active ? 0 : -1}
+                    >
+                      {s.secondary.label}
+                    </Link>
+                  )}
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Slider controls */}

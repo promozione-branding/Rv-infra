@@ -159,7 +159,7 @@ export function Fleet() {
           style={{ clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0 100%)" }}
         >
           <ImageSlot
-            src="/images/oil_gas.png"
+            src="/images/equipment_.png"
             alt="Crane lifting at a construction site"
             icon="Construction"
             className="h-full w-full object-cover"
@@ -227,7 +227,7 @@ export function Fleet() {
               {/* mobile / tablet image banner */}
               <div className="relative mt-8 overflow-hidden rounded-2xl shadow-lg lg:hidden">
                 <ImageSlot
-                  src="/images/oil_gas.png"
+                  src="/images/equipment_.png"
                   alt="Crane lifting at a construction site"
                   icon="Construction"
                   className="h-48 w-full object-cover sm:h-64"
