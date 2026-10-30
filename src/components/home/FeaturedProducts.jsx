@@ -2,8 +2,7 @@
 import { useEffect, useRef } from "react";
 import {
   motion,
-  useAnimationFrame,
-  useMotionValueEvent,
+  useMotionValue,
   useScroll,
   useSpring,
   useTransform,
@@ -95,32 +94,45 @@ function SectionHeader({ controls, compact = false }) {
   );
 }
 
-function CardBody({ p, imgClass = "h-64" }) {
+function CardBody({ p, imgClass = "h-64", compact = false }) {
   return (
     <>
       <div className={`relative overflow-hidden ${imgClass}`}>
-      <ImageSlot
-  src={`${IMAGE_BASE}/${p.image_file}`}
-  alt={p.name}
-  icon="Construction"
-  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-/>
+        <ImageSlot
+          src={`${IMAGE_BASE}/${p.image_file}`}
+          alt={p.name}
+          icon="Construction"
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent" />
         <span
-          className="absolute left-4 top-4 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-navy"
+          className="absolute left-3 top-3 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-navy"
           style={{ background: GOLD }}
         >
           {p.units}
         </span>
       </div>
-      <div className="shrink-0 p-5">
-        <h3 className="text-lg font-extrabold text-navy">
-          <Link href={`/products/${slugify(p.name)}`} className="after:absolute after:inset-0 after:z-10 hover:text-brand-dark">
+      <div className={`shrink-0 ${compact ? "p-4" : "p-5"}`}>
+        <h3
+          className={`font-extrabold text-navy ${
+            compact ? "line-clamp-2 text-base leading-snug" : "text-lg"
+          }`}
+        >
+          <Link
+            href={`/products/${slugify(p.name)}`}
+            className="after:absolute after:inset-0 after:z-10 hover:text-brand-dark"
+          >
             {p.name}
           </Link>
         </h3>
-        <p className="mt-1 text-sm text-slate-500">{p.highlight}</p>
-        <div className="mt-4 flex items-center justify-between gap-3 border-t border-slate-100 pt-3 text-sm">
+        <p className={`mt-1 text-slate-500 ${compact ? "line-clamp-2 text-xs" : "text-sm"}`}>
+          {p.highlight}
+        </p>
+        <div
+          className={`flex items-center justify-between gap-3 border-t border-slate-100 text-sm ${
+            compact ? "mt-3 pt-2 text-xs" : "mt-4 pt-3"
+          }`}
+        >
           <span className="font-semibold text-slate-700">{p.make}</span>
           <span className="whitespace-nowrap font-bold" style={{ color: GOLD }}>
             {p.capacity}
@@ -226,61 +238,109 @@ function ScrollScene() {
   );
 }
 
-function MobileCarousel() {
-  const scroller = useRef(null);
-  const go = (dir) => {
-    const el = scroller.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * (el.clientWidth * 0.8), behavior: "smooth" });
-  };
+const NAV_H = 72; // px - set this to your navbar's real height
 
+function MobileHeader() {
   return (
-    <section className="relative bg-slate-50 py-16 lg:hidden">
-      <div className="mx-auto w-[92%] max-w-[1400px]">
-        <SectionHeader
-          controls={
-            <div className="flex gap-3">
-              <button
-                aria-label="Previous"
-                onClick={() => go(-1)}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-navy shadow-sm transition hover:border-navy"
-              >
-                <ArrowLeft size={18} />
-              </button>
-              <button
-                aria-label="Next"
-                onClick={() => go(1)}
-                className="flex h-11 w-11 items-center justify-center rounded-full text-navy shadow-md transition hover:scale-105"
-                style={{ background: GOLD }}
-              >
-                <ArrowRight size={18} />
-              </button>
-            </div>
-          }
-        />
-        <div
-          ref={scroller}
-          className="-mx-1 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {products.map((p) => (
-            <article
-              key={p.name}
-              className="group relative w-[82%] shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100 sm:w-[46%]"
-            >
-              <CardBody p={p} />
-            </article>
-          ))}
-        </div>
+    <div className="mx-auto w-[92%] shrink-0 pb-3 pt-4">
+      <div className="flex items-center gap-3">
+        <span className="h-[2px] w-8" style={{ background: GOLD }} />
+        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
+          Featured Equipments
+        </span>
       </div>
-    </section>
+      <h2 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-navy">
+        Our Most Requested <span style={{ color: GOLD }}>Machines</span>
+      </h2>
+    </div>
   );
+}
+
+function MobileScrollScene() {
+  const N = products.length;
+  const sectionRef = useRef(null);
+  const viewportRef = useRef(null);
+  const trackRef = useRef(null);
+  const maxShift = useMotionValue(0);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 30,
+    mass: 0.8,
+  });
+
+  // measure how far the track needs to travel (re-measure on resize/rotate)
+  useEffect(() => {
+    const measure = () => {
+      if (!viewportRef.current || !trackRef.current) return;
+      maxShift.set(
+        Math.max(0, trackRef.current.scrollWidth - viewportRef.current.clientWidth)
+      );
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    window.addEventListener("orientationchange", measure);
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("orientationchange", measure);
+    };
+  }, [maxShift]);
+
+  // vertical scroll progress -> horizontal translation
+  const x = useTransform([progress, maxShift], ([p, m]) => -p * m);
+  const barWidth = useTransform(progress, (v) => `${v * 100}%`);
+
+return (
+  <section
+    ref={sectionRef}
+    className="relative bg-slate-50 lg:hidden"
+    style={{ height: `${N * 45 + 100}vh` }}
+  >
+    <div
+      className="sticky flex flex-col overflow-hidden"
+      style={{ top: NAV_H, height: `calc(120svh - ${NAV_H}px)` }}
+    >
+      <MobileHeader />
+
+<div ref={viewportRef} className="flex min-h-0 w-full flex-1 items-center overflow-hidden py-2">
+  <motion.div
+    ref={trackRef}
+    className="flex w-max items-center gap-4 px-[4vw]"
+    style={{ x }}
+  >
+    {products.map((p) => (
+      <article
+        key={p.name}
+        className="group relative flex w-[74vw] max-w-[320px] shrink-0 flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100"
+      >
+        <CardBody p={p} compact imgClass="h-[clamp(110px,76svh,220px)]" />
+      </article>
+    ))}
+  </motion.div>
+</div>
+
+      {/* <div className="mx-auto w-[92%] shrink-0 py-4">
+        <div className="h-[3px] w-full rounded-full bg-slate-200">
+          <motion.div
+            className="h-full rounded-full"
+            style={{ background: GOLD, width: barWidth }}
+          />
+        </div>
+      </div> */}
+    </div>
+  </section>
+);
 }
 
 export function FeaturedProducts() {
   return (
     <div id="featured" className="scroll-mt-20 pb-8 lg:pb-12">
       <ScrollScene />
-      <MobileCarousel />
+      <MobileScrollScene />
     </div>
   );
 }

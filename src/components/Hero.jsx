@@ -189,7 +189,7 @@ export default function Hero() {
       </div>
 
       {/* Slider controls */}
-      <div className="absolute bottom-20 left-1/2 z-20 flex -translate-x-1/2 items-center gap-4 lg:bottom-[5.5rem]">
+      <div className="absolute bottom-20 left-1/2 top-1/2 z-20 flex -translate-x-1/2 items-center gap-4 lg:bottom-[5.5rem]">
         <div className="flex items-center gap-2">
           {slides.map((_, i) => (
             <button
