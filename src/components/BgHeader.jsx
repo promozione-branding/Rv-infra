@@ -39,7 +39,7 @@ export default function BgHeader({ title = "", text, backgroundImage, eyebrow, h
         className="absolute bottom-[10%] left-[10%] z-[3] hidden h-14 w-14 text-muted-foreground opacity-30 [background-image:radial-gradient(currentColor_1px,transparent_1.3px)] [background-size:12px_12px] md:block"
       />
 
-      <div className="relative z-[4] w-full px-6 md:pl-[15%] md:pr-8">
+      <div className="relative z-[4] w-full px-6 md:pl-[6%] md:pr-8">
         <div className="max-w-[560px]">
           {eyebrow && (
             <motion.div

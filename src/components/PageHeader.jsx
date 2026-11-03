@@ -108,7 +108,13 @@ export default function PageHeader({
         <motion.line x1="2048" y1="300" x2="1900" y2="590" stroke="#f2b01c" strokeWidth="2" vectorEffect="non-scaling-stroke" {...draw(0.6)} />
       </svg>
 
-      {/* Text column */}
+      {/*
+        The text column is unchanged. The illustration now lives inside this
+        same container and is positioned from the container's own edges:
+        on lg+ it starts 3rem to the right of the text column (left-[calc(52%+3rem)])
+        and ends at the container's right edge. Because it is measured from the
+        text column, it can never overlap the text at any screen width.
+      */}
       <div className="container-x relative z-10 pb-7 pt-6 lg:flex lg:min-h-[572px] lg:items-center lg:py-6">
         <div className="min-w-0 lg:w-[52%] pr-8">
           <motion.nav
@@ -224,11 +230,9 @@ export default function PageHeader({
             )}
           </div>
         </div>
-      </div>
 
-      {hasVisual && (
-        <div className="container-x relative z-10 pb-7 lg:contents">
-          <div className="relative mx-auto mt-2 h-[260px] w-full max-w-[380px] sm:h-[300px] lg:absolute lg:bottom-[-3%] lg:right-[5%] lg:top-[9%] lg:z-10 lg:mx-0 lg:mt-0 lg:h-auto lg:w-[40%] lg:max-w-none">
+        {hasVisual && (
+          <div className="relative mx-auto mt-6 h-[260px] w-full max-w-[380px] sm:h-[300px] lg:absolute lg:bottom-[-3%] lg:left-[calc(52%+3rem)] lg:right-0 lg:top-[9%] lg:z-10 lg:mx-0 lg:mt-0 lg:h-auto lg:w-auto lg:max-w-none">
             <motion.div
               aria-hidden="true"
               {...rise(0.5)}
@@ -295,8 +299,8 @@ export default function PageHeader({
               />
             </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Right edge: navy zigzag with gold outline (desktop) */}
       <svg

@@ -3,6 +3,7 @@ import LocationMap from "@/components/Map";
 import Reveal from "@/components/Reveal";
 import { company } from "@/data/site";
 import { pageSeo, buildMetadata } from "@/data/seo";
+import { HardHat } from "lucide-react";
 
 export const metadata = buildMetadata(pageSeo.about);
 
@@ -177,15 +178,20 @@ function Icon({ name }) {
   }
 }
 
+const PHOTO = "/images/heavy_eng.png";
+const NAVY = "#0a1d3d";
+const YELLOW = "#f9c32f";
+ 
+ 
 function EyeIcon() {
   return (
     <svg
-      width="40"
-      height="40"
+      width="32"
+      height="32"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth="1.9"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
@@ -195,12 +201,12 @@ function EyeIcon() {
     </svg>
   );
 }
-
+ 
 function TargetIcon() {
   return (
     <svg
-      width="44"
-      height="44"
+      width="34"
+      height="34"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -480,148 +486,154 @@ function TrackRecord() {
 
 function VisionMission() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 pb-16 pt-10 sm:pb-20">
-      <span
+    <section className="relative isolate overflow-hidden bg-[#fbfcfe]">
+      {/* Soft curved shapes, top right */}
+      <svg
         aria-hidden
-        className="pointer-events-none absolute -top-10 left-[4%] select-none text-[18rem] font-black leading-none text-slate-900/[0.03]"
+        className="pointer-events-none absolute right-0 top-0 -z-10 hidden h-[55%] w-[38%] lg:block"
+        viewBox="0 0 400 300"
+        preserveAspectRatio="none"
       >
-        RV
-      </span>
-
-      {/* Heading */}
-      <div className="container-x relative text-center">
-        <span className="inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.35em] text-slate-600">
-          <span className="h-4 w-4 rounded-[4px] bg-brand" aria-hidden />
-          Where we&apos;re headed
-        </span>
-        <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl">
-          Our <span className="text-brand">Vision &amp;</span> Mission
-        </h2>
-        <span className="mx-auto mt-5 block h-1 w-24 rounded-full bg-brand" aria-hidden />
-      </div>
-
-      {/* Card */}
-      <div className="relative mt-10 lg:h-[580px]">
-        <img
-          src="/images/heavy_eng.png"
-          alt="Truck mounted boom lift working at a building site"
-          className="absolute inset-y-0 left-0 hidden h-full w-[26%] object-cover object-left lg:block"
-        />
-
-        <div
-          aria-hidden
-          className="absolute inset-y-0 right-0 hidden overflow-hidden rounded-r-[2rem] bg-[#0a1633] shadow-2xl lg:left-[46%] lg:block lg:[clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]"
-        >
-          <div
-            className="absolute inset-0 bg-cover bg-right"
-            style={{ backgroundImage: "url('/mission_bg.jpg')" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a1633] via-[#0a1633]/90 to-[#0a1633]/30" />
-
-          {/* Yellow diagonal stripes, bottom right */}
-          <span className="absolute bottom-0 right-[2%] h-[38%] w-[9%] bg-brand [clip-path:polygon(60%_0,100%_0,40%_100%,0_100%)]" />
-          <span className="absolute bottom-0 right-[9%] h-[26%] w-[1%] bg-brand [clip-path:polygon(60%_0,100%_0,40%_100%,0_100%)]" />
+        <path d="M400 0 V300 C310 270 240 130 120 0 Z" fill="#f1f4f9" />
+        <path d="M400 0 V220 C330 190 290 90 210 0 Z" fill="#e9eef6" opacity="0.6" />
+      </svg>
+ 
+      {/* Left photo, slanted edge (desktop) */}
+      <div
+        aria-hidden
+        className="absolute inset-y-0 left-0 hidden w-[23.6%] bg-cover bg-center lg:block [clip-path:polygon(0_0,100%_0,62.3%_100%,0_100%)]"
+        style={{ backgroundImage: `url('${PHOTO}')` }}
+      />
+      {/* Navy band + yellow band following the same slant */}
+      <svg
+        aria-hidden
+        className="absolute inset-y-0 left-0 hidden h-full w-[28%] lg:block"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <polygon points="84.3,0 89.6,0 57.9,100 52.5,100" fill={NAVY} />
+        <polygon points="89.6,0 96.1,0 64.3,100 57.9,100" fill={YELLOW} />
+      </svg>
+ 
+      {/* Mobile photo */}
+      <img
+        src={PHOTO}
+        alt="Crane at an industrial plant site at sunset"
+        className="h-56 w-full object-cover object-left lg:hidden"
+      />
+ 
+      <div className="relative px-5 py-12 sm:px-8 lg:py-12 lg:pl-[26%] lg:pr-[4.5%]">
+        {/* Heading */}
+        <div className="text-center">
+          <span className="inline-flex items-center gap-4 text-xs font-medium uppercase tracking-[0.3em] text-slate-600 sm:text-[13px]">
+            <span className="hidden h-[2px] w-16 bg-brand sm:block lg:w-24" aria-hidden />
+            About RV Infrastructural
+            <span className="hidden h-[2px] w-16 bg-brand sm:block lg:w-24" aria-hidden />
+          </span>
+          <h2 className="mt-1 text-3xl font-extrabold tracking-tight text-[#0a1d3d] sm:text-4xl lg:text-[2.6rem] lg:leading-[1.1]">
+            Our Vision &amp; <span className="text-brand">Mission</span>
+          </h2>
         </div>
-
-        {/* Yellow slanted band between the panels */}
-        <span
-          aria-hidden
-          className="absolute bottom-0 left-[45.5%] top-[14%] hidden w-[9%] bg-brand lg:block lg:[clip-path:polygon(75%_0,100%_0,25%_100%,0_100%)]"
-        />
-
-        <div
-          aria-hidden
-          className="absolute inset-y-0 left-[16%] hidden w-[39%] bg-white shadow-xl lg:block lg:[clip-path:polygon(12%_0,100%_0,88%_100%,0_100%)]"
-        />
-
-        <div className="relative grid lg:h-full lg:grid-cols-[20%_32%_45%]">
-          <img
-            src="/about_hero_org.png"
-            alt=""
-            className="h-64 w-full object-cover object-left lg:hidden"
-          />
-
+ 
+        {/* Cards */}
+        <div className="mt-5 grid gap-4 lg:grid-cols-[45fr_55fr] lg:gap-[1.3%]">
           {/* Vision */}
-          <article className="bg-white px-6 py-10 lg:col-start-2 lg:flex lg:flex-col lg:justify-center lg:bg-transparent lg:px-0 lg:py-0 lg:pl-6 lg:pr-8">
-            <div className="flex items-center gap-5">
-              <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-brand/20 text-navy">
+          <article className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.10)]">
+            <div className="flex items-start gap-4">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#fdeeb5] text-[#0a1d3d]">
                 <EyeIcon />
               </span>
-              <div>
-                <h3 className="text-3xl font-extrabold leading-[1.05] text-navy">
-                  Our
-                  Vision
+              <div className="pt-0.5">
+                <h3 className="text-2xl font-extrabold leading-tight text-[#0a1d3d]">
+                  Our Vision
                 </h3>
-                <span className="mt-2 block h-[3px] w-10 rounded-full bg-brand" aria-hidden />
+                <span className="mt-1 block h-[3px] w-12 rounded-full bg-brand" aria-hidden />
               </div>
             </div>
-
-            <p className="mt-6 text-[15px] leading-[1.7] text-slate-700">
-              Our vision is to become one of India&apos;s most trusted providers of{" "}
-              <strong className="font-bold text-navy">
-                truck mounted boom lifts and aerial access equipment
-              </strong>
-              , delivering innovative, safe, and cost-effective solutions for construction,
-              infrastructure, and industrial projects. Under the leadership of our Managing
-              Director, Mr. Suchit Aggarwal, RV Infrastructural Private Limited is committed to
-              advancing equipment quality, operational efficiency, and customer satisfaction while
-              supporting India&apos;s infrastructure growth.
+ 
+            <p className="mt-3 text-sm leading-[1.55] text-[#1c2a44]">
+              Our vision is to become one of India&apos;s most trusted providers of truck mounted
+              boom lifts and aerial access equipment, delivering innovative, safe, and
+              cost-effective solutions for construction, infrastructure, and industrial projects.
+              Under the leadership of our Managing Director, Mr. Suchit Aggarwal, RV
+              Infrastructural Private Limited is committed to advancing equipment quality,
+              operational efficiency, and customer satisfaction while supporting India&apos;s
+              infrastructure growth.
             </p>
-
-            <div className="mt-5 border-t border-slate-200 pt-4">
-              <p className="border-l-4 border-brand pl-4 text-[15px] font-bold leading-snug text-navy">
-                Choose RV Infrastructural for reliable equipment solutions, professional service,
-                and a commitment to reaching greater heights together.
-              </p>
-            </div>
           </article>
-
+ 
           {/* Mission */}
-          <article className="relative overflow-hidden bg-[#0a1633] px-6 py-10 text-white lg:col-start-3 lg:flex lg:flex-col lg:justify-center lg:overflow-visible lg:bg-transparent lg:px-0 lg:py-0 lg:pl-14 lg:pr-16">
-            {/* Mobile background photo */}
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-cover bg-right opacity-40 lg:hidden"
-              style={{ backgroundImage: "url('/mission_bg.jpg')" }}
-            />
-
-            <div className="relative">
-              <div className="flex items-center gap-5">
-                <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-brand ring-1 ring-white/10">
-                  <TargetIcon />
-                </span>
-                <div>
-                  <h3 className="text-3xl font-extrabold leading-[1.05] text-white">
-                    Our
-                    Mission
-                  </h3>
-                  <span className="mt-2 block h-[3px] w-10 rounded-full bg-brand" aria-hidden />
-                </div>
+          <article className="rounded-[1.5rem] bg-[#0a1d3d] p-5 text-white shadow-[0_10px_30px_rgba(10,29,61,0.30)]">
+            <div className="flex items-start gap-4">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand text-[#0a1d3d]">
+                <TargetIcon />
+              </span>
+              <div className="pt-0.5">
+                <h3 className="text-2xl font-extrabold leading-tight text-white">
+                  Our Mission
+                </h3>
+                <span className="mt-1 block h-[3px] w-12 rounded-full bg-brand" aria-hidden />
               </div>
-
-              <p className="mt-7 text-[17px] leading-[1.95] text-slate-100 lg:text-center">
-                At RV Infrastructural Private Limited, our mission is to deliver{" "}
-                <strong className="font-bold text-brand">
-                  reliable truck mounted boom lifts and affordable equipment rental solutions
-                  across India
-                </strong>
-                . We empower construction, infrastructure, and industrial projects with quality
-                machinery, safety-focused operations, and dependable customer support. By
-                combining industry expertise, modern equipment, and tailored rental services, we
-                help businesses improve productivity, reduce downtime, and complete projects with
-                confidence.
-              </p>
             </div>
+ 
+            <p className="mt-3 text-sm leading-[1.55] text-slate-100">
+              At RV Infrastructural Private Limited, our mission is to deliver{" "}
+              <strong className="font-bold text-brand">
+                reliable truck mounted boom lifts and affordable equipment rental solutions across
+                India.
+              </strong>{" "}
+              We empower construction, infrastructure, and industrial projects with quality
+              machinery, safety-focused operations, and dependable customer support. By combining
+              industry expertise, modern equipment, and tailored rental services, we help
+              businesses improve productivity, reduce downtime, and complete projects with
+              confidence.
+            </p>
           </article>
+        </div>
+ 
+        {/* Bottom banner */}
+        <div className="relative mt-4 drop-shadow-[0_6px_12px_rgba(15,23,42,0.12)] lg:w-[87%]">
+          <div className="flex min-h-[56px] items-stretch overflow-hidden rounded-xl bg-white lg:rounded-none lg:[clip-path:polygon(3.5%_0,100%_0,97.5%_100%,0_100%)]">
+            <span
+              className="flex w-[84px] shrink-0 items-center justify-center bg-gradient-to-r from-brand to-[#ffd96a] pr-2 text-[#0a1d3d] sm:w-[110px] lg:w-[14%] lg:pl-3 lg:[clip-path:polygon(0_0,100%_0,80%_100%,0_100%)]"
+              aria-hidden
+            >
+              <HardHat size={30} strokeWidth={1.6} />
+            </span>
+            <p className="flex items-center px-4 py-2 text-sm font-extrabold leading-snug text-[#0a1d3d] lg:px-6 lg:pr-[5%]">
+              <span>
+                Choose RV Infrastructural for{" "}
+                <span className="text-brand">reliable equipment solutions</span>, professional
+                service, and a commitment to reaching greater heights together.
+              </span>
+            </p>
+          </div>
+ 
+          {/* Yellow line along the slanted right edge */}
+          <svg
+            aria-hidden
+            className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            <line
+              x1="100"
+              y1="0"
+              x2="97.5"
+              y2="100"
+              stroke={YELLOW}
+              strokeWidth="3"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
         </div>
       </div>
     </section>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Page                                                                */
-/* ------------------------------------------------------------------ */
+
+
 
 export default function About() {
   return (

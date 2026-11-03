@@ -177,7 +177,14 @@ export function Fleet() {
 
         <div className="relative z-10 mx-auto w-[90%] max-w-[1400px] pb-10 pt-12 lg:pb-14">
           <Reveal>
-            <div className="max-w-2xl">
+            {/*
+              On lg+ the width is capped so the text stays left of the image.
+              The image's slanted edge is narrowest at the bottom, at
+              100% - 52% = 48vw, so we stop at 46vw, minus the container's
+              left margin: max(5vw, (100vw - 1400px) / 2).
+              max-w-2xl still applies as an upper limit.
+            */}
+            <div className="max-w-2xl lg:w-[calc(46vw_-_max(5vw,(100vw_-_1400px)/2))]">
               <div className="mb-4 flex items-center gap-3 sm:mb-6">
                 <span className="h-[2px] w-8 shrink-0 sm:w-10" style={{ background: GOLD }} />
                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 sm:text-sm sm:tracking-[0.3em]">
@@ -185,7 +192,7 @@ export function Fleet() {
                 </span>
               </div>
 
-              <h2 className="mt-2 text-[1.75rem] font-extrabold leading-[1.1] tracking-tight text-navy sm:text-4xl lg:text-5xl lg:leading-[1.05]">
+              <h2 className="mt-2 text-[1.70rem] font-extrabold leading-[1.1] tracking-tight text-navy sm:text-4xl lg:text-4xl lg:leading-[1.05] xl:text-5xl">
                 Project-Ready
                 <br />
                 <span style={{ color: GOLD }}>Construction Equipment</span>
@@ -216,13 +223,13 @@ export function Fleet() {
                 ))}
               </div>
 
-      <Link
-  href="/projects#fleet-table"
-  className="mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 bg-[#7f0b18] px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 sm:w-auto sm:justify-start sm:py-2"
-  style={{ borderColor: GOLD }}
->
-  View Full Fleet <ArrowRight size={16} style={{ color: GOLD }} />
-</Link>
+              <Link
+                href="/projects#fleet-table"
+                className="mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 bg-[#7f0b18] px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 sm:w-auto sm:justify-start sm:py-2"
+                style={{ borderColor: GOLD }}
+              >
+                View Full Fleet <ArrowRight size={16} style={{ color: GOLD }} />
+              </Link>
 
               <div className="relative mt-8 overflow-hidden rounded-2xl shadow-lg lg:hidden">
                 <ImageSlot

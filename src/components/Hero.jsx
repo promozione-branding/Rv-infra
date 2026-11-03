@@ -16,7 +16,7 @@ const statIcons = [Calendar, Boxes, Users, IndianRupee];
 
 const slides = [
   {
-    image: "/rv_hero1.png",
+    image: "/rv_hero1.webp",
     alt: "RV crane lifting a bridge girder at sunset",
     eyebrow: "Lifting solutions for a stronger tomorrow",
     titleTop: "RELIABLE",
@@ -40,7 +40,7 @@ const slides = [
     secondary: { label: "", href: "" },
   },
   {
-    image: "/metro_rv.png",
+    image: "/rv_hero2.webp",
     alt: "Crane fleet on a highway infrastructure site",
     eyebrow: "Truck Mounted Boom Lift Solutions",
     titleTop: "REACH HIGHER",
@@ -130,12 +130,8 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[468px] w-[92%] max-w-[1400px] items-center pb-16 pt-16 lg:min-h-[500px] lg:pb-20 lg:w-[90%]">
-        {/*
-          All slides' text sits in the same grid cell, so the cell is always as
-          tall as the tallest slide. Only the active one is visible, which means
-          the hero height can never change when the slide changes.
-        */}
-        <div className="grid max-w-xl">
+        
+        <div className="grid max-w-xl lg:w-[calc(34vw_-_max(5vw,(100vw_-_1400px)/2))] lg:max-w-none">
           {slides.map((s, i) => {
             const active = i === index;
             return (
@@ -145,7 +141,7 @@ export default function Hero() {
                 initial="hidden"
                 animate={active ? "show" : "exit"}
                 aria-hidden={!active}
-                className="col-start-1 row-start-1"
+                className="col-start-1 row-start-1 min-w-0"
                 style={{ pointerEvents: active ? "auto" : "none" }}
               >
                 <motion.h1
@@ -156,7 +152,7 @@ export default function Hero() {
                 </motion.h1>
                 <motion.h2
                   variants={item}
-                  className="mb-8 mt-8 text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl lg:text-5xl"
+                  className="mb-8 mt-8 break-words text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl lg:text-4xl xl:text-5xl"
                 >
                   {s.titleTop}{" "}
                   <span className="block text-brand">{s.titleHighlight}</span>{" "}
@@ -164,7 +160,7 @@ export default function Hero() {
                 </motion.h2>
                 <motion.p
                   variants={item}
-                  className="text-md mb-6 mt-3 max-w-md leading-relaxed text-slate-200 drop-shadow"
+                  className="text-md mb-6 mt-3 max-w-md leading-relaxed text-slate-200 drop-shadow lg:text-sm xl:text-base"
                 >
                   {s.description}
                 </motion.p>
@@ -172,13 +168,13 @@ export default function Hero() {
                   variants={item}
                   className="mt-5 flex flex-wrap items-center gap-5"
                 >
-                <Link
-  href={s.cta.href}
-  className="btn-primary bg-[#7f0b18] text-white"
-  tabIndex={active ? 0 : -1}
->
-  {s.cta.label} <ArrowRight size={14} />
-</Link>
+                  <Link
+                    href={s.cta.href}
+                    className="btn-primary bg-[#7f0b18] text-white"
+                    tabIndex={active ? 0 : -1}
+                  >
+                    {s.cta.label} <ArrowRight size={14} />
+                  </Link>
                   {s.secondary.label && (
                     <Link
                       href={s.secondary.href}

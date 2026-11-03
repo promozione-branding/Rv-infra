@@ -8,7 +8,7 @@ import {
   ShieldCheck,
   BadgeCheck,
 } from "lucide-react";
-import Reveal from  "@/components/Reveal";
+import Reveal from "@/components/Reveal";
 
 const SAFETY_GOLD = "#F5A524";
 const GOLD_TEXT = "#B7740B"; // darker gold for readable text on light bg
@@ -60,21 +60,21 @@ export function Safety() {
 
       <div
         aria-hidden="true"
-        className="absolute inset-y-0 right-0 -z-10 hidden w-[66%] lg:block"
+        className="absolute inset-y-0 right-0 -z-10 hidden lg:block lg:w-[calc(100%_-_max(8%,(100%_-_1500px)/2)_-_456px)]"
         style={{
           background: `linear-gradient(135deg, #FFD27A, ${SAFETY_GOLD})`,
           clipPath: "polygon(24% 0, 100% 0, 100% 100%, 0 100%, 0 78%, 8% 62%)",
         }}
       />
       <div
-        className="absolute inset-y-0 right-0 -z-10 hidden w-[65.5%] lg:block"
+        className="absolute inset-y-0 right-0 -z-10 hidden lg:block lg:w-[calc(100%_-_max(8%,(100%_-_1500px)/2)_-_456px_-_0.5%)]"
         style={{
           clipPath:
             "polygon(25% 0, 100% 0, 100% 100%, 1.5% 100%, 1.5% 77%, 9% 61%)",
         }}
       >
         <img
-          src="/safety_.png"
+          src="/safetybg.webp"
           alt="RV safety officer supervising a crane lift"
           className="h-full w-full object-cover object-top"
         />
@@ -83,7 +83,7 @@ export function Safety() {
 
       <div className="relative h-56 lg:hidden">
         <img
-          src="/safety_.png"
+          src="/safetybg.webp"
           alt="RV safety officer supervising a crane lift"
           className="h-full w-full object-cover object-top"
         />
@@ -92,6 +92,12 @@ export function Safety() {
 
       <div className="relative z-10 mx-auto w-[84%] max-w-[1500px] pb-10 pt-6 lg:pb-8 lg:pt-12">
         <Reveal>
+          {/*
+            The text is left exactly as it was. Instead, the image panels above
+            start 456px to the right of the container's left margin (the
+            paragraph's max width is 440px, plus a 16px gap), so they can never
+            touch the text.
+          */}
           <div className="max-w-[640px]">
             <div
               className="flex items-center gap-3 border-l-[3px] pl-4"
@@ -106,7 +112,7 @@ export function Safety() {
             </div>
 
             <h2 className="mt-6 mb-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#0f1a2e] sm:text-5xl lg:text-[2.5rem]">
-             Our Commitment 
+              Our Commitment
               <br />
               to Workplace <span style={{ color: GOLD_TEXT }}>Safety</span>
             </h2>
