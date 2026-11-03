@@ -68,7 +68,7 @@ export function QuoteSection() {
   return (
     <section
       id="quote"
-      className="relative isolate overflow-hidden bg-[#0F1B2B] py-10 lg:py-[2.7vw]"
+      className="relative isolate overflow-hidden bg-[#0F1B2B] py-16 lg:py-[6vw]"
     >
       <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[30%] lg:block">
         <div
