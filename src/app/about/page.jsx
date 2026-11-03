@@ -592,7 +592,7 @@ function VisionMission() {
         </div>
  
         {/* Bottom banner */}
-        <div className="relative mt-4 drop-shadow-[0_6px_12px_rgba(15,23,42,0.12)] lg:w-[87%]">
+        <div className="relative mt-10 drop-shadow-[0_6px_12px_rgba(15,23,42,0.12)] lg:w-[87%]">
           <div className="flex min-h-[56px] items-stretch overflow-hidden rounded-xl bg-white lg:rounded-none lg:[clip-path:polygon(3.5%_0,100%_0,97.5%_100%,0_100%)]">
             <span
               className="flex w-[84px] shrink-0 items-center justify-center bg-gradient-to-r from-brand to-[#ffd96a] pr-2 text-[#0a1d3d] sm:w-[110px] lg:w-[14%] lg:pl-3 lg:[clip-path:polygon(0_0,100%_0,80%_100%,0_100%)]"
