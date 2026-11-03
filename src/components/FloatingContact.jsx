@@ -32,7 +32,7 @@ export default function FloatingContact() {
         >
           <a className={linkCls} href={wa} target="_blank" rel="noreferrer" aria-label="Chat with us on WhatsApp">
             <span className={labelCls}>Chat on WhatsApp</span>
-            <span className={`${btnCls} bg-[#25d366] text-white before:pointer-events-none before:absolute before:-inset-0.5 before:animate-fc-pulse before:rounded-circle before:border-2 before:border-solid before:border-[#25d366] before:content-['']`}>
+<span className={`${btnCls} bg-[#25d366] text-white`}>
               <WhatsApp />
             </span>
           </a>
